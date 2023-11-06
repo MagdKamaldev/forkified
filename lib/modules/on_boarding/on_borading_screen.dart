@@ -43,6 +43,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       backgroundColor: prussianBlue,
       appBar: AppBar(
+        backgroundColor: prussianBlue,
         actions: [
           TextButton(
             onPressed: () {

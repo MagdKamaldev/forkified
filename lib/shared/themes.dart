@@ -8,7 +8,7 @@ final ThemeData appTheme = ThemeData(
   hintColor: nonPhotoBlue,
   scaffoldBackgroundColor: prussianBlue,
   appBarTheme: AppBarTheme(
-    color: prussianBlue,
+    color: cerulian,
     elevation: 0,
     iconTheme: IconThemeData(
       color: platinum,
