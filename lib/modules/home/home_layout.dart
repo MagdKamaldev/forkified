@@ -15,6 +15,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   String? welcomeText;
 
   int currentpage = 0;
+  int bottomNavBarIndex = 0;
 
   List<BannerItem> banners = [
     BannerItem(
@@ -121,8 +122,8 @@ class _HomeLayoutState extends State<HomeLayout> {
               dotsCount: banners.length,
               position: currentpage,
               decorator: DotsDecorator(
-                color: nonPhotoBlue,
-                activeColor: cerulian,
+                color: cerulian,
+                activeColor: nonPhotoBlue,
                 spacing: const EdgeInsets.all(6.0),
                 activeSize: const Size(9.5, 9.5),
                 size: const Size(7.0, 7.0),
@@ -130,6 +131,23 @@ class _HomeLayoutState extends State<HomeLayout> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: cerulian,
+        selectedItemColor: platinum,
+        currentIndex: bottomNavBarIndex,
+        showUnselectedLabels: false,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: "New"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline), label: "User"),
+        ],
+        onTap: (index) {
+          setState(() {
+            bottomNavBarIndex = index;
+          });
+        },
       ),
     );
   }
