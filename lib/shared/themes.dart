@@ -18,23 +18,28 @@ final ThemeData appTheme = ThemeData(
     displayLarge: TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.bold,
+      fontFamily: "Raleway",
       color: platinum,
     ),
     displayMedium: TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
+      fontFamily: "Raleway",
       color: nonPhotoBlueDark,
     ),
     displaySmall: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
+      fontFamily: "Raleway",
       color: nonPhotoBlueDark,
     ),
     bodyLarge: TextStyle(
+      fontFamily: "Raleway",
       fontSize: 16,
       color: nonPhotoBlueDark,
     ),
     bodyMedium: TextStyle(
+      fontFamily: "Raleway",
       fontSize: 14,
       color: nonPhotoBlueDark,
     ),

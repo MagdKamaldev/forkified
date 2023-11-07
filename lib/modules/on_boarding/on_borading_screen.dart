@@ -98,6 +98,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           onBoardingData[index]['text']!,
                           style: const TextStyle(
                             fontSize: 24,
+                            fontFamily: "Edu",
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,

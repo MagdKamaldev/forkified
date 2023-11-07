@@ -67,7 +67,7 @@ class LoginScreen extends StatelessWidget {
             ),
             defaultButton(
                 function: () {
-                  navigateTo(context, const HomeLayout());
+                  navigateAndFinish(context, const HomeLayout());
                 },
                 context: context,
                 text: "Login"),
