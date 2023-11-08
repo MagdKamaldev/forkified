@@ -195,6 +195,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                   (index) => buildCategory(
                       categories[index], context, index, size, theme),
                 ),
+              ),
+              SizedBox(
+                height: size.height * 0.02,
               )
             ],
           ),
@@ -236,9 +239,9 @@ class _HomeLayoutState extends State<HomeLayout> {
             ),
             Text(
               model.name,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: theme.displayMedium,
+              style: theme.displaySmall,
             )
           ],
         ),
