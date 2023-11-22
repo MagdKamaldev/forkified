@@ -50,7 +50,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
+                  builder: (context) => LoginScreen(),
                 ),
               );
             },
@@ -124,7 +124,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   child: defaultButton(
                       function: () {
                         if (_currentPage == onBoardingData.length - 1) {
-                          navigateAndFinish(context, const LoginScreen());
+                          navigateAndFinish(context, LoginScreen());
                         } else {
                           _pageController.nextPage(
                             duration: const Duration(milliseconds: 200),
