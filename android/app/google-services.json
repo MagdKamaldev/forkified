@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "597652956650",
+    "project_id": "forkified-74f3a",
+    "storage_bucket": "forkified-74f3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597652956650:android:14efdc4a211882d7cdbe93",
+        "android_client_info": {
+          "package_name": "com.example.forkified"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUxnoAQYaWzLQaS1Rhg_KMHw8yWExnSCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

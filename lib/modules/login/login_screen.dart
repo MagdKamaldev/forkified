@@ -139,15 +139,21 @@ class LoginScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: const Color(0xFFEA4335),
-                        ),
-                        width: 60,
-                        height: 60,
-                        child: Image.asset(
-                          "assets/images/google.png",
+                      GestureDetector(
+                        onTap: () {
+                          LoginCubit.get(context)
+                              .signInWithGoogle(context: context);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: const Color(0xFFEA4335),
+                          ),
+                          width: 60,
+                          height: 60,
+                          child: Image.asset(
+                            "assets/images/google.png",
+                          ),
                         ),
                       ),
                       SizedBox(

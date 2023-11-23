@@ -14,3 +14,11 @@ class SignupError extends SignupState {
 
   SignupError(this.errorMessage);
 }
+
+class SignUpWithGoogleLoadingState extends SignupState {}
+
+class SignUpWithGoogleSuccesState extends SignupState {}
+
+class SignUpWithGoogleErrorState extends SignupState {}
+
+
