@@ -8,6 +8,7 @@ import 'package:forkified/modules/login/sign_up.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/login/login_cubit.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
@@ -21,7 +22,16 @@ class LoginScreen extends StatelessWidget {
 
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {
-        if (state is LoginSuccess) {
+        if (state is LoginLoading ||
+            state is SignInWithGoogleLoadingState ||
+            state is SignInWithFacebookLoadingState) {
+          showDialog(
+            context: context,
+            builder: (context) => Lottie.asset(
+                "assets/animations/forkified loading.json"),
+          );
+        }
+        else if (state is LoginSuccess) {
           navigateAndFinish(context, const HomeLayout());
         }
       },
@@ -159,15 +169,20 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         width: size.width * 0.15,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: const Color(0xFF4267B2),
-                        ),
-                        width: 60,
-                        height: 60,
-                        child: Image.asset(
-                          "assets/images/facebook.png",
+                      GestureDetector(
+                        onTap: () {
+                          LoginCubit.get(context).signInWithFacebook(context);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: const Color(0xFF4267B2),
+                          ),
+                          width: 60,
+                          height: 60,
+                          child: Image.asset(
+                            "assets/images/facebook.png",
+                          ),
                         ),
                       )
                     ],

@@ -6,6 +6,7 @@ import 'package:forkified/modules/home/home_layout.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/signup/signup_cubit.dart';
+import 'package:lottie/lottie.dart';
 
 class SignUpScreen extends StatelessWidget {
   var emailController = TextEditingController();
@@ -22,7 +23,15 @@ class SignUpScreen extends StatelessWidget {
 
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (context, state) {
-        if (state is SignupSuccess) {
+        if (state is SignupLoading ||
+            state is SignUpWithGoogleLoadingState ||
+            state is SignUpWithFacebookLoadingState) {
+          showDialog(
+            context: context,
+            builder: (context) =>
+                Lottie.asset("assets/animations/forkified loading.json"),
+          );
+        } else if (state is SignupSuccess) {
           navigateAndFinish(context, const HomeLayout());
         }
       },
@@ -214,15 +223,21 @@ class SignUpScreen extends StatelessWidget {
                         SizedBox(
                           width: size.width * 0.15,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: const Color(0xFF4267B2),
-                          ),
-                          width: 60,
-                          height: 60,
-                          child: Image.asset(
-                            "assets/images/facebook.png",
+                        GestureDetector(
+                          onTap: () {
+                            SignupCubit.get(context)
+                                .signUpWithFacebook(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: const Color(0xFF4267B2),
+                            ),
+                            width: 60,
+                            height: 60,
+                            child: Image.asset(
+                              "assets/images/facebook.png",
+                            ),
                           ),
                         )
                       ],

@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
@@ -17,7 +18,7 @@ class SignupCubit extends Cubit<SignupState> {
     required String email,
     required String password,
     required String name,
-    String ? phoneNumber,
+    String? phoneNumber,
     required BuildContext context,
   }) async {
     emit(SignupLoading());
@@ -27,7 +28,7 @@ class SignupCubit extends Cubit<SignupState> {
         'email': email,
         'password': password,
         'name': name,
-        'phoneNumber': phoneNumber??"",
+        'phoneNumber': phoneNumber ?? "",
       },
     ).then((value) {
       emit(SignupSuccess());
@@ -43,7 +44,7 @@ class SignupCubit extends Cubit<SignupState> {
     });
   }
 
-    final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   void signInWithGoogle({required BuildContext context}) {
@@ -61,11 +62,11 @@ class SignupCubit extends Cubit<SignupState> {
               .signInWithCredential(credential)
               .then((UserCredential userCredential) {
             userSignUp(
-              name: userCredential.user!.displayName.toString(),
+                name: userCredential.user!.displayName.toString(),
                 email: userCredential.user!.email.toString(),
                 password: "Google123",
                 context: context);
-          
+
             // Successfully signed in with Google
             emit(SignUpWithGoogleSuccesState());
           }).catchError((e) {
@@ -82,4 +83,23 @@ class SignupCubit extends Cubit<SignupState> {
       emit(SignUpWithGoogleErrorState());
     });
   }
+
+    void signUpWithFacebook(context) {
+    emit(SignUpWithFacebookLoadingState());
+  FacebookAuth.instance.login().then((LoginResult loginResult) {
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    FirebaseAuth.instance.signInWithCredential(facebookAuthCredential).then((UserCredential userCredential) {
+      User user = userCredential.user!;
+      userSignUp(email: user.email!, password: "Facebook123", name: user.displayName.toString(),phoneNumber: user.phoneNumber.toString(),context: context);
+    }).catchError((error) {
+       showCustomSnackBar(context, error.toString(), Colors.red);
+        emit(SignUpWithFacebookErrorState());
+    });
+  }).catchError((error) {
+    showCustomSnackBar(context, error.toString(), Colors.red);
+        emit(SignUpWithFacebookErrorState());
+  });
+}
 }

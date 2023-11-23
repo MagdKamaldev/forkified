@@ -18,3 +18,7 @@ class SignInWithGoogleSuccesState extends LoginStates {}
 
 class SignInWithGoogleErrorState extends LoginStates {}
 
+class SignInWithFacebookLoadingState extends LoginStates {}
+
+class SignInWithFacebookErrorState extends LoginStates {}
+
