@@ -1,4 +1,5 @@
 part of '../login/login_cubit.dart';
+
 sealed class LoginStates {}
 
 final class LoginInitial extends LoginStates {}
@@ -21,4 +22,3 @@ class SignInWithGoogleErrorState extends LoginStates {}
 class SignInWithFacebookLoadingState extends LoginStates {}
 
 class SignInWithFacebookErrorState extends LoginStates {}
-

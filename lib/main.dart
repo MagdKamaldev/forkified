@@ -9,6 +9,7 @@ import 'package:forkified/shared/cubit/signup/signup_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/themes.dart';
 
+String? token = "";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();

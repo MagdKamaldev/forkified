@@ -24,5 +24,3 @@ class SignUpWithGoogleErrorState extends SignupState {}
 class SignUpWithFacebookLoadingState extends SignupState {}
 
 class SignUpWithFacebookErrorState extends SignupState {}
-
-

@@ -1,8 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:forkified/models/categories.model.dart';
 import 'package:forkified/modules/home/drawer.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/cubit/app/app_cubit.dart';
+import 'package:forkified/shared/networks/remote/dio_helper.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
@@ -11,36 +15,12 @@ class HomeLayout extends StatefulWidget {
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
-  final CarouselController _carouselController = CarouselController();
   String? welcomeText;
+
+  final CarouselController _carouselController = CarouselController();
 
   int currentpage = 0;
   int bottomNavBarIndex = 0;
-
-  List<RecipeCategory> categories = [
-    RecipeCategory(
-      name: "Italian Cuisine",
-      image: "assets/images/leaning-tower-of-pisa.png",
-    ),
-
-// Asian Cuisine
-    RecipeCategory(
-      name: "Asian Cuisine",
-      image: "assets/images/asia.png",
-    ),
-
-// Mediterranean Cuisine
-    RecipeCategory(
-      name: "Mediterranean Cuisine",
-      image: "assets/images/olive-oil.png",
-    ),
-
-// Comfort Food
-    RecipeCategory(
-      name: "Comfort Food",
-      image: "assets/images/cookie.png",
-    )
-  ];
 
   List<BannerItem> banners = [
     BannerItem(
@@ -55,8 +35,9 @@ class _HomeLayoutState extends State<HomeLayout> {
     // Add more dummy data as needed
   ];
 
-  DateTime currentDateTime = DateTime.now();
-  void selectWelcomeTime() {
+  @override
+  void initState() {
+    DateTime currentDateTime = DateTime.now();
     if (currentDateTime.hour < 12) {
       welcomeText = "Morning";
     } else if (currentDateTime.hour < 18) {
@@ -64,16 +45,13 @@ class _HomeLayoutState extends State<HomeLayout> {
     } else {
       welcomeText = "Evening";
     }
-  }
-
-  @override
-  void initState() {
-    selectWelcomeTime();
+    AppCubit.get(context).getCategories();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var cubit = AppCubit.get(context);
     Size size = MediaQuery.of(context).size;
     TextTheme theme = Theme.of(context).textTheme;
 
@@ -183,17 +161,23 @@ class _HomeLayoutState extends State<HomeLayout> {
               SizedBox(
                 height: size.height * 0.03,
               ),
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                crossAxisSpacing: size.width * 0.14,
-                mainAxisSpacing: size.height * 0.02,
-                childAspectRatio: 1 / 1,
-                children: List.generate(
-                  categories.length,
-                  (index) => buildCategory(
-                      categories[index], context, index, size, theme),
+              ConditionalBuilder(
+                condition: cubit.categories.isNotEmpty,
+                fallback: (context) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                builder: (context) => GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  crossAxisSpacing: size.width * 0.14,
+                  mainAxisSpacing: size.height * 0.02,
+                  childAspectRatio: 1 / 1,
+                  children: List.generate(
+                    cubit.categories.length,
+                    (index) => buildCategory(
+                        cubit.categories[index], context, index, size, theme),
+                  ),
                 ),
               ),
               SizedBox(
@@ -224,13 +208,16 @@ class _HomeLayoutState extends State<HomeLayout> {
   }
 
   Widget buildCategory(
-          RecipeCategory model, context, index, Size size, TextTheme theme) =>
+          CategoryModel model, context, index, Size size, TextTheme theme) =>
       GestureDetector(
+        onTap: () {
+          
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              model.image,
+            Image.network(
+              "$serverIp${model.image.toString()}",
               width: size.width * 0.35,
               height: size.height * 0.1,
             ),
@@ -238,7 +225,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               height: size.height * 0.02,
             ),
             Text(
-              model.name,
+              model.name.toString(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: theme.displaySmall,

@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
@@ -27,6 +28,7 @@ class LoginCubit extends Cubit<LoginStates> {
         'password': password,
       },
     ).then((value) {
+      token = value.data["token"];
       emit(LoginSuccess());
     }).catchError((error) {
       String errorMessage = "An error occurred";
@@ -84,22 +86,23 @@ class LoginCubit extends Cubit<LoginStates> {
 
   void signInWithFacebook(context) {
     emit(SignInWithFacebookLoadingState());
-  FacebookAuth.instance.login().then((LoginResult loginResult) {
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    FacebookAuth.instance.login().then((LoginResult loginResult) {
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
-    FirebaseAuth.instance.signInWithCredential(facebookAuthCredential).then((UserCredential userCredential) {
-      User user = userCredential.user!;
-      userLogin(email: user.email!, password: "Facebook123", context: context);
+      FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential)
+          .then((UserCredential userCredential) {
+        User user = userCredential.user!;
+        userLogin(
+            email: user.email!, password: "Facebook123", context: context);
+      }).catchError((error) {
+        showCustomSnackBar(context, error.toString(), Colors.red);
+        emit(SignInWithFacebookErrorState());
+      });
     }).catchError((error) {
-       showCustomSnackBar(context, error.toString(), Colors.red);
-        emit(SignInWithFacebookErrorState());
+      showCustomSnackBar(context, error.toString(), Colors.red);
+      emit(SignInWithFacebookErrorState());
     });
-  }).catchError((error) {
-    showCustomSnackBar(context, error.toString(), Colors.red);
-        emit(SignInWithFacebookErrorState());
-  });
-}
-
-  
+  }
 }

@@ -27,11 +27,10 @@ class LoginScreen extends StatelessWidget {
             state is SignInWithFacebookLoadingState) {
           showDialog(
             context: context,
-            builder: (context) => Lottie.asset(
-                "assets/animations/forkified loading.json"),
+            builder: (context) =>
+                Lottie.asset("assets/animations/forkified loading.json"),
           );
-        }
-        else if (state is LoginSuccess) {
+        } else if (state is LoginSuccess) {
           navigateAndFinish(context, const HomeLayout());
         }
       },

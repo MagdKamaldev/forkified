@@ -84,22 +84,29 @@ class SignupCubit extends Cubit<SignupState> {
     });
   }
 
-    void signUpWithFacebook(context) {
+  void signUpWithFacebook(context) {
     emit(SignUpWithFacebookLoadingState());
-  FacebookAuth.instance.login().then((LoginResult loginResult) {
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    FacebookAuth.instance.login().then((LoginResult loginResult) {
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
-    FirebaseAuth.instance.signInWithCredential(facebookAuthCredential).then((UserCredential userCredential) {
-      User user = userCredential.user!;
-      userSignUp(email: user.email!, password: "Facebook123", name: user.displayName.toString(),phoneNumber: user.phoneNumber.toString(),context: context);
+      FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential)
+          .then((UserCredential userCredential) {
+        User user = userCredential.user!;
+        userSignUp(
+            email: user.email!,
+            password: "Facebook123",
+            name: user.displayName.toString(),
+            phoneNumber: user.phoneNumber.toString(),
+            context: context);
+      }).catchError((error) {
+        showCustomSnackBar(context, error.toString(), Colors.red);
+        emit(SignUpWithFacebookErrorState());
+      });
     }).catchError((error) {
-       showCustomSnackBar(context, error.toString(), Colors.red);
-        emit(SignUpWithFacebookErrorState());
+      showCustomSnackBar(context, error.toString(), Colors.red);
+      emit(SignUpWithFacebookErrorState());
     });
-  }).catchError((error) {
-    showCustomSnackBar(context, error.toString(), Colors.red);
-        emit(SignUpWithFacebookErrorState());
-  });
-}
+  }
 }
