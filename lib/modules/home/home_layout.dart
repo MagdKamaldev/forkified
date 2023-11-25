@@ -2,9 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/models/categories.model.dart';
+import 'package:forkified/modules/categories/category_details_screen.dart';
 import 'package:forkified/modules/home/drawer.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/app/app_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 
@@ -15,8 +18,6 @@ class HomeLayout extends StatefulWidget {
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
-  String? welcomeText;
-
   final CarouselController _carouselController = CarouselController();
 
   int currentpage = 0;
@@ -37,15 +38,8 @@ class _HomeLayoutState extends State<HomeLayout> {
 
   @override
   void initState() {
-    DateTime currentDateTime = DateTime.now();
-    if (currentDateTime.hour < 12) {
-      welcomeText = "Morning";
-    } else if (currentDateTime.hour < 18) {
-      welcomeText = "Afternoon";
-    } else {
-      welcomeText = "Evening";
-    }
-    AppCubit.get(context).getCategories();
+    AppCubit.get(context).selectWelcomeTime();
+    AppCubit.get(context).getCategories(context);
     super.initState();
   }
 
@@ -55,155 +49,175 @@ class _HomeLayoutState extends State<HomeLayout> {
     Size size = MediaQuery.of(context).size;
     TextTheme theme = Theme.of(context).textTheme;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Good ${welcomeText!}",
-          style: theme.displayLarge,
-        ),
-        toolbarHeight: size.height * 0.08,
-      ),
-      drawer: const AppDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "Trending Recipes",
-                    style: theme.displayLarge,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.02,
-                  ),
-                  Icon(
-                    Icons.trending_up_sharp,
-                    color: platinum,
-                    size: size.width * 0.07,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: CarouselSlider(
-                    carouselController: _carouselController,
-                    items: banners
-                        .map(
-                          (e) => Image(
-                            image: NetworkImage(e.image),
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                        .toList(),
-                    options: CarouselOptions(
-                      height: 250.0,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          currentpage = index;
-                        });
-                      },
-                      initialPage: 0,
-                      viewportFraction: 1.0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 3),
-                      autoPlayAnimationDuration: const Duration(seconds: 1),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      scrollDirection: Axis.horizontal,
-                    )),
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              Center(
-                child: DotsIndicator(
-                  dotsCount: banners.length,
-                  position: currentpage,
-                  decorator: DotsDecorator(
-                    color: cerulian,
-                    activeColor: nonPhotoBlue,
-                    spacing: const EdgeInsets.all(6.0),
-                    activeSize: const Size(9.5, 9.5),
-                    size: const Size(7.0, 7.0),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.04,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "Categroies",
-                    style: theme.displayLarge,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.02,
-                  ),
-                  Icon(
-                    Icons.category,
-                    color: platinum,
-                    size: size.width * 0.07,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: size.height * 0.03,
-              ),
-              ConditionalBuilder(
-                condition: cubit.categories.isNotEmpty,
-                fallback: (context) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                builder: (context) => GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  crossAxisSpacing: size.width * 0.14,
-                  mainAxisSpacing: size.height * 0.02,
-                  childAspectRatio: 1 / 1,
-                  children: List.generate(
-                    cubit.categories.length,
-                    (index) => buildCategory(
-                        cubit.categories[index], context, index, size, theme),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              )
-            ],
+    return BlocConsumer<AppCubit, AppState>(
+      listener: (context, state) {
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              "Good ${cubit.welcomeText!}",
+              style: theme.displayLarge,
+            ),
+            toolbarHeight: size.height * 0.08,
           ),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        iconSize: size.width * 0.07,
-        backgroundColor: cerulian,
-        selectedItemColor: platinum,
-        currentIndex: bottomNavBarIndex,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: "New"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "User"),
-        ],
-        onTap: (index) {
-          setState(() {
-            bottomNavBarIndex = index;
-          });
-        },
-      ),
+          drawer: const AppDrawer(),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: size.height * 0.02,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Trending Recipes",
+                        style: theme.displayLarge,
+                      ),
+                      SizedBox(
+                        width: size.width * 0.02,
+                      ),
+                      Icon(
+                        Icons.trending_up_sharp,
+                        color: platinum,
+                        size: size.width * 0.07,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: size.height * 0.02,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: CarouselSlider(
+                        carouselController: _carouselController,
+                        items: banners
+                            .map(
+                              (e) => Image(
+                                image: NetworkImage(e.image),
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                            .toList(),
+                        options: CarouselOptions(
+                          height: 250.0,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              currentpage = index;
+                            });
+                          },
+                          initialPage: 0,
+                          viewportFraction: 1.0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 3),
+                          autoPlayAnimationDuration: const Duration(seconds: 1),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          scrollDirection: Axis.horizontal,
+                        )),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.02,
+                  ),
+                  Center(
+                    child: DotsIndicator(
+                      dotsCount: banners.length,
+                      position: currentpage,
+                      decorator: DotsDecorator(
+                        color: cerulian,
+                        activeColor: nonPhotoBlue,
+                        spacing: const EdgeInsets.all(6.0),
+                        activeSize: const Size(9.5, 9.5),
+                        size: const Size(7.0, 7.0),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.04,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Categroies",
+                        style: theme.displayLarge,
+                      ),
+                      SizedBox(
+                        width: size.width * 0.02,
+                      ),
+                      Icon(
+                        Icons.category,
+                        color: platinum,
+                        size: size.width * 0.07,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  ConditionalBuilder(
+                    condition: cubit.categories.isNotEmpty,
+                    fallback: (context) => GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: size.width * 0.12,
+                      mainAxisSpacing: size.height * 0.05,
+                      childAspectRatio: 1 / 1,
+                      children: List.generate(
+                        10,
+                        (index) => Container(
+                          decoration: BoxDecoration(
+                            color: nonPhotoBlue,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ),
+                    builder: (context) => GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: size.width * 0.14,
+                      mainAxisSpacing: size.height * 0.02,
+                      childAspectRatio: 1 / 1,
+                      children: List.generate(
+                        cubit.categories.length,
+                        (index) => buildCategory(cubit.categories[index],
+                            context, index, size, theme),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.02,
+                  )
+                ],
+              ),
+            ),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            iconSize: size.width * 0.07,
+            backgroundColor: cerulian,
+            selectedItemColor: platinum,
+            currentIndex: bottomNavBarIndex,
+            showUnselectedLabels: false,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(icon: Icon(Icons.add), label: "New"),
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: "User"),
+            ],
+            onTap: (index) {
+              setState(() {
+                bottomNavBarIndex = index;
+              });
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -211,7 +225,11 @@ class _HomeLayoutState extends State<HomeLayout> {
           CategoryModel model, context, index, Size size, TextTheme theme) =>
       GestureDetector(
         onTap: () {
-          
+          navigateTo(
+              context,
+              CategoryDetails(
+                id: model.id,
+              ));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
