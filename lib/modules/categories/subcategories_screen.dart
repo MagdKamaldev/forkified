@@ -2,7 +2,9 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/models/sub_category.dart';
+import 'package:forkified/modules/categories/subcategory_details_screen.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/subcategory/subcategory_cubit.dart';
 import 'package:lottie/lottie.dart';
 
@@ -87,11 +89,7 @@ class _SubCategoriesState extends State<SubCategories> {
           SubCategory model, context, index, Size size, TextTheme theme) =>
       GestureDetector(
         onTap: () {
-          // navigateTo(
-          //     context,
-          //     CategoryDetails(
-          //       id: model.id,
-          //     ));
+          navigateTo(context, SubCategoryDetails(id: model.id.toString()));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

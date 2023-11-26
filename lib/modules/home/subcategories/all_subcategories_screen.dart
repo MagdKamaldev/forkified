@@ -2,7 +2,9 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/models/sub_category.dart';
+import 'package:forkified/modules/home/subcategories/add_sub_category_screen.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/main/main_cubit.dart';
 import 'package:lottie/lottie.dart';
 
@@ -73,7 +75,9 @@ class _AllSubCategoriesScreenState extends State<AllSubCategoriesScreen> {
               ),
             ),
             floatingActionButton: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                navigateTo(context, const AddSubCategoryScreen());
+              },
               child: Container(
                   decoration: BoxDecoration(
                     color: cerulian,

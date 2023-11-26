@@ -34,4 +34,27 @@ class SubcategoryCubit extends Cubit<SubcategoryState> {
       emit(GetCategorySubcategoriesError(errorMessage));
     });
   }
+
+  SubCategory? subcategory;
+
+  void getSubCategory({
+   required String id,
+  }){
+    emit(GetSubCategoryLoading());
+    DioHelper.getData(
+      url: "${EndPoints.subcategories}/$id",
+      jwt: token,
+    ).then((value) {
+      subcategory = SubCategory.fromJson(value.data["document"]);
+      emit(GetSubCategorySuccess());
+    }).catchError((error) {
+      String errorMessage = "An error occurred";
+      if (error is DioError && error.response != null) {
+        errorMessage = error.response!.data["message"];
+      } else if (error is String) {
+        errorMessage = error;
+      }
+      emit(GetSubCategoryError(errorMessage));
+    });
+  }
 }

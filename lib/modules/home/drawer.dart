@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:forkified/modules/home/about_screen.dart';
-import 'package:forkified/modules/home/all_categories_screen.dart';
+import 'package:forkified/modules/home/categories/all_categories_screen.dart';
 import 'package:forkified/modules/home/contact_screen.dart';
-import 'package:forkified/modules/home/all_recipes_screen.dart';
-import 'package:forkified/modules/home/all_subcategories_screen.dart';
+import 'package:forkified/modules/home/recipes/all_recipes_screen.dart';
+import 'package:forkified/modules/home/subcategories/all_subcategories_screen.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 

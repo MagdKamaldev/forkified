@@ -6,6 +6,7 @@ import 'package:forkified/modules/on_boarding/on_borading_screen.dart';
 import 'package:forkified/shared/cubit/categories/categories_cubit.dart';
 import 'package:forkified/shared/cubit/login/login_cubit.dart';
 import 'package:forkified/shared/cubit/main/main_cubit.dart';
+import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
 import 'package:forkified/shared/cubit/signup/signup_cubit.dart';
 import 'package:forkified/shared/cubit/subcategory/subcategory_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => CategoriesCubit(),
+        ),
+         BlocProvider(
+          create: (context) => RecipeCubit(),
         ),
         BlocProvider(
           create: (context) => LoginCubit(),

@@ -1,24 +1,24 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:forkified/models/categories.model.dart';
-import 'package:forkified/modules/categories/category_details_screen.dart';
+import 'package:forkified/models/recipe_model.dart';
+import 'package:forkified/modules/home/recipes/add_recipe_screen.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/main/main_cubit.dart';
-import 'package:forkified/shared/networks/remote/dio_helper.dart';
-import '../../shared/components.dart';
+import '../../../shared/networks/remote/dio_helper.dart';
 
-class AllCategoriesScreen extends StatefulWidget {
-  const AllCategoriesScreen({super.key});
+class AllRecipesScreen extends StatefulWidget {
+  const AllRecipesScreen({super.key});
 
   @override
-  State<AllCategoriesScreen> createState() => _AllCategoriesScreenState();
+  State<AllRecipesScreen> createState() => _AllRecipesScreenState();
 }
 
-class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
+class _AllRecipesScreenState extends State<AllRecipesScreen> {
   @override
   void initState() {
-    MainCubit.get(context).getAllCategories();
+    MainCubit.get(context).getAllRecipes();
     super.initState();
   }
 
@@ -33,7 +33,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
         return Scaffold(
             appBar: AppBar(
               title: Text(
-                "All Categories",
+                "All Recipes",
                 style: theme.displayLarge,
               ),
               toolbarHeight: size.height * 0.08,
@@ -43,7 +43,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(children: [
                   ConditionalBuilder(
-                    condition: cubit.allCategories!.isNotEmpty,
+                    condition: cubit.allRecipes!.isNotEmpty,
                     fallback: (context) => GridView.count(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -70,8 +70,8 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                       mainAxisSpacing: size.height * 0.02,
                       childAspectRatio: 1 / 1,
                       children: List.generate(
-                        cubit.allCategories!.length,
-                        (index) => buildCategory(cubit.allCategories![index],
+                        cubit.allRecipes!.length,
+                        (index) => buildCategory(cubit.allRecipes![index],
                             context, index, size, theme),
                       ),
                     ),
@@ -83,7 +83,9 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
               ),
             ),
             floatingActionButton: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                navigateTo(context, const AddRecipeScreen());
+              },
               child: Container(
                   decoration: BoxDecoration(
                     color: cerulian,
@@ -95,14 +97,14 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
   }
 
   Widget buildCategory(
-          CategoryModel model, context, index, Size size, TextTheme theme) =>
+          RecipeModel model, context, index, Size size, TextTheme theme) =>
       GestureDetector(
         onTap: () {
-          navigateTo(
-              context,
-              CategoryDetails(
-                id: model.id,
-              ));
+          // navigateTo(
+          //     context,
+          //     CategoryDetails(
+          //       id: model.id,
+          //     ));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

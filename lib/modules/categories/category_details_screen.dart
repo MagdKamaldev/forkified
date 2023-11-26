@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/modules/categories/recipes_screen.dart';
 import 'package:forkified/modules/categories/subcategories_screen.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
@@ -92,39 +93,66 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                       ),
                     ),
                     SizedBox(
-                      height: size.height * 0.02,
+                      height: size.height * 0.03,
                     ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: cerulian,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.02,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "sub categories",
-                          style: theme.displayLarge!.copyWith(color: platinum),
-                        ),
-                        const Spacer(),
-                        IconButton(
-                            onPressed: () {
+                    GestureDetector(
+                      onTap: () {
+                        navigateTo(
+                            context,
+                            SubCategories(
+                              id: cubit.category!.id,
+                            ));
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            width: size.width * 0.42,
+                            height: size.height * 0.1,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: cerulian,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Sub Categories",
+                                style: theme.displaySmall!
+                                    .copyWith(color: platinum),
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: () {
                               navigateTo(
                                   context,
-                                  SubCategories(
-                                    id: cubit.category!.id,
+                                  CategoryRecipesScreen(
+                                    id: cubit.category!.id!,
                                   ));
                             },
-                            icon: Icon(
-                              Icons.arrow_forward_sharp,
-                              color: platinum,
-                            ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: size.height * 0.02,
+                            child: Container(
+                              width: size.width * 0.42,
+                              height: size.height * 0.1,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: cerulian,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Recipes",
+                                  style: theme.displaySmall!
+                                      .copyWith(color: platinum),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

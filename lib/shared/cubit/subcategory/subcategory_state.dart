@@ -13,3 +13,13 @@ class GetCategorySubcategoriesError extends SubcategoryState {
 
   GetCategorySubcategoriesError(this.errorMessage);
 }
+
+class GetSubCategoryLoading extends SubcategoryState {}
+
+class GetSubCategorySuccess extends SubcategoryState {}
+
+class GetSubCategoryError extends SubcategoryState {
+  final String errorMessage;
+
+  GetSubCategoryError(this.errorMessage);
+} 

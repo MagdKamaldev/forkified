@@ -13,6 +13,35 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
       return false;
     });
 
+Widget defaultItemBuilder({
+  required Widget child,
+  required String description,
+ required BuildContext context
+}) =>
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          description,
+          style: Theme.of(context).textTheme.displayLarge
+        ),
+        const SizedBox(height: 15,),
+        Container(
+          decoration: BoxDecoration(
+            color: nonPhotoBlue,
+            border: Border.all(color: cerulian,width: 5),
+            borderRadius: BorderRadius.circular(10),
+          ),
+         
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          height: 200,
+          width: double.infinity,
+          child: child,
+        ),
+      ],
+    );
+
+
 Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType type,
