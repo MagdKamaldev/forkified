@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:forkified/modules/home/about_screen.dart';
-import 'package:forkified/modules/home/categories_screen.dart';
+import 'package:forkified/modules/home/all_categories_screen.dart';
 import 'package:forkified/modules/home/contact_screen.dart';
-import 'package:forkified/modules/home/recipes_screen.dart';
-import 'package:forkified/modules/home/sub_categories_screen.dart';
+import 'package:forkified/modules/home/all_recipes_screen.dart';
+import 'package:forkified/modules/home/all_subcategories_screen.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 
@@ -44,7 +44,7 @@ class AppDrawer extends StatelessWidget {
                 style: theme.displayMedium,
               ),
               onTap: () {
-                navigateTo(context, const CategoriesScreen());
+                navigateTo(context, const AllCategoriesScreen());
               },
             ),
             ListTile(
@@ -53,7 +53,7 @@ class AppDrawer extends StatelessWidget {
                 style: theme.displayMedium,
               ),
               onTap: () {
-                navigateTo(context, const SubCategoriesScreen());
+                navigateTo(context, const AllSubCategoriesScreen());
               },
             ),
             ListTile(
@@ -62,7 +62,7 @@ class AppDrawer extends StatelessWidget {
                 style: theme.displayMedium,
               ),
               onTap: () {
-                navigateTo(context, const RecipesScreen());
+                navigateTo(context, const AllRecipesScreen());
               },
             ),
             ListTile(

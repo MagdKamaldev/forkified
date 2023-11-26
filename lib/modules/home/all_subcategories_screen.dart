@@ -3,34 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/models/sub_category.dart';
 import 'package:forkified/shared/colors.dart';
-import 'package:forkified/shared/cubit/subcategory/subcategory_cubit.dart';
+import 'package:forkified/shared/cubit/main/main_cubit.dart';
 import 'package:lottie/lottie.dart';
 
-class SubCategories extends StatefulWidget {
-  final String? id;
-  const SubCategories({super.key, this.id});
+class AllSubCategoriesScreen extends StatefulWidget {
+  const AllSubCategoriesScreen({super.key});
 
   @override
-  State<SubCategories> createState() => _SubCategoriesState();
+  State<AllSubCategoriesScreen> createState() => _AllSubCategoriesScreenState();
 }
 
-class _SubCategoriesState extends State<SubCategories> {
+class _AllSubCategoriesScreenState extends State<AllSubCategoriesScreen> {
   @override
   void initState() {
-    SubcategoryCubit.get(context).getCategorySubcategories(id: widget.id!);
+    MainCubit.get(context).getAllSubcategories();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var cubit = SubcategoryCubit.get(context);
     Size size = MediaQuery.of(context).size;
     TextTheme theme = Theme.of(context).textTheme;
-    return BlocConsumer<SubcategoryCubit, SubcategoryState>(
+    var cubit = MainCubit.get(context);
+
+    return BlocConsumer<MainCubit, MainState>(
       listener: (context, state) {},
       builder: (context, state) {
-       return ConditionalBuilder(
-          condition: state is GetCategorySubcategoriesSuccess,
+        return ConditionalBuilder(
+          condition: state is GetAllSubcategoriesSuccess,
           builder: (context) => Scaffold(
             appBar: AppBar(
               title: Text(
@@ -45,19 +45,26 @@ class _SubCategoriesState extends State<SubCategories> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   ListView.builder(itemBuilder: (context, index) {
-                      return buildSubCategory(
-                          cubit.subcategories![index], context, index, size, theme);
-                    },
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: cubit.subcategories!.length,),
-                    if(cubit.subcategories!.isEmpty)
+                    ListView.builder(
+                      itemBuilder: (context, index) {
+                        return buildSubCategory(cubit.allSubCategories![index],
+                            context, index, size, theme);
+                      },
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: cubit.allSubCategories!.length,
+                    ),
+                    if (cubit.allSubCategories!.isEmpty)
                       Center(
                         child: Column(
                           children: [
-                            SizedBox(height: size.height*0.4,),
-                            Text("No Sub Categories Found !",style: theme.displayMedium,),
+                            SizedBox(
+                              height: size.height * 0.4,
+                            ),
+                            Text(
+                              "No Sub Categories Found !",
+                              style: theme.displayMedium,
+                            ),
                           ],
                         ),
                       ),
@@ -75,7 +82,8 @@ class _SubCategoriesState extends State<SubCategories> {
       },
     );
   }
-   Widget buildSubCategory(
+
+  Widget buildSubCategory(
           SubCategory model, context, index, Size size, TextTheme theme) =>
       GestureDetector(
         onTap: () {
@@ -93,10 +101,10 @@ class _SubCategoriesState extends State<SubCategories> {
               child: Row(
                 children: [
                   Text(
-                  model.name.toString(),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.displaySmall,
+                    model.name.toString(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.displaySmall,
                   ),
                   const Spacer(),
                   Icon(
@@ -109,16 +117,15 @@ class _SubCategoriesState extends State<SubCategories> {
             SizedBox(
               height: size.height * 0.035,
             ),
-          Container(
-            width: double.infinity,
-            height: 1,
-            color: cerulian,
-          ),
-          SizedBox(
-            height: size.height * 0.035,
-          ),
+            Container(
+              width: double.infinity,
+              height: 1,
+              color: cerulian,
+            ),
+            SizedBox(
+              height: size.height * 0.035,
+            ),
           ],
         ),
       );
-
 }

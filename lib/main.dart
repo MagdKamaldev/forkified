@@ -5,6 +5,7 @@ import 'package:forkified/firebase_options.dart';
 import 'package:forkified/modules/on_boarding/on_borading_screen.dart';
 import 'package:forkified/shared/cubit/categories/categories_cubit.dart';
 import 'package:forkified/shared/cubit/login/login_cubit.dart';
+import 'package:forkified/shared/cubit/main/main_cubit.dart';
 import 'package:forkified/shared/cubit/signup/signup_cubit.dart';
 import 'package:forkified/shared/cubit/subcategory/subcategory_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
@@ -39,8 +40,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SubcategoryCubit(),
         ),
+        BlocProvider(
+          create: (context) => MainCubit(),
+        ),
       ],
-      child: BlocConsumer<CategoriesCubit, CategoriesState>(
+      child: BlocConsumer<MainCubit,MainState>(
         listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(

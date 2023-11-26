@@ -9,7 +9,6 @@ import 'package:forkified/modules/home/drawer.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
-
 import '../../shared/cubit/categories/categories_cubit.dart';
 
 class HomeLayout extends StatefulWidget {
