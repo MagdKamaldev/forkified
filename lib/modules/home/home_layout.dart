@@ -50,8 +50,7 @@ class _HomeLayoutState extends State<HomeLayout> {
     TextTheme theme = Theme.of(context).textTheme;
 
     return BlocConsumer<AppCubit, AppState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -167,10 +166,11 @@ class _HomeLayoutState extends State<HomeLayout> {
                       crossAxisCount: 2,
                       crossAxisSpacing: size.width * 0.12,
                       mainAxisSpacing: size.height * 0.05,
-                      childAspectRatio: 1 / 1,
+                      childAspectRatio: 1.6 / 1,
                       children: List.generate(
                         10,
                         (index) => Container(
+                          height: size.height * 0.02,
                           decoration: BoxDecoration(
                             color: nonPhotoBlue,
                             borderRadius: BorderRadius.circular(12),
@@ -234,10 +234,40 @@ class _HomeLayoutState extends State<HomeLayout> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              "$serverIp${model.image.toString()}",
-              width: size.width * 0.35,
-              height: size.height * 0.1,
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: cerulian,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.network(
+                  "$serverIp${model.image.toString()}",
+                  width: size.width * 0.35,
+                  height: size.height * 0.1,
+                  errorBuilder: (BuildContext context, Object error,
+                      StackTrace? stackTrace) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(13),
+                      child: Container(
+                        width: size.width * 0.35,
+                        height: size.height * 0.1,
+                        color: prussianBlue,
+                        child: Center(
+                          child: Icon(
+                            Icons.image,
+                            color: cerulian,
+                            size: size.height * 0.04,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
             SizedBox(
               height: size.height * 0.02,

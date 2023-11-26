@@ -6,6 +6,7 @@ import 'package:forkified/modules/on_boarding/on_borading_screen.dart';
 import 'package:forkified/shared/cubit/app/app_cubit.dart';
 import 'package:forkified/shared/cubit/login/login_cubit.dart';
 import 'package:forkified/shared/cubit/signup/signup_cubit.dart';
+import 'package:forkified/shared/cubit/subcategory/subcategory_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/themes.dart';
 
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SignupCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SubcategoryCubit(),
         ),
       ],
       child: BlocConsumer<AppCubit, AppState>(

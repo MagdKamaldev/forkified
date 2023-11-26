@@ -33,10 +33,9 @@ class AppCubit extends Cubit<AppState> {
       url: EndPoints.categories,
       jwt: token,
     ).then((value) {
-      categories = value.data["categories"]!
+      categories = value.data["documents"]!
           .map((e) => CategoryModel.fromJson(e))
           .toList();
-      categories[0].description.toString();
       emit(GetCategoriesSuccess());
     }).catchError((error) {
       String errorMessage = "An error occurred";
@@ -60,7 +59,7 @@ class AppCubit extends Cubit<AppState> {
       url: "${EndPoints.categories}/$id",
       jwt: token,
     ).then((value) {
-      category = CategoryModel.fromJson(value.data["category"]);
+      category = CategoryModel.fromJson(value.data["document"]);
       emit(GetCategorySuccess());
     }).catchError((error) {
       String errorMessage = "An error occurred";

@@ -1,27 +1,27 @@
-class CategoryModel {
+class SubCategory {
   String? id;
   String? name;
   String? description;
-  String? image;
+  String? category;
   DateTime? createdAt;
   DateTime? updatedAt;
   int? v;
 
-  CategoryModel({
+  SubCategory({
     this.id,
     this.name,
     this.description,
-    this.image,
+    this.category,
     this.createdAt,
     this.updatedAt,
     this.v,
   });
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+  factory SubCategory.fromJson(Map<String, dynamic> json) => SubCategory(
         id: json['_id'] as String?,
         name: json['name'] as String?,
         description: json['description'] as String?,
-        image: json['image'] as String?,
+        category: json['category'] as String?,
         createdAt: json['createdAt'] == null
             ? null
             : DateTime.parse(json['createdAt'] as String),
@@ -35,7 +35,7 @@ class CategoryModel {
         '_id': id,
         'name': name,
         'description': description,
-        'image': image,
+        'category': category,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
         '__v': v,
