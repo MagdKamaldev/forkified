@@ -9,10 +9,12 @@ class ContactScreen extends StatelessWidget {
     TextTheme theme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Contact", style: theme.displayLarge,),
+        title: Text(
+          "Contact",
+          style: theme.displayLarge,
+        ),
         toolbarHeight: size.height * 0.08,
       ),
     );
-
   }
 }

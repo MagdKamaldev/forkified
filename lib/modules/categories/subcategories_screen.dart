@@ -29,7 +29,7 @@ class _SubCategoriesState extends State<SubCategories> {
     return BlocConsumer<SubcategoryCubit, SubcategoryState>(
       listener: (context, state) {},
       builder: (context, state) {
-       return ConditionalBuilder(
+        return ConditionalBuilder(
           condition: state is GetCategorySubcategoriesSuccess,
           builder: (context) => Scaffold(
             appBar: AppBar(
@@ -45,19 +45,26 @@ class _SubCategoriesState extends State<SubCategories> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   ListView.builder(itemBuilder: (context, index) {
-                      return buildSubCategory(
-                          cubit.subcategories![index], context, index, size, theme);
-                    },
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: cubit.subcategories!.length,),
-                    if(cubit.subcategories!.isEmpty)
+                    ListView.builder(
+                      itemBuilder: (context, index) {
+                        return buildSubCategory(cubit.subcategories![index],
+                            context, index, size, theme);
+                      },
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: cubit.subcategories!.length,
+                    ),
+                    if (cubit.subcategories!.isEmpty)
                       Center(
                         child: Column(
                           children: [
-                            SizedBox(height: size.height*0.4,),
-                            Text("No Sub Categories Found !",style: theme.displayMedium,),
+                            SizedBox(
+                              height: size.height * 0.4,
+                            ),
+                            Text(
+                              "No Sub Categories Found !",
+                              style: theme.displayMedium,
+                            ),
                           ],
                         ),
                       ),
@@ -75,7 +82,8 @@ class _SubCategoriesState extends State<SubCategories> {
       },
     );
   }
-   Widget buildSubCategory(
+
+  Widget buildSubCategory(
           SubCategory model, context, index, Size size, TextTheme theme) =>
       GestureDetector(
         onTap: () {
@@ -93,10 +101,10 @@ class _SubCategoriesState extends State<SubCategories> {
               child: Row(
                 children: [
                   Text(
-                  model.name.toString(),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.displaySmall,
+                    model.name.toString(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.displaySmall,
                   ),
                   const Spacer(),
                   Icon(
@@ -109,16 +117,15 @@ class _SubCategoriesState extends State<SubCategories> {
             SizedBox(
               height: size.height * 0.035,
             ),
-          Container(
-            width: double.infinity,
-            height: 1,
-            color: cerulian,
-          ),
-          SizedBox(
-            height: size.height * 0.035,
-          ),
+            Container(
+              width: double.infinity,
+              height: 1,
+              color: cerulian,
+            ),
+            SizedBox(
+              height: size.height * 0.035,
+            ),
           ],
         ),
       );
-
 }

@@ -9,10 +9,12 @@ class AboutScreen extends StatelessWidget {
     TextTheme theme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text("About", style: theme.displayLarge,),
+        title: Text(
+          "About",
+          style: theme.displayLarge,
+        ),
         toolbarHeight: size.height * 0.08,
       ),
     );
-
   }
 }

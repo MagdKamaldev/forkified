@@ -21,3 +21,12 @@ class GetAllSubcategoriesError extends MainState {
   final String error;
   GetAllSubcategoriesError(this.error);
 }
+
+class GetAllRecipesLoading extends MainState {}
+
+class GetAllRecipesSuccess extends MainState {}
+
+class GetAllRecipesError extends MainState {
+  final String error;
+  GetAllRecipesError(this.error);
+}

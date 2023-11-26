@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/categories.model.dart';
+import 'package:forkified/models/recipe_model.dart';
 import 'package:forkified/models/sub_category.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
@@ -37,9 +38,8 @@ class MainCubit extends Cubit<MainState> {
   void getAllSubcategories() {
     emit(GetAllSubcategoriesLoading());
     DioHelper.getData(url: EndPoints.subcategories, jwt: token).then((value) {
-      allSubCategories = value.data["documents"]!
-          .map((e) => SubCategory.fromJson(e))
-          .toList();
+      allSubCategories =
+          value.data["documents"]!.map((e) => SubCategory.fromJson(e)).toList();
       emit(GetAllSubcategoriesSuccess());
     }).catchError((error) {
       String errorMessage = "An error occurred";
@@ -50,5 +50,24 @@ class MainCubit extends Cubit<MainState> {
       }
       emit(GetAllSubcategoriesError(errorMessage));
     });
+  }
+
+  List<dynamic>? allRecipes = [];
+  void getAllRecipes() {
+    emit(GetAllRecipesLoading());
+    DioHelper.getData(url: EndPoints.recipes, jwt: token).then((value) {
+      allRecipes =
+          value.data["documents"]!.map((e) => RecipeModel.fromJson(e)).toList();
+      emit(GetAllRecipesSuccess());
+    }); 
+    //.catchError((error) {
+    //   String errorMessage = "An error occurred";
+    //   if (error is DioError && error.response != null) {
+    //     errorMessage = error.response!.data["message"];
+    //   } else if (error is String) {
+    //     errorMessage = error;
+    //   }
+    //   emit(GetAllRecipesError(errorMessage));
+    // });
   }
 }

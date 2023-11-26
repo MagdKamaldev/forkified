@@ -7,7 +7,6 @@ import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
 part 'subcategory_state.dart';
 
-
 class SubcategoryCubit extends Cubit<SubcategoryState> {
   SubcategoryCubit() : super(SubcategoryInitial());
   static SubcategoryCubit get(context) => BlocProvider.of(context);

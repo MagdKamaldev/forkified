@@ -8,7 +8,6 @@ import 'package:forkified/shared/cubit/main/main_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import '../../shared/components.dart';
 
-
 class AllCategoriesScreen extends StatefulWidget {
   const AllCategoriesScreen({super.key});
 
@@ -16,13 +15,13 @@ class AllCategoriesScreen extends StatefulWidget {
   State<AllCategoriesScreen> createState() => _AllCategoriesScreenState();
 }
 
-
 class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
   @override
   void initState() {
     MainCubit.get(context).getAllCategories();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -32,62 +31,69 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "All Categories",
-              style: theme.displayLarge,
+            appBar: AppBar(
+              title: Text(
+                "All Categories",
+                style: theme.displayLarge,
+              ),
+              toolbarHeight: size.height * 0.08,
             ),
-            toolbarHeight: size.height * 0.08,
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(children: [
-                 ConditionalBuilder(
-                        condition: cubit.allCategories!.isNotEmpty,
-                        fallback: (context) => GridView.count(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          crossAxisCount: 2,
-                          crossAxisSpacing: size.width * 0.12,
-                          mainAxisSpacing: size.height * 0.05,
-                          childAspectRatio: 1.6 / 1,
-                          children: List.generate(
-                            16,
-                            (index) => Container(
-                              height: size.height * 0.02,
-                              decoration: BoxDecoration(
-                                color: nonPhotoBlue,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          ),
-                        ),
-                        builder: (context) => GridView.count(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          crossAxisCount: 2,
-                          crossAxisSpacing: size.width * 0.14,
-                          mainAxisSpacing: size.height * 0.02,
-                          childAspectRatio: 1 / 1,
-                          children: List.generate(
-                            cubit.allCategories!.length,
-                            (index) => buildCategory(cubit.allCategories![index],
-                                context, index, size, theme),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(children: [
+                  ConditionalBuilder(
+                    condition: cubit.allCategories!.isNotEmpty,
+                    fallback: (context) => GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: size.width * 0.12,
+                      mainAxisSpacing: size.height * 0.05,
+                      childAspectRatio: 1.6 / 1,
+                      children: List.generate(
+                        16,
+                        (index) => Container(
+                          height: size.height * 0.02,
+                          decoration: BoxDecoration(
+                            color: nonPhotoBlue,
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      )
-              ]),
+                    ),
+                    builder: (context) => GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: size.width * 0.14,
+                      mainAxisSpacing: size.height * 0.02,
+                      childAspectRatio: 1 / 1,
+                      children: List.generate(
+                        cubit.allCategories!.length,
+                        (index) => buildCategory(cubit.allCategories![index],
+                            context, index, size, theme),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.02,
+                  )
+                ]),
+              ),
             ),
-          ),
-        );
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {},
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: cerulian,
+                  ),
+                  child: const Icon(Icons.add)),
+            ));
       },
     );
   }
-  
+
   Widget buildCategory(
           CategoryModel model, context, index, Size size, TextTheme theme) =>
       GestureDetector(

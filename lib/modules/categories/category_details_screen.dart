@@ -19,23 +19,23 @@ class CategoryDetails extends StatefulWidget {
 class _CategoryDetailsState extends State<CategoryDetails> {
   @override
   void initState() {
-   CategoriesCubit.get(context).getCategory(id: widget.id!);
+    CategoriesCubit.get(context).getCategory(id: widget.id!);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var cubit =CategoriesCubit.get(context);
+    var cubit = CategoriesCubit.get(context);
     Size size = MediaQuery.of(context).size;
     TextTheme theme = Theme.of(context).textTheme;
 
-    return BlocConsumer<CategoriesCubit,CategoriesState>(
+    return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
           condition: state is GetCategorySuccess,
           builder: (context) => Scaffold(
-           appBar: AppBar(
+            appBar: AppBar(
               title: Text(
                 cubit.category!.name!,
                 style: theme.displayLarge,

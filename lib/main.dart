@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           create: (context) => MainCubit(),
         ),
       ],
-      child: BlocConsumer<MainCubit,MainState>(
+      child: BlocConsumer<MainCubit, MainState>(
         listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(

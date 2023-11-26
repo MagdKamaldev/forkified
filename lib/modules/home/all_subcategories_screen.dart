@@ -72,6 +72,14 @@ class _AllSubCategoriesScreenState extends State<AllSubCategoriesScreen> {
                 ),
               ),
             ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {},
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: cerulian,
+                  ),
+                  child: const Icon(Icons.add)),
+            ),
           ),
           fallback: (context) => Scaffold(
             body: Center(
