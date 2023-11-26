@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/models/sub_category.dart';
 import 'package:forkified/shared/colors.dart';
-import 'package:forkified/shared/cubit/app/app_cubit.dart';
 import 'package:forkified/shared/cubit/subcategory/subcategory_cubit.dart';
 import 'package:lottie/lottie.dart';
 

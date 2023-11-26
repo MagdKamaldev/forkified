@@ -8,8 +8,9 @@ import 'package:forkified/modules/categories/category_details_screen.dart';
 import 'package:forkified/modules/home/drawer.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
-import 'package:forkified/shared/cubit/app/app_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
+
+import '../../shared/cubit/categories/categories_cubit.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
@@ -38,18 +39,18 @@ class _HomeLayoutState extends State<HomeLayout> {
 
   @override
   void initState() {
-    AppCubit.get(context).selectWelcomeTime();
-    AppCubit.get(context).getCategories(context);
+    CategoriesCubit.get(context).selectWelcomeTime();
+    CategoriesCubit.get(context).getCategories(context);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var cubit = AppCubit.get(context);
+    var cubit = CategoriesCubit.get(context);
     Size size = MediaQuery.of(context).size;
     TextTheme theme = Theme.of(context).textTheme;
 
-    return BlocConsumer<AppCubit, AppState>(
+    return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(

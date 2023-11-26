@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:forkified/modules/home/about_screen.dart';
+import 'package:forkified/modules/home/categories_screen.dart';
+import 'package:forkified/modules/home/contact_screen.dart';
+import 'package:forkified/modules/home/recipes_screen.dart';
+import 'package:forkified/modules/home/sub_categories_screen.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/components.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -24,40 +30,57 @@ class AppDrawer extends StatelessWidget {
             SizedBox(
               height: size.height * 0.04,
             ),
-            Container(width: double.infinity,
-            height: 1.5,
-            color: cerulian,),
-             SizedBox(
+            Container(
+              width: double.infinity,
+              height: 1.5,
+              color: cerulian,
+            ),
+            SizedBox(
               height: size.height * 0.03,
             ),
             ListTile(
-              title: Text("Categories",style: theme.displayMedium,),
+              title: Text(
+                "Categories",
+                style: theme.displayMedium,
+              ),
               onTap: () {
-                Navigator.pop(context);
+                navigateTo(context, const CategoriesScreen());
               },
             ),
             ListTile(
-              title: Text("Sub Categories",style: theme.displayMedium,),
+              title: Text(
+                "Sub Categories",
+                style: theme.displayMedium,
+              ),
               onTap: () {
-                Navigator.pop(context);
+                navigateTo(context, const SubCategoriesScreen());
               },
             ),
             ListTile(
-              title: Text("Recipes",style: theme.displayMedium,),
+              title: Text(
+                "Recipes",
+                style: theme.displayMedium,
+              ),
               onTap: () {
-                Navigator.pop(context);
+                navigateTo(context, const RecipesScreen());
               },
             ),
             ListTile(
-              title: Text("About",style: theme.displayMedium,),
+              title: Text(
+                "About",
+                style: theme.displayMedium,
+              ),
               onTap: () {
-                Navigator.pop(context);
+                navigateTo(context, const AboutScreen());
               },
             ),
             ListTile(
-              title: Text("Contact",style: theme.displayMedium,),
+              title: Text(
+                "Contact",
+                style: theme.displayMedium,
+              ),
               onTap: () {
-                Navigator.pop(context);
+                navigateTo(context, const ContactScreen());
               },
             ),
           ],

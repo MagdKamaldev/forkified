@@ -7,11 +7,11 @@ import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
 import '../../../main.dart';
-part 'app_state.dart';
+part 'categories_state.dart';
 
-class AppCubit extends Cubit<AppState> {
-  AppCubit() : super(AppInitial());
-  static AppCubit get(context) => BlocProvider.of(context);
+class CategoriesCubit extends Cubit<CategoriesState> {
+  CategoriesCubit() : super(CategoriesInitial());
+  static CategoriesCubit get(context) => BlocProvider.of(context);
 
   DateTime currentDateTime = DateTime.now();
   String? welcomeText;

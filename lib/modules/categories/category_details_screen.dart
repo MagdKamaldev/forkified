@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/modules/categories/subcategories_screen.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
-import 'package:forkified/shared/cubit/app/app_cubit.dart';
+import 'package:forkified/shared/cubit/categories/categories_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:lottie/lottie.dart';
 
@@ -19,23 +19,23 @@ class CategoryDetails extends StatefulWidget {
 class _CategoryDetailsState extends State<CategoryDetails> {
   @override
   void initState() {
-    AppCubit.get(context).getCategory(id: widget.id!);
+   CategoriesCubit.get(context).getCategory(id: widget.id!);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var cubit = AppCubit.get(context);
+    var cubit =CategoriesCubit.get(context);
     Size size = MediaQuery.of(context).size;
     TextTheme theme = Theme.of(context).textTheme;
 
-    return BlocConsumer<AppCubit, AppState>(
+    return BlocConsumer<CategoriesCubit,CategoriesState>(
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
           condition: state is GetCategorySuccess,
           builder: (context) => Scaffold(
-            appBar: AppBar(
+           appBar: AppBar(
               title: Text(
                 cubit.category!.name!,
                 style: theme.displayLarge,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/firebase_options.dart';
 import 'package:forkified/modules/on_boarding/on_borading_screen.dart';
-import 'package:forkified/shared/cubit/app/app_cubit.dart';
+import 'package:forkified/shared/cubit/categories/categories_cubit.dart';
 import 'package:forkified/shared/cubit/login/login_cubit.dart';
 import 'package:forkified/shared/cubit/signup/signup_cubit.dart';
 import 'package:forkified/shared/cubit/subcategory/subcategory_cubit.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AppCubit(),
+          create: (context) => CategoriesCubit(),
         ),
         BlocProvider(
           create: (context) => LoginCubit(),
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           create: (context) => SubcategoryCubit(),
         ),
       ],
-      child: BlocConsumer<AppCubit, AppState>(
+      child: BlocConsumer<CategoriesCubit, CategoriesState>(
         listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(
