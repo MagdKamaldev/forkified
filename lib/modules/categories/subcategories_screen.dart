@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/models/sub_category.dart';
 import 'package:forkified/modules/categories/subcategory_details_screen.dart';
 import 'package:forkified/shared/colors.dart';
@@ -32,7 +33,7 @@ class _SubCategoriesState extends State<SubCategories> {
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: state is GetCategorySubcategoriesSuccess,
+          condition: state is ! GetCategorySubcategoriesLoading,
           builder: (context) => Scaffold(
             appBar: AppBar(
               title: Text(
@@ -78,7 +79,7 @@ class _SubCategoriesState extends State<SubCategories> {
           fallback: (context) => Scaffold(
             body: Center(
                 child:
-                    Lottie.asset("assets/animations/forkified loading.json")),
+                    Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json")),
           ),
         );
       },
@@ -106,8 +107,8 @@ class _SubCategoriesState extends State<SubCategories> {
                   ),
                   const Spacer(),
                   Icon(
-                    Icons.arrow_forward_ios,
-                    color: cerulian,
+                    Icons.arrow_forward,
+                    color: isDark!? cerulian :flame,
                   ),
                 ],
               ),
@@ -118,7 +119,7 @@ class _SubCategoriesState extends State<SubCategories> {
             Container(
               width: double.infinity,
               height: 1,
-              color: cerulian,
+              color: isDark!? cerulian :flame,
             ),
             SizedBox(
               height: size.height * 0.035,

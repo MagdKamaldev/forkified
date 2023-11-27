@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
@@ -35,14 +36,6 @@ class _RecipeDetailsState extends State<RecipeDetails> {
           condition: cubit.recipe != null,
           builder: (context) => Scaffold(
             appBar: AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.arrow_back),
-              ),
               title: Text(
                 cubit.recipe!.name!,
                 style: theme.displayLarge,
@@ -61,7 +54,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: cerulian,
+                            color: isDark!? cerulian : flame,
                             width: 1,
                           ),
                         ),
@@ -78,7 +71,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                   child: Center(
                                     child: Icon(
                                       Icons.image,
-                                      color: cerulian,
+                                      color: isDark!? cerulian : flame,
                                       size: size.height * 0.1,
                                     ),
                                   ),
@@ -94,7 +87,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: cerulian,
+                            color: isDark!?cerulian : flame,
                             width: 1,
                           ),
                         ),
@@ -102,7 +95,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           padding: const EdgeInsets.all(8.0),
                           child: Icon(
                             Icons.image,
-                            color: cerulian,
+                            color:  isDark!?cerulian : flame,
                             size: size.height * 0.1,
                           ),
                         ),
@@ -124,7 +117,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: cerulian,
+                          color:  isDark!?cerulian : flame,
                           width: 1,
                         ),
                         borderRadius: BorderRadius.circular(12),
@@ -136,13 +129,13 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             Text(
                               "Preparation time",
                               style: theme.displayMedium!
-                                  .copyWith(color: platinum),
+                                  .copyWith(color: isDark!?platinum: prussianBlue ) ,
                             ),
                             const Spacer(),
                             Text(
                               cubit.recipe!.prepTime.toString(),
                               style: theme.displayMedium!
-                                  .copyWith(color: platinum),
+                                  .copyWith(color: isDark!?platinum: prussianBlue)  ,
                             ),
                           ],
                         ),
@@ -154,7 +147,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: cerulian,
+                          color:  isDark!?cerulian : flame,
                           width: 1,
                         ),
                         borderRadius: BorderRadius.circular(12),
@@ -166,13 +159,13 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             Text(
                               "Calories",
                               style: theme.displayMedium!
-                                  .copyWith(color: platinum),
+                                  .copyWith(color:isDark!? platinum : prussianBlue ),
                             ),
                             const Spacer(),
                             Text(
                               cubit.recipe!.calories.toString(),
                               style: theme.displayMedium!
-                                  .copyWith(color: platinum),
+                                  .copyWith(color: isDark!?platinum: prussianBlue)  ,
                             ),
                           ],
                         ),
@@ -196,7 +189,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                 itemBuilder: (ctx, index) => SizedBox(
                                   height: size.height * 0.06,
                                   child: Card(
-                                    color: cerulian,
+                                    color:  isDark!?cerulian : flame,
                                     child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
@@ -206,7 +199,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                             child: Text(
                                               cubit.recipe!.ingredients![index],
                                               style: theme.displaySmall!
-                                                  .copyWith(color: platinum),
+                                                  .copyWith(color: platinum) ,
                                             ),
                                           ),
                                         ]),
@@ -231,7 +224,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
           fallback: (context) => Scaffold(
             body: Center(
                 child:
-                    Lottie.asset("assets/animations/forkified loading.json")),
+                    Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json")),
           ),
         );
       },

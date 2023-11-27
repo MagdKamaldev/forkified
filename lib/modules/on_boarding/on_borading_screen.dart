@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/modules/login/login_screen.dart';
 import 'package:forkified/shared/components.dart';
 import '../../shared/colors.dart';
@@ -19,31 +20,31 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     {
       'text': 'Welcome to Forkified!',
       'image': 'assets/images/logo.png',
-      'color': cerulian,
+      'color': isDark!? cerulian : flame,
     },
     {
       'text': 'Enter the ingredients you have',
       'image': 'assets/images/recipe.png',
-      'color': cerulian,
+      'color': isDark!? cerulian : flame,
     },
     {
       'text': 'Get recipes with YouTube tutorials',
       'image': 'assets/images/video.png',
-      'color': cerulian,
+      'color': isDark!? cerulian : flame,
     },
     {
       'text': 'Save your favorite recipes',
       'image': 'assets/images/save.png',
-      'color': cerulian,
+      'color': isDark!? cerulian : flame,
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: prussianBlue,
+     
       appBar: AppBar(
-        backgroundColor: prussianBlue,
+  backgroundColor: isDark!? prussianBlue : platinum,
         actions: [
           TextButton(
             onPressed: () {
@@ -58,7 +59,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Skip",
-                style: TextStyle(color: platinum, fontSize: 18),
+                style: TextStyle(color: isDark!? platinum:flame, fontSize: 18),
               ),
             ),
           )

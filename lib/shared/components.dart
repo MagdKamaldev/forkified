@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/shared/colors.dart';
 
 void navigateTo(context, widget) => Navigator.push(
@@ -28,8 +29,8 @@ Widget defaultItemBuilder({
         const SizedBox(height: 15,),
         Container(
           decoration: BoxDecoration(
-            color: nonPhotoBlue,
-            border: Border.all(color: cerulian,width: 5),
+            color: isDark!? nonPhotoBlue :platinum,
+            border: Border.all(color: isDark!? cerulian: flame,width: 5),
             borderRadius: BorderRadius.circular(10),
           ),
          
@@ -72,23 +73,23 @@ Widget defaultFormField({
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.normal,
-          color: platinum, // Set the text color here
+          color: isDark!? platinum: blackOlive, // Set the text color here
         ),
         decoration: InputDecoration(
           labelText: label,
           labelStyle: Theme.of(context)
               .textTheme
               .titleMedium!
-              .copyWith(fontSize: 16, color: nonPhotoBlueDark),
+              .copyWith(fontSize: 16, color: isDark!? nonPhotoBlueDark: flame),
           prefixIcon: Icon(
             prefix,
-            color: nonPhotoBlueDark,
+            color: isDark!? nonPhotoBlueDark: flame,
           ),
           suffixIcon: suffix != null
               ? IconButton(
                   icon: Icon(
                     suffix,
-                    color: nonPhotoBlueDark,
+                    color: isDark!? nonPhotoBlueDark: flame,
                   ),
                   onPressed: () {
                     suffixPressed!();
@@ -135,7 +136,7 @@ Widget defaultButton({
         width: width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
-          color: cerulian,
+          color: isDark!? cerulian: flame,
         ),
         child: MaterialButton(
           onPressed: function,

@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/models/recipe_model.dart';
 import 'package:forkified/modules/home/recipes/add_recipe_screen.dart';
 import 'package:forkified/shared/colors.dart';
@@ -56,7 +57,7 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
                         (index) => Container(
                           height: size.height * 0.02,
                           decoration: BoxDecoration(
-                            color: nonPhotoBlue,
+                            color: isDark!? nonPhotoBlue : flame.shade100,
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
@@ -88,7 +89,7 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
               },
               child: Container(
                   decoration: BoxDecoration(
-                    color: cerulian,
+                    color: isDark!?cerulian :flame,
                   ),
                   child: const Icon(Icons.add)),
             ));
@@ -112,7 +113,7 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: cerulian,
+                  color: isDark!? cerulian: flame,
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(12),
@@ -130,11 +131,11 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
                       child: Container(
                         width: size.width * 0.35,
                         height: size.height * 0.1,
-                        color: prussianBlue,
+                        color: isDark!? prussianBlue: platinum,
                         child: Center(
                           child: Icon(
                             Icons.image,
-                            color: cerulian,
+                            color: isDark!?cerulian:flame,
                             size: size.height * 0.04,
                           ),
                         ),

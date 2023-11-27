@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/models/recipe_model.dart';
 import 'package:forkified/modules/categories/recipe_details_screen.dart';
 import 'package:forkified/shared/colors.dart';
@@ -44,7 +45,7 @@ class _CategoryRecipesScreenState extends State<CategoryRecipesScreen> {
               padding: const EdgeInsets.all(20.0),
               child: Column(children: [
                 ConditionalBuilder(
-                  condition: state is GetCategoryRecipesSuccess,
+                  condition: state is ! GetCategoryRecipesLoading,
                   fallback: (context) => GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -57,7 +58,7 @@ class _CategoryRecipesScreenState extends State<CategoryRecipesScreen> {
                       (index) => Container(
                         height: size.height * 0.02,
                         decoration: BoxDecoration(
-                          color: nonPhotoBlue,
+                          color: isDark!? nonPhotoBlue : flame.shade100,
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
@@ -114,7 +115,7 @@ class _CategoryRecipesScreenState extends State<CategoryRecipesScreen> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: cerulian,
+                  color: isDark!? cerulian : flame,
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(12),
@@ -132,11 +133,11 @@ class _CategoryRecipesScreenState extends State<CategoryRecipesScreen> {
                       child: Container(
                         width: size.width * 0.35,
                         height: size.height * 0.1,
-                        color: prussianBlue,
+                        color: isDark!? prussianBlue : platinum,
                         child: Center(
                           child: Icon(
                             Icons.image,
-                            color: cerulian,
+                            color: isDark!? cerulian : flame,
                             size: size.height * 0.04,
                           ),
                         ),

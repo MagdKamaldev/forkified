@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/modules/categories/recipes_screen.dart';
 import 'package:forkified/modules/categories/subcategories_screen.dart';
 import 'package:forkified/shared/colors.dart';
@@ -54,7 +55,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: cerulian,
+                          color: isDark!? cerulian : flame,
                           width: 1,
                         ),
                       ),
@@ -110,7 +111,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                             height: size.height * 0.1,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: cerulian,
+                                color: isDark!? cerulian : flame,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(12),
@@ -119,7 +120,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                               child: Text(
                                 "Sub Categories",
                                 style: theme.displaySmall!
-                                    .copyWith(color: platinum),
+                                    .copyWith(color:  isDark!? platinum :prussianBlue),
                               ),
                             ),
                           ),
@@ -137,7 +138,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                               height: size.height * 0.1,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: cerulian,
+                                  color: isDark!? cerulian : flame,
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(12),
@@ -146,7 +147,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                                 child: Text(
                                   "Recipes",
                                   style: theme.displaySmall!
-                                      .copyWith(color: platinum),
+                                      .copyWith(color: isDark!? platinum :prussianBlue),
                                 ),
                               ),
                             ),
@@ -162,7 +163,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
           fallback: (context) => Scaffold(
             body: Center(
                 child:
-                    Lottie.asset("assets/animations/forkified loading.json")),
+                    Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json")),
           ),
         );
       },

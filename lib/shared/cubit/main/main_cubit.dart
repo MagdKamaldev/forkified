@@ -7,11 +7,19 @@ import 'package:forkified/models/recipe_model.dart';
 import 'package:forkified/models/sub_category.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
+import '../../networks/local/cache_helper.dart';
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
   MainCubit() : super(MainInitial());
   static MainCubit get(context) => BlocProvider.of(context);
+
+  void changemode(bool value) {  
+            isDark = value;
+            CacheHelper.saveData(key: "mode", value: isDark).then((value) {
+              emit(ChangeAppMode());
+            });
+           }
 
   List<dynamic>? allCategories = [];
 

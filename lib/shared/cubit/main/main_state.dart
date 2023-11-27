@@ -30,3 +30,5 @@ class GetAllRecipesError extends MainState {
   final String error;
   GetAllRecipesError(this.error);
 }
+
+class ChangeAppMode extends MainState {}

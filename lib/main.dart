@@ -9,16 +9,20 @@ import 'package:forkified/shared/cubit/main/main_cubit.dart';
 import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
 import 'package:forkified/shared/cubit/signup/signup_cubit.dart';
 import 'package:forkified/shared/cubit/subcategory/subcategory_cubit.dart';
+import 'package:forkified/shared/networks/local/cache_helper.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/themes.dart';
 
+bool? isDark = false;
 String? token = "";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
+  await CacheHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  isDark = CacheHelper.getData(key: "mode") ?? false;
   runApp(const MyApp());
 }
 
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => CategoriesCubit(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => RecipeCubit(),
         ),
         BlocProvider(
@@ -54,7 +58,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
-            theme: appTheme,
+            theme: isDark!? darkTheme: lightTheme,
             home: const OnBoardingScreen(),
           );
         },

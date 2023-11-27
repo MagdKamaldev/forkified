@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/modules/home/about_screen.dart';
 import 'package:forkified/modules/home/categories/all_categories_screen.dart';
 import 'package:forkified/modules/home/contact_screen.dart';
 import 'package:forkified/modules/home/recipes/all_recipes_screen.dart';
+import 'package:forkified/modules/home/settings/settings_screen.dart';
 import 'package:forkified/modules/home/subcategories/all_subcategories_screen.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
@@ -16,7 +18,7 @@ class AppDrawer extends StatelessWidget {
     TextTheme theme = Theme.of(context).textTheme;
 
     return Drawer(
-      backgroundColor: prussianBlue,
+      backgroundColor: isDark!? prussianBlue :platinum,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -33,7 +35,7 @@ class AppDrawer extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 1.5,
-              color: cerulian,
+              color: isDark!? cerulian :flame,
             ),
             SizedBox(
               height: size.height * 0.03,
@@ -63,6 +65,15 @@ class AppDrawer extends StatelessWidget {
               ),
               onTap: () {
                 navigateTo(context, const AllRecipesScreen());
+              },
+            ),
+             ListTile(
+              title: Text(
+                "Settings",
+                style: theme.displayMedium,
+              ),
+              onTap: () {
+                navigateTo(context, const SettingsScreen());
               },
             ),
             ListTile(

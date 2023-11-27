@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/models/categories.model.dart';
 import 'package:forkified/modules/categories/category_details_screen.dart';
 import 'package:forkified/modules/home/categories/add_category_screen.dart';
@@ -57,7 +58,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                         (index) => Container(
                           height: size.height * 0.02,
                           decoration: BoxDecoration(
-                            color: nonPhotoBlue,
+                            color: isDark!? nonPhotoBlue : flame.shade100,
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
@@ -89,7 +90,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
               },
               child: Container(
                   decoration: BoxDecoration(
-                    color: cerulian,
+                    color: isDark!? cerulian : flame,
                   ),
                   child: const Icon(Icons.add)),
             ));
@@ -113,7 +114,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: cerulian,
+                  color: isDark!? cerulian : flame,
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(12),
@@ -131,11 +132,11 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                       child: Container(
                         width: size.width * 0.35,
                         height: size.height * 0.1,
-                        color: prussianBlue,
+                        color: isDark!? prussianBlue :platinum,
                         child: Center(
                           child: Icon(
                             Icons.image,
-                            color: cerulian,
+                            color: isDark!? cerulian : flame,
                             size: size.height * 0.04,
                           ),
                         ),

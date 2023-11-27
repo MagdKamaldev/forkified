@@ -2,6 +2,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/modules/home/home_layout.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
@@ -29,7 +30,7 @@ class SignUpScreen extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) =>
-                Lottie.asset("assets/animations/forkified loading.json"),
+                Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json"),
           );
         } else if (state is SignupSuccess) {
           navigateAndFinish(context, const HomeLayout());
@@ -38,10 +39,19 @@ class SignUpScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: prussianBlue,
+            backgroundColor: isDark! ? prussianBlue : platinum,
+            leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: isDark! ? platinum : prussianBlue,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
             title: Text(
               "Sign Up",
-              style: theme.displayLarge,
+              style: theme.displayLarge!
+                  .copyWith(color: isDark! ? platinum : prussianBlue),
             ),
             centerTitle: true,
             toolbarHeight: 80,
@@ -171,7 +181,7 @@ class SignUpScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          color: nonPhotoBlueDark,
+                          color: isDark!? nonPhotoBlueDark :flame,
                           width: 10,
                           height: 1,
                         ),
@@ -186,7 +196,7 @@ class SignUpScreen extends StatelessWidget {
                           width: 12,
                         ),
                         Container(
-                          color: nonPhotoBlueDark,
+                          color: isDark!? nonPhotoBlueDark :flame,
                           width: 10,
                           height: 1,
                         ),
@@ -251,7 +261,7 @@ class SignUpScreen extends StatelessWidget {
                         Text(
                           "Already have an account?",
                           style:
-                              theme.bodyMedium!.copyWith(color: nonPhotoBlue),
+                              theme.bodyMedium!.copyWith(color: isDark!? nonPhotoBlueDark :flame),
                         ),
                         TextButton(
                           onPressed: () {
@@ -259,7 +269,7 @@ class SignUpScreen extends StatelessWidget {
                           },
                           child: Text(
                             "Log In",
-                            style: theme.bodyLarge!.copyWith(color: platinum),
+                            style: theme.bodyLarge!.copyWith(color: isDark!? platinum :prussianBlue),
                           ),
                         ),
                       ],

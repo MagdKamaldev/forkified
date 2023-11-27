@@ -3,6 +3,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/models/categories.model.dart';
 import 'package:forkified/modules/categories/category_details_screen.dart';
 import 'package:forkified/modules/home/drawer.dart';
@@ -74,14 +75,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                     children: [
                       Text(
                         "Trending Recipes",
-                        style: theme.displayLarge,
+                        style: theme.displayLarge!.copyWith(color: isDark!?platinum:prussianBlue),
                       ),
                       SizedBox(
                         width: size.width * 0.02,
                       ),
                       Icon(
                         Icons.trending_up_sharp,
-                        color: platinum,
+                        color: isDark!? platinum : flame,
                         size: size.width * 0.07,
                       )
                     ],
@@ -128,8 +129,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                       dotsCount: banners.length,
                       position: currentpage,
                       decorator: DotsDecorator(
-                        color: cerulian,
-                        activeColor: nonPhotoBlue,
+                        color: isDark!? cerulian : flame.shade100,
+                        activeColor: isDark!? nonPhotoBlue : flame,
                         spacing: const EdgeInsets.all(6.0),
                         activeSize: const Size(9.5, 9.5),
                         size: const Size(7.0, 7.0),
@@ -143,14 +144,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                     children: [
                       Text(
                         "Categroies",
-                        style: theme.displayLarge,
+                        style: theme.displayLarge!.copyWith(color: isDark!?platinum:prussianBlue),
                       ),
                       SizedBox(
                         width: size.width * 0.02,
                       ),
                       Icon(
                         Icons.category,
-                        color: platinum,
+                        color: isDark!? platinum : flame,
                         size: size.width * 0.07,
                       )
                     ],
@@ -172,7 +173,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                         (index) => Container(
                           height: size.height * 0.02,
                           decoration: BoxDecoration(
-                            color: nonPhotoBlue,
+                            color: isDark!? nonPhotoBlue : flame.shade100,
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
@@ -201,7 +202,7 @@ class _HomeLayoutState extends State<HomeLayout> {
           ),
           bottomNavigationBar: BottomNavigationBar(
             iconSize: size.width * 0.07,
-            backgroundColor: cerulian,
+            backgroundColor: isDark!? cerulian : flame,
             selectedItemColor: platinum,
             currentIndex: bottomNavBarIndex,
             showUnselectedLabels: false,
@@ -237,7 +238,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: cerulian,
+                  color: isDark!? cerulian :flame,
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(12),
@@ -255,11 +256,11 @@ class _HomeLayoutState extends State<HomeLayout> {
                       child: Container(
                         width: size.width * 0.35,
                         height: size.height * 0.1,
-                        color: prussianBlue,
+                        color: isDark!? prussianBlue : platinum,
                         child: Center(
                           child: Icon(
                             Icons.image,
-                            color: cerulian,
+                            color: isDark!? cerulian :flame,
                             size: size.height * 0.04,
                           ),
                         ),
