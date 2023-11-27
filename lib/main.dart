@@ -6,6 +6,7 @@ import 'package:forkified/modules/home/home_layout.dart';
 import 'package:forkified/modules/login/login_screen.dart';
 import 'package:forkified/modules/on_boarding/on_borading_screen.dart';
 import 'package:forkified/shared/cubit/categories/categories_cubit.dart';
+import 'package:forkified/shared/cubit/collections/collections_cubit.dart';
 import 'package:forkified/shared/cubit/login/login_cubit.dart';
 import 'package:forkified/shared/cubit/main/main_cubit.dart';
 import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CategoriesCubit(),
+          create: (context) => CategoriesCubit()..getCategories(),
         ),
         BlocProvider(
           create: (context) => RecipeCubit(),
@@ -65,6 +66,9 @@ class MyApp extends StatelessWidget {
           create: (context) => SubcategoryCubit(),
         ),
          BlocProvider(
+          create: (context) => CollectionsCubit(),
+        ),
+         BlocProvider(
           create: (context) => UserCubit(),
         ),
         BlocProvider(
@@ -72,7 +76,9 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: BlocConsumer<MainCubit, MainState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          
+        },
         builder: (context, state) {
           return MaterialApp(
             title: 'Flutter Demo',

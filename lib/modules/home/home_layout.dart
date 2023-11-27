@@ -13,11 +13,15 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   @override
-  void initState() {
-    CategoriesCubit.get(context).selectWelcomeTime();
-    CategoriesCubit.get(context).getCategories(context);
+   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      CategoriesCubit.get(context).getCategories();
+    });
+
+    CategoriesCubit.get(context).selectWelcomeTime();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +51,8 @@ class _HomeLayoutState extends State<HomeLayout> {
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.collections_bookmark_rounded),
-                  label: "Collections"),
+                  icon: Icon(Icons.add),
+                  label: "Add Collection"),
               BottomNavigationBarItem(icon: Icon(Icons.person), label: "User"),
             ],
             onTap: (index) {

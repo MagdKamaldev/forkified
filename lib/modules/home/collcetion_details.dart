@@ -3,96 +3,86 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/recipe_model.dart';
-import 'package:forkified/modules/home/recipes/add_recipe_screen.dart';
-import 'package:forkified/shared/colors.dart';
-import 'package:forkified/shared/components.dart';
-import 'package:forkified/shared/cubit/main/main_cubit.dart';
-import '../../../shared/networks/remote/dio_helper.dart';
+import 'package:forkified/shared/cubit/collections/collections_cubit.dart';
+import 'package:lottie/lottie.dart';
 
-class AllRecipesScreen extends StatefulWidget {
-  const AllRecipesScreen({super.key});
+import '../../shared/colors.dart';
+import '../../shared/networks/remote/dio_helper.dart';
+
+class CollectionDetails extends StatefulWidget {
+  final String id;
+  const CollectionDetails({super.key, required this.id});
 
   @override
-  State<AllRecipesScreen> createState() => _AllRecipesScreenState();
+  State<CollectionDetails> createState() => _CollectionDetailsState();
 }
 
-class _AllRecipesScreenState extends State<AllRecipesScreen> {
+class _CollectionDetailsState extends State<CollectionDetails> {
   @override
   void initState() {
-    MainCubit.get(context).getAllRecipes();
+    CollectionsCubit.get(context).getCollection(id: widget.id);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    TextTheme theme = Theme.of(context).textTheme;
-    var cubit = MainCubit.get(context);
-    return BlocConsumer<MainCubit, MainState>(
+    return BlocConsumer<CollectionsCubit, CollectionsState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Scaffold(
+        Size size = MediaQuery.of(context).size;
+        TextTheme theme = Theme.of(context).textTheme;
+        return ConditionalBuilder(
+          condition: state is! GetCollectionLoading,
+          fallback: (context) => Scaffold(
+            body: Center(
+                child: Lottie.asset(isDark!
+                    ? "assets/animations/forkified loading.json"
+                    : "assets/animations/forkified loading orange.json")),
+          ),
+          builder: (context) => Scaffold(
             appBar: AppBar(
-              title: Text(
-                "All Recipes",
-                style: theme.displayLarge,
-              ),
+              title: Text(CollectionsCubit.get(context).collection!.name!,style: theme.displayLarge!),
               toolbarHeight: size.height * 0.08,
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(children: [
-                  ConditionalBuilder(
-                    condition: cubit.allRecipes!.isNotEmpty,
-                    fallback: (context) => GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: size.width * 0.12,
-                      mainAxisSpacing: size.height * 0.05,
-                      childAspectRatio: 1.6 / 1,
-                      children: List.generate(
-                        16,
-                        (index) => Container(
-                          height: size.height * 0.02,
-                          decoration: BoxDecoration(
-                            color: isDark! ? nonPhotoBlue : flame.shade100,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
+                padding: const EdgeInsets.all(25.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Recipes",
+                      style: theme.displayLarge!.copyWith(
+                        color: isDark! ? cerulian : prussianBlue,
                       ),
                     ),
-                    builder: (context) => GridView.count(
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ListView.builder(
+                      itemBuilder: (context, index) {
+                        return buildRecipe(
+                            CollectionsCubit.get(context)
+                                .collection!
+                                .recipes![index]!,
+                            context,
+                            index,
+                            size,
+                            theme);
+                      },
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: size.width * 0.14,
-                      mainAxisSpacing: size.height * 0.02,
-                      childAspectRatio: 1 / 1,
-                      children: List.generate(
-                        cubit.allRecipes!.length,
-                        (index) => buildRecipe(cubit.allRecipes![index],
-                            context, index, size, theme),
-                      ),
+                      itemCount: CollectionsCubit.get(context)
+                          .collection!
+                          .recipes!
+                          .length,
                     ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  )
-                ]),
+                  ],
+                ),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                navigateTo(context, const AddRecipeScreen());
-              },
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: isDark! ? cerulian : flame,
-                  ),
-                  child: const Icon(Icons.add)),
-            ));
+          ),
+        );
       },
     );
   }

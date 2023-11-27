@@ -8,7 +8,6 @@ import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 import '../../../main.dart';
 import '../../networks/local/cache_helper.dart';
 part 'signup_state.dart';
@@ -34,7 +33,8 @@ class SignupCubit extends Cubit<SignupState> {
         'phoneNumber': phoneNumber ?? "",
       },
     ).then((value) {
-      CacheHelper.saveData(key: "token", value: token);
+      token = value.data["token"];
+      CacheHelper.saveData(key: "token", value: value.data["token"]);
       CacheHelper.saveData(key: "start", value: "home");
       emit(SignupSuccess());
     }).catchError((error) {

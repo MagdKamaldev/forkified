@@ -1,8 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/models/user/collection.dart';
+import 'package:forkified/modules/home/collcetion_details.dart';
+import 'package:forkified/shared/components.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../main.dart';
 import '../../shared/colors.dart';
 import '../../shared/cubit/user/user_cubit.dart';
@@ -39,19 +41,23 @@ class _UserScreenState extends State<UserScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
                     Text(
                       cubit.user!.name!.toUpperCase(),
                       style: theme.displayLarge!
                           .copyWith(color: isDark! ? platinum : prussianBlue),
                     ),
-                    SizedBox(height: size.height*0.02,),
+                    SizedBox(
+                      height: size.height * 0.05,
+                    ),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                           color: isDark! ? cerulian : flame,
                           width: 1,
-                          
                         ),
                       ),
                       child: Padding(
@@ -61,19 +67,41 @@ class _UserScreenState extends State<UserScreen> {
                           children: [
                             Text(
                               "Email ",
-                              style: theme.displaySmall!
-                                  .copyWith(color: isDark! ? platinum : prussianBlue),
+                              style: theme.displaySmall!.copyWith(
+                                  color: isDark! ? platinum : prussianBlue),
                             ),
-                            SizedBox(width: size.width*0.04,),
+                            SizedBox(
+                              width: size.width * 0.04,
+                            ),
                             Text(
                               cubit.user!.email!,
-                              style: theme.displaySmall!
-                                  .copyWith(color: isDark! ? platinum : prussianBlue),
+                              style: theme.displaySmall!.copyWith(
+                                  color: isDark! ? platinum : prussianBlue),
                             ),
                           ],
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: size.height * 0.05,
+                    ),
+                    Container(color: isDark!?cerulian:flame,width: double.infinity,height: 1,),
+                     SizedBox(
+                      height: size.height * 0.05,
+                    ),
+                    GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: size.width * 0.14,
+                mainAxisSpacing: size.height * 0.02,
+                childAspectRatio: 1 / 1,
+                children: List.generate(
+                  cubit.user!.collections!.length,
+                  (index) => buildcollection(
+                    theme:theme,size: size,collection: cubit.user!.collections![index]!,),
+                ),
+              ),
                   ],
                 ),
               ),
@@ -89,4 +117,40 @@ class _UserScreenState extends State<UserScreen> {
       },
     );
   }
+
+  Widget buildcollection({
+    required TextTheme theme,
+    required Size size,
+    required Collection collection,
+  }) => GestureDetector(
+    onTap: (){
+      navigateTo(context, CollectionDetails(id:collection.id!,),);
+    },
+    child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: isDark! ? cerulian : flame,
+              width: 1,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                Text(
+                  collection.name!,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.displaySmall!
+                      .copyWith(color: isDark! ? platinum : prussianBlue),
+                ),
+                SizedBox(height: size.height*0.02,),
+                Icon(Icons.collections_bookmark_rounded,
+                    color: isDark! ? cerulian: flame,size: size.height*0.05,)
+              ],
+            ),
+          ),
+        ),
+  );
 }

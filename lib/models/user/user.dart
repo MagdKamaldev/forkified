@@ -5,25 +5,27 @@ class User {
   String? name;
   String? email;
   int? v;
-  List<Collection>? collections;
+  List<Collection?>? collections;
 
   User({this.id, this.name, this.email, this.v, this.collections});
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json['_id'] as String?,
-        name: json['name'] as String?,
-        email: json['email'] as String?,
-        v: json['__v'] as int?,
-        collections: (json['collections'] as List<dynamic>?)
-            ?.map((e) => Collection.fromJson(e as Map<String, dynamic>))
-            .toList(),
-      );
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['_id'] as String?,
+      name: json['name'] as String?,
+      email: json['email'] as String?,
+      v: json['__v'] as int?,
+      collections: (json['collections'] as List<dynamic>?)
+          ?.map((e) => e == null ? null : Collection.fromJson(e))
+          .toList(),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         '_id': id,
         'name': name,
         'email': email,
         '__v': v,
-        'collections': collections?.map((e) => e.toJson()).toList(),
+        'collections': collections?.map((e) => e?.toJson()).toList(),
       };
 }

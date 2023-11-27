@@ -23,18 +23,20 @@ class RecipeModel {
     this.v,
   });
 
-  factory RecipeModel.fromJson(Map<String, dynamic> json) => RecipeModel(
-        id: json['_id'] as String?,
-        name: json['name'] as String?,
-        description: json['description'] as String?,
-        image: json['image'] as String?,
-        ingredients: json['ingredients'] as List<dynamic>?,
-        prepTime: json['prep_time'] as int?,
-        calories: json['calories'] as int?,
-        category: json['category'] as String?,
-        subcategory: json['subcategory'] as String?,
-        v: json['__v'] as int?,
-      );
+  factory RecipeModel.fromJson(Map<String, dynamic> json) {
+    return RecipeModel(
+      id: json['_id'] as String?,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      ingredients: json['ingredients'] as List<dynamic>?,
+      prepTime: json['prep_time'] as int?,
+      calories: json['calories'] as int?,
+      category: json['category'] as String?,
+      subcategory: json['subcategory'] as String?,
+      v: json['__v'] as int?,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         '_id': id,

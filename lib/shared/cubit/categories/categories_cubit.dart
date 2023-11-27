@@ -3,17 +3,18 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/models/categories.model.dart';
-import 'package:forkified/modules/home/collections_screen.dart';
+import 'package:forkified/modules/home/add_collection_screen.dart';
 import 'package:forkified/modules/home/home_screen.dart';
 import 'package:forkified/modules/home/user_screen.dart';
-import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
 import '../../../main.dart';
 part 'categories_state.dart';
 
 class CategoriesCubit extends Cubit<CategoriesState> {
-  CategoriesCubit() : super(CategoriesInitial());
+  CategoriesCubit() : super(CategoriesInitial()) {
+    getCategories();
+  }
   static CategoriesCubit get(context) => BlocProvider.of(context);
 
   DateTime currentDateTime = DateTime.now();
@@ -32,18 +33,21 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   List<Widget> screens = [
     HomeScreen(),
-    const CollectionsScreen(),
+    const AddCollectionScreen(),
     const UserScreen(),
   ];
 
   void changeIndex(int index) {
     bottomNavBarIndex = index;
+    if (index == 0) {
+      getCategories();
+    }
     emit(ChangeBottomNavBarIndex());
   }
 
   List<dynamic> categories = [];
 
-  void getCategories(context) {
+  void getCategories() {
     emit(GetCategoriesLoading());
     DioHelper.getData(
       url: EndPoints.categories,
@@ -60,7 +64,6 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       } else if (error is String) {
         errorMessage = error;
       }
-      showCustomSnackBar(context, errorMessage, Colors.red);
       emit(GetCategoriesError(errorMessage));
     });
   }
