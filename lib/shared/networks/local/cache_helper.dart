@@ -25,7 +25,7 @@ class CacheHelper {
 
   static Future<bool> removeData({
     required String key,
-  }) async{
+  }) async {
     return await sharedPreferences!.remove(key);
   }
 }

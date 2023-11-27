@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/modules/login/login_screen.dart';
 import 'package:forkified/shared/components.dart';
+import 'package:forkified/shared/networks/local/cache_helper.dart';
 import '../../shared/colors.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -20,31 +21,30 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     {
       'text': 'Welcome to Forkified!',
       'image': 'assets/images/logo.png',
-      'color': isDark!? cerulian : flame,
+      'color': isDark! ? cerulian : flame,
     },
     {
       'text': 'Enter the ingredients you have',
       'image': 'assets/images/recipe.png',
-      'color': isDark!? cerulian : flame,
+      'color': isDark! ? cerulian : flame,
     },
     {
       'text': 'Get recipes with YouTube tutorials',
       'image': 'assets/images/video.png',
-      'color': isDark!? cerulian : flame,
+      'color': isDark! ? cerulian : flame,
     },
     {
       'text': 'Save your favorite recipes',
       'image': 'assets/images/save.png',
-      'color': isDark!? cerulian : flame,
+      'color': isDark! ? cerulian : flame,
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       appBar: AppBar(
-  backgroundColor: isDark!? prussianBlue : platinum,
+        backgroundColor: isDark! ? prussianBlue : platinum,
         actions: [
           TextButton(
             onPressed: () {
@@ -54,12 +54,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   builder: (context) => LoginScreen(),
                 ),
               );
+              CacheHelper.saveData(key: "start", value: "signIn");
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Skip",
-                style: TextStyle(color: isDark!? platinum:flame, fontSize: 18),
+                style:
+                    TextStyle(color: isDark! ? platinum : flame, fontSize: 18),
               ),
             ),
           )

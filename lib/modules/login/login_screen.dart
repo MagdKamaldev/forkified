@@ -1,5 +1,4 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
-
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,8 +27,9 @@ class LoginScreen extends StatelessWidget {
             state is SignInWithFacebookLoadingState) {
           showDialog(
             context: context,
-            builder: (context) =>
-                Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json"),
+            builder: (context) => Lottie.asset(isDark!
+                ? "assets/animations/forkified loading.json"
+                : "assets/animations/forkified loading orange.json"),
           );
         } else if (state is LoginSuccess) {
           navigateAndFinish(context, const HomeLayout());
@@ -38,10 +38,11 @@ class LoginScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: isDark!? prussianBlue: platinum,
+            backgroundColor: isDark! ? prussianBlue : platinum,
             title: Text(
               "Get Started",
-              style: theme.displayLarge!.copyWith(color: isDark!? platinum: prussianBlue),
+              style: theme.displayLarge!
+                  .copyWith(color: isDark! ? platinum : prussianBlue),
             ),
             centerTitle: true,
             toolbarHeight: 90,
@@ -115,7 +116,7 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        color: isDark!? nonPhotoBlueDark : flame,
+                        color: isDark! ? nonPhotoBlueDark : flame,
                         width: 10,
                         height: 1,
                       ),
@@ -130,7 +131,7 @@ class LoginScreen extends StatelessWidget {
                         width: 12,
                       ),
                       Container(
-                        color: isDark!? nonPhotoBlueDark : flame,
+                        color: isDark! ? nonPhotoBlueDark : flame,
                         width: 10,
                         height: 1,
                       ),
@@ -195,7 +196,8 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       Text(
                         "Don't have an account?",
-                        style: theme.bodyMedium!.copyWith(color: isDark!? nonPhotoBlueDark : flame),
+                        style: theme.bodyMedium!.copyWith(
+                            color: isDark! ? nonPhotoBlueDark : flame),
                       ),
                       TextButton(
                           onPressed: () {
@@ -203,7 +205,8 @@ class LoginScreen extends StatelessWidget {
                           },
                           child: Text(
                             "Sign Up",
-                            style: theme.bodyLarge!.copyWith(color:isDark!? platinum: prussianBlue),
+                            style: theme.bodyLarge!.copyWith(
+                                color: isDark! ? platinum : prussianBlue),
                           )),
                     ],
                   )

@@ -55,7 +55,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: isDark!? cerulian : flame,
+                          color: isDark! ? cerulian : flame,
                           width: 1,
                         ),
                       ),
@@ -68,11 +68,11 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                             return ClipRRect(
                               borderRadius: BorderRadius.circular(13),
                               child: Container(
-                                color: prussianBlue,
+                                color: isDark! ? prussianBlue : platinum,
                                 child: Center(
                                   child: Icon(
                                     Icons.image,
-                                    color: cerulian,
+                                    color: isDark! ? cerulian : flame,
                                     size: size.height * 0.1,
                                   ),
                                 ),
@@ -111,7 +111,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                             height: size.height * 0.1,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: isDark!? cerulian : flame,
+                                color: isDark! ? cerulian : flame,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(12),
@@ -119,8 +119,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                             child: Center(
                               child: Text(
                                 "Sub Categories",
-                                style: theme.displaySmall!
-                                    .copyWith(color:  isDark!? platinum :prussianBlue),
+                                style: theme.displaySmall!.copyWith(
+                                    color: isDark! ? platinum : prussianBlue),
                               ),
                             ),
                           ),
@@ -138,7 +138,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                               height: size.height * 0.1,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: isDark!? cerulian : flame,
+                                  color: isDark! ? cerulian : flame,
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(12),
@@ -146,8 +146,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                               child: Center(
                                 child: Text(
                                   "Recipes",
-                                  style: theme.displaySmall!
-                                      .copyWith(color: isDark!? platinum :prussianBlue),
+                                  style: theme.displaySmall!.copyWith(
+                                      color: isDark! ? platinum : prussianBlue),
                                 ),
                               ),
                             ),
@@ -162,8 +162,9 @@ class _CategoryDetailsState extends State<CategoryDetails> {
           ),
           fallback: (context) => Scaffold(
             body: Center(
-                child:
-                    Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json")),
+                child: Lottie.asset(isDark!
+                    ? "assets/animations/forkified loading.json"
+                    : "assets/animations/forkified loading orange.json")),
           ),
         );
       },

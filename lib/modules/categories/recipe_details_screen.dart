@@ -54,7 +54,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: isDark!? cerulian : flame,
+                            color: isDark! ? cerulian : flame,
                             width: 1,
                           ),
                         ),
@@ -71,7 +71,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                   child: Center(
                                     child: Icon(
                                       Icons.image,
-                                      color: isDark!? cerulian : flame,
+                                      color: isDark! ? cerulian : flame,
                                       size: size.height * 0.1,
                                     ),
                                   ),
@@ -87,7 +87,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: isDark!?cerulian : flame,
+                            color: isDark! ? cerulian : flame,
                             width: 1,
                           ),
                         ),
@@ -95,7 +95,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           padding: const EdgeInsets.all(8.0),
                           child: Icon(
                             Icons.image,
-                            color:  isDark!?cerulian : flame,
+                            color: isDark! ? cerulian : flame,
                             size: size.height * 0.1,
                           ),
                         ),
@@ -117,7 +117,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color:  isDark!?cerulian : flame,
+                          color: isDark! ? cerulian : flame,
                           width: 1,
                         ),
                         borderRadius: BorderRadius.circular(12),
@@ -128,14 +128,14 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           children: [
                             Text(
                               "Preparation time",
-                              style: theme.displayMedium!
-                                  .copyWith(color: isDark!?platinum: prussianBlue ) ,
+                              style: theme.displayMedium!.copyWith(
+                                  color: isDark! ? platinum : prussianBlue),
                             ),
                             const Spacer(),
                             Text(
                               cubit.recipe!.prepTime.toString(),
-                              style: theme.displayMedium!
-                                  .copyWith(color: isDark!?platinum: prussianBlue)  ,
+                              style: theme.displayMedium!.copyWith(
+                                  color: isDark! ? platinum : prussianBlue),
                             ),
                           ],
                         ),
@@ -147,7 +147,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color:  isDark!?cerulian : flame,
+                          color: isDark! ? cerulian : flame,
                           width: 1,
                         ),
                         borderRadius: BorderRadius.circular(12),
@@ -158,14 +158,14 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           children: [
                             Text(
                               "Calories",
-                              style: theme.displayMedium!
-                                  .copyWith(color:isDark!? platinum : prussianBlue ),
+                              style: theme.displayMedium!.copyWith(
+                                  color: isDark! ? platinum : prussianBlue),
                             ),
                             const Spacer(),
                             Text(
                               cubit.recipe!.calories.toString(),
-                              style: theme.displayMedium!
-                                  .copyWith(color: isDark!?platinum: prussianBlue)  ,
+                              style: theme.displayMedium!.copyWith(
+                                  color: isDark! ? platinum : prussianBlue),
                             ),
                           ],
                         ),
@@ -189,7 +189,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                 itemBuilder: (ctx, index) => SizedBox(
                                   height: size.height * 0.06,
                                   child: Card(
-                                    color:  isDark!?cerulian : flame,
+                                    color: isDark! ? cerulian : flame,
                                     child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
@@ -199,7 +199,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                             child: Text(
                                               cubit.recipe!.ingredients![index],
                                               style: theme.displaySmall!
-                                                  .copyWith(color: platinum) ,
+                                                  .copyWith(color: platinum),
                                             ),
                                           ),
                                         ]),
@@ -223,8 +223,9 @@ class _RecipeDetailsState extends State<RecipeDetails> {
           ),
           fallback: (context) => Scaffold(
             body: Center(
-                child:
-                    Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json")),
+                child: Lottie.asset(isDark!
+                    ? "assets/animations/forkified loading.json"
+                    : "assets/animations/forkified loading orange.json")),
           ),
         );
       },

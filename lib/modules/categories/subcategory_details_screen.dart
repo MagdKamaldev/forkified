@@ -30,65 +30,82 @@ class _SubCategoryDetailsState extends State<SubCategoryDetails> {
         TextTheme theme = Theme.of(context).textTheme;
         var cubit = SubcategoryCubit.get(context);
         return ConditionalBuilder(
-          builder:(context) => Scaffold(
-            appBar: AppBar(
-              title: Text(
-                SubcategoryCubit.get(context).subcategory!.name!,
-                style: theme.displayLarge,
-              ),
-              toolbarHeight: size.height * 0.08,
-            ),
-            body: ConditionalBuilder(
-              condition: state is!  GetSubCategoryLoading,
-              builder: (context) => SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [             
-                      Text(
-                        cubit.subcategory!.name!,
-                        style: theme.displayLarge,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        cubit.subcategory!.description!,
-                        style: theme.displaySmall,
-                      ),
-                      SizedBox(height: size.height*0.05,),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: isDark!? cerulian :flame,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(12),
+            builder: (context) => Scaffold(
+                  appBar: AppBar(
+                    title: Text(
+                      SubcategoryCubit.get(context).subcategory!.name!,
+                      style: theme.displayLarge,
+                    ),
+                    toolbarHeight: size.height * 0.08,
+                  ),
+                  body: ConditionalBuilder(
+                    condition: state is! GetSubCategoryLoading,
+                    builder: (context) => SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              cubit.subcategory!.name!,
+                              style: theme.displayLarge,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              cubit.subcategory!.description!,
+                              style: theme.displaySmall,
+                            ),
+                            SizedBox(
+                              height: size.height * 0.05,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: isDark! ? cerulian : flame,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Recipes",
+                                      style: theme.displayMedium!.copyWith(
+                                          color: isDark!
+                                              ? platinum
+                                              : prussianBlue),
+                                    ),
+                                    const Spacer(),
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.arrow_forward,
+                                          color: isDark! ? platinum : flame,
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Row(children: [
-                            Text("Recipes", style: theme.displayMedium!.copyWith(color: isDark!? platinum : prussianBlue),),
-                            const Spacer(),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward,color: isDark!? platinum : flame,))
-                          ],),
-                        ),
-                      )
-                    ],
+                      ),
+                    ),
+                    fallback: (context) => Center(
+                        child: LottieBuilder.asset(
+                            "`assets/animations/forkified loading.json")),
                   ),
                 ),
-              ),
-               fallback: (context) => Center(child: LottieBuilder.asset("`assets/animations/forkified loading.json")), 
-            ),
-          ),
-          condition: state is! GetSubCategoryLoading,
-          fallback: (context) => Scaffold(
-            body: Center(
-                child:
-                    Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json")),
-          )
-        );
+            condition: state is! GetSubCategoryLoading,
+            fallback: (context) => Scaffold(
+                  body: Center(
+                      child: Lottie.asset(isDark!
+                          ? "assets/animations/forkified loading.json"
+                          : "assets/animations/forkified loading orange.json")),
+                ));
       },
     );
   }

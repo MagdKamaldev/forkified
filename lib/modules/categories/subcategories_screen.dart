@@ -33,7 +33,7 @@ class _SubCategoriesState extends State<SubCategories> {
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: state is ! GetCategorySubcategoriesLoading,
+          condition: state is! GetCategorySubcategoriesLoading,
           builder: (context) => Scaffold(
             appBar: AppBar(
               title: Text(
@@ -78,8 +78,9 @@ class _SubCategoriesState extends State<SubCategories> {
           ),
           fallback: (context) => Scaffold(
             body: Center(
-                child:
-                    Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json")),
+                child: Lottie.asset(isDark!
+                    ? "assets/animations/forkified loading.json"
+                    : "assets/animations/forkified loading orange.json")),
           ),
         );
       },
@@ -108,7 +109,7 @@ class _SubCategoriesState extends State<SubCategories> {
                   const Spacer(),
                   Icon(
                     Icons.arrow_forward,
-                    color: isDark!? cerulian :flame,
+                    color: isDark! ? cerulian : flame,
                   ),
                 ],
               ),
@@ -119,7 +120,7 @@ class _SubCategoriesState extends State<SubCategories> {
             Container(
               width: double.infinity,
               height: 1,
-              color: isDark!? cerulian :flame,
+              color: isDark! ? cerulian : flame,
             ),
             SizedBox(
               height: size.height * 0.035,

@@ -29,8 +29,9 @@ class SignUpScreen extends StatelessWidget {
             state is SignUpWithFacebookLoadingState) {
           showDialog(
             context: context,
-            builder: (context) =>
-                Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json"),
+            builder: (context) => Lottie.asset(isDark!
+                ? "assets/animations/forkified loading.json"
+                : "assets/animations/forkified loading orange.json"),
           );
         } else if (state is SignupSuccess) {
           navigateAndFinish(context, const HomeLayout());
@@ -181,7 +182,7 @@ class SignUpScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          color: isDark!? nonPhotoBlueDark :flame,
+                          color: isDark! ? nonPhotoBlueDark : flame,
                           width: 10,
                           height: 1,
                         ),
@@ -196,7 +197,7 @@ class SignUpScreen extends StatelessWidget {
                           width: 12,
                         ),
                         Container(
-                          color: isDark!? nonPhotoBlueDark :flame,
+                          color: isDark! ? nonPhotoBlueDark : flame,
                           width: 10,
                           height: 1,
                         ),
@@ -260,8 +261,8 @@ class SignUpScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Already have an account?",
-                          style:
-                              theme.bodyMedium!.copyWith(color: isDark!? nonPhotoBlueDark :flame),
+                          style: theme.bodyMedium!.copyWith(
+                              color: isDark! ? nonPhotoBlueDark : flame),
                         ),
                         TextButton(
                           onPressed: () {
@@ -269,7 +270,8 @@ class SignUpScreen extends StatelessWidget {
                           },
                           child: Text(
                             "Log In",
-                            style: theme.bodyLarge!.copyWith(color: isDark!? platinum :prussianBlue),
+                            style: theme.bodyLarge!.copyWith(
+                                color: isDark! ? platinum : prussianBlue),
                           ),
                         ),
                       ],

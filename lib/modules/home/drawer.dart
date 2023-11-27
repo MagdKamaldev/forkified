@@ -18,7 +18,7 @@ class AppDrawer extends StatelessWidget {
     TextTheme theme = Theme.of(context).textTheme;
 
     return Drawer(
-      backgroundColor: isDark!? prussianBlue :platinum,
+      backgroundColor: isDark! ? prussianBlue : platinum,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -35,7 +35,7 @@ class AppDrawer extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 1.5,
-              color: isDark!? cerulian :flame,
+              color: isDark! ? cerulian : flame,
             ),
             SizedBox(
               height: size.height * 0.03,
@@ -67,7 +67,7 @@ class AppDrawer extends StatelessWidget {
                 navigateTo(context, const AllRecipesScreen());
               },
             ),
-             ListTile(
+            ListTile(
               title: Text(
                 "Settings",
                 style: theme.displayMedium,

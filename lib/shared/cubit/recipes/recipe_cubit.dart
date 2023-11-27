@@ -35,11 +35,11 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
     });
   }
 
-  RecipeModel?  recipe;
+  RecipeModel? recipe;
 
   void getRecipe({
     required String id,
-  }){
+  }) {
     emit(GetRecipeLoading());
     DioHelper.getData(
       url: "${EndPoints.recipes}/$id",

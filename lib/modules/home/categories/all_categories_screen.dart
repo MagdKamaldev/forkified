@@ -58,7 +58,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                         (index) => Container(
                           height: size.height * 0.02,
                           decoration: BoxDecoration(
-                            color: isDark!? nonPhotoBlue : flame.shade100,
+                            color: isDark! ? nonPhotoBlue : flame.shade100,
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
@@ -90,7 +90,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
               },
               child: Container(
                   decoration: BoxDecoration(
-                    color: isDark!? cerulian : flame,
+                    color: isDark! ? cerulian : flame,
                   ),
                   child: const Icon(Icons.add)),
             ));
@@ -114,7 +114,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: isDark!? cerulian : flame,
+                  color: isDark! ? cerulian : flame,
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(12),
@@ -132,11 +132,11 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                       child: Container(
                         width: size.width * 0.35,
                         height: size.height * 0.1,
-                        color: isDark!? prussianBlue :platinum,
+                        color: isDark! ? prussianBlue : platinum,
                         child: Center(
                           child: Icon(
                             Icons.image,
-                            color: isDark!? cerulian : flame,
+                            color: isDark! ? cerulian : flame,
                             size: size.height * 0.04,
                           ),
                         ),

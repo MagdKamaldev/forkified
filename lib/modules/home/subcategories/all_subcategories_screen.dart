@@ -81,15 +81,16 @@ class _AllSubCategoriesScreenState extends State<AllSubCategoriesScreen> {
               },
               child: Container(
                   decoration: BoxDecoration(
-                    color: isDark!? cerulian :flame,
+                    color: isDark! ? cerulian : flame,
                   ),
                   child: const Icon(Icons.add)),
             ),
           ),
           fallback: (context) => Scaffold(
             body: Center(
-                child:
-                    Lottie.asset(isDark!? "assets/animations/forkified loading.json" :"assets/animations/forkified loading orange.json")),
+                child: Lottie.asset(isDark!
+                    ? "assets/animations/forkified loading.json"
+                    : "assets/animations/forkified loading orange.json")),
           ),
         );
       },
@@ -128,7 +129,7 @@ class _AllSubCategoriesScreenState extends State<AllSubCategoriesScreen> {
             Container(
               width: double.infinity,
               height: 1,
-              color: isDark!? cerulian :flame,
+              color: isDark! ? cerulian : flame,
             ),
             SizedBox(
               height: size.height * 0.035,

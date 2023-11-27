@@ -4,6 +4,8 @@ sealed class CategoriesState {}
 
 final class CategoriesInitial extends CategoriesState {}
 
+class ChangeBottomNavBarIndex extends CategoriesState {}
+
 class GetCategoriesLoading extends CategoriesState {}
 
 class GetCategoriesSuccess extends CategoriesState {}

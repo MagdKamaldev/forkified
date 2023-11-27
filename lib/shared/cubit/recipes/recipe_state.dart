@@ -1,4 +1,5 @@
 part of 'recipe_cubit.dart';
+
 sealed class RecipeCubitState {}
 
 final class RecipeCubitInitial extends RecipeCubitState {}

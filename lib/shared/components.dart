@@ -14,26 +14,23 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
       return false;
     });
 
-Widget defaultItemBuilder({
-  required Widget child,
-  required String description,
- required BuildContext context
-}) =>
+Widget defaultItemBuilder(
+        {required Widget child,
+        required String description,
+        required BuildContext context}) =>
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          description,
-          style: Theme.of(context).textTheme.displayLarge
+        Text(description, style: Theme.of(context).textTheme.displayLarge),
+        const SizedBox(
+          height: 15,
         ),
-        const SizedBox(height: 15,),
         Container(
           decoration: BoxDecoration(
-            color: isDark!? nonPhotoBlue :platinum,
-            border: Border.all(color: isDark!? cerulian: flame,width: 5),
+            color: isDark! ? nonPhotoBlue : platinum,
+            border: Border.all(color: isDark! ? cerulian : flame, width: 5),
             borderRadius: BorderRadius.circular(10),
           ),
-         
           padding: const EdgeInsets.symmetric(horizontal: 10),
           height: 200,
           width: double.infinity,
@@ -41,7 +38,6 @@ Widget defaultItemBuilder({
         ),
       ],
     );
-
 
 Widget defaultFormField({
   required TextEditingController controller,
@@ -73,23 +69,21 @@ Widget defaultFormField({
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.normal,
-          color: isDark!? platinum: blackOlive, // Set the text color here
+          color: isDark! ? platinum : blackOlive, // Set the text color here
         ),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: Theme.of(context)
-              .textTheme
-              .titleMedium!
-              .copyWith(fontSize: 16, color: isDark!? nonPhotoBlueDark: flame),
+          labelStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+              fontSize: 16, color: isDark! ? nonPhotoBlueDark : flame),
           prefixIcon: Icon(
             prefix,
-            color: isDark!? nonPhotoBlueDark: flame,
+            color: isDark! ? nonPhotoBlueDark : flame,
           ),
           suffixIcon: suffix != null
               ? IconButton(
                   icon: Icon(
                     suffix,
-                    color: isDark!? nonPhotoBlueDark: flame,
+                    color: isDark! ? nonPhotoBlueDark : flame,
                   ),
                   onPressed: () {
                     suffixPressed!();
@@ -136,7 +130,7 @@ Widget defaultButton({
         width: width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
-          color: isDark!? cerulian: flame,
+          color: isDark! ? cerulian : flame,
         ),
         child: MaterialButton(
           onPressed: function,

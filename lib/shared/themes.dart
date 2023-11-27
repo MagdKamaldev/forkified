@@ -54,7 +54,6 @@ final ThemeData lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     color: flame,
     elevation: 0,
-   
   ),
   iconTheme: IconThemeData(color: platinum),
   textTheme: TextTheme(

@@ -14,12 +14,12 @@ class MainCubit extends Cubit<MainState> {
   MainCubit() : super(MainInitial());
   static MainCubit get(context) => BlocProvider.of(context);
 
-  void changemode(bool value) {  
-            isDark = value;
-            CacheHelper.saveData(key: "mode", value: isDark).then((value) {
-              emit(ChangeAppMode());
-            });
-           }
+  void changemode(bool value) {
+    isDark = value;
+    CacheHelper.saveData(key: "mode", value: isDark).then((value) {
+      emit(ChangeAppMode());
+    });
+  }
 
   List<dynamic>? allCategories = [];
 

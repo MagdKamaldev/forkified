@@ -38,8 +38,8 @@ class SubcategoryCubit extends Cubit<SubcategoryState> {
   SubCategory? subcategory;
 
   void getSubCategory({
-   required String id,
-  }){
+    required String id,
+  }) {
     emit(GetSubCategoryLoading());
     DioHelper.getData(
       url: "${EndPoints.subcategories}/$id",

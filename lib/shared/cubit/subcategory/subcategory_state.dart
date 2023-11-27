@@ -22,4 +22,4 @@ class GetSubCategoryError extends SubcategoryState {
   final String errorMessage;
 
   GetSubCategoryError(this.errorMessage);
-} 
+}

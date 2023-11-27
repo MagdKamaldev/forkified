@@ -3,6 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/models/categories.model.dart';
+import 'package:forkified/modules/home/collections_screen.dart';
+import 'package:forkified/modules/home/home_screen.dart';
+import 'package:forkified/modules/home/user_screen.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
@@ -23,6 +26,19 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     } else {
       welcomeText = "Evening";
     }
+  }
+
+  int bottomNavBarIndex = 0;
+
+  List<Widget> screens = [
+    HomeScreen(),
+    const CollectionsScreen(),
+    const UserScreen(),
+  ];
+
+  void changeIndex(int index) {
+    bottomNavBarIndex = index;
+    emit(ChangeBottomNavBarIndex());
   }
 
   List<dynamic> categories = [];

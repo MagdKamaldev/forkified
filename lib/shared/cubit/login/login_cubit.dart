@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/shared/components.dart';
+import 'package:forkified/shared/networks/local/cache_helper.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,6 +30,8 @@ class LoginCubit extends Cubit<LoginStates> {
       },
     ).then((value) {
       token = value.data["token"];
+      CacheHelper.saveData(key: "token", value: token);
+      CacheHelper.saveData(key: "start", value: "home");
       emit(LoginSuccess());
     }).catchError((error) {
       String errorMessage = "An error occurred";

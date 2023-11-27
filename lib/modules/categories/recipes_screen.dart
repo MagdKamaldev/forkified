@@ -45,7 +45,7 @@ class _CategoryRecipesScreenState extends State<CategoryRecipesScreen> {
               padding: const EdgeInsets.all(20.0),
               child: Column(children: [
                 ConditionalBuilder(
-                  condition: state is ! GetCategoryRecipesLoading,
+                  condition: state is! GetCategoryRecipesLoading,
                   fallback: (context) => GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -58,7 +58,7 @@ class _CategoryRecipesScreenState extends State<CategoryRecipesScreen> {
                       (index) => Container(
                         height: size.height * 0.02,
                         decoration: BoxDecoration(
-                          color: isDark!? nonPhotoBlue : flame.shade100,
+                          color: isDark! ? nonPhotoBlue : flame.shade100,
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
@@ -115,7 +115,7 @@ class _CategoryRecipesScreenState extends State<CategoryRecipesScreen> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: isDark!? cerulian : flame,
+                  color: isDark! ? cerulian : flame,
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(12),
@@ -133,11 +133,11 @@ class _CategoryRecipesScreenState extends State<CategoryRecipesScreen> {
                       child: Container(
                         width: size.width * 0.35,
                         height: size.height * 0.1,
-                        color: isDark!? prussianBlue : platinum,
+                        color: isDark! ? prussianBlue : platinum,
                         child: Center(
                           child: Icon(
                             Icons.image,
-                            color: isDark!? cerulian : flame,
+                            color: isDark! ? cerulian : flame,
                             size: size.height * 0.04,
                           ),
                         ),
