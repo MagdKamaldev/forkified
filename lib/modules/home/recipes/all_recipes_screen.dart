@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/recipe_model.dart';
-import 'package:forkified/modules/home/recipes/add_recipe_screen.dart';
 import 'package:forkified/shared/colors.dart';
-import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/main/main_cubit.dart';
 import '../../../shared/networks/remote/dio_helper.dart';
 
@@ -82,17 +80,7 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
                   )
                 ]),
               ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                navigateTo(context, const AddRecipeScreen());
-              },
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: isDark! ? cerulian : flame,
-                  ),
-                  child: const Icon(Icons.add)),
-            ));
+            ),);
       },
     );
   }

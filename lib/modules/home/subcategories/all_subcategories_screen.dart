@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/sub_category.dart';
-import 'package:forkified/modules/home/subcategories/add_sub_category_screen.dart';
 import 'package:forkified/shared/colors.dart';
-import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/main/main_cubit.dart';
 import 'package:lottie/lottie.dart';
 
@@ -37,7 +35,7 @@ class _AllSubCategoriesScreenState extends State<AllSubCategoriesScreen> {
           builder: (context) => Scaffold(
             appBar: AppBar(
               title: Text(
-                "Sub Categories",
+                "All Sub Categories",
                 style: theme.displayLarge,
               ),
               toolbarHeight: size.height * 0.08,
@@ -74,16 +72,6 @@ class _AllSubCategoriesScreenState extends State<AllSubCategoriesScreen> {
                   ],
                 ),
               ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                navigateTo(context, const AddSubCategoryScreen());
-              },
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: isDark! ? cerulian : flame,
-                  ),
-                  child: const Icon(Icons.add)),
             ),
           ),
           fallback: (context) => Scaffold(

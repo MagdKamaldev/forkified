@@ -31,6 +31,7 @@ class UserCubit extends Cubit<UserState> {
       } else if (error is String) {
         errorMessage = error;
       }
+      debugPrint(errorMessage);
     });
   }
 }
