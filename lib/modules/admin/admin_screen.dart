@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:forkified/main.dart';
+import 'package:forkified/modules/admin/category/add_category_screen.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/components.dart';
 
 class AdminScreen extends StatelessWidget {
   const AdminScreen({super.key});
@@ -11,10 +13,11 @@ class AdminScreen extends StatelessWidget {
     TextTheme theme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Admin",
+          style: theme.displayLarge,
         ),
-        toolbarHeight: MediaQuery.of(context).size.height * 0.08,
+        toolbarHeight: size.height * 0.08,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -33,7 +36,9 @@ class AdminScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              navigateTo(context, AddCategory());
+                            },
                             child: Text(
                               "add",
                               style: theme.displaySmall,

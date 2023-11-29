@@ -23,3 +23,15 @@ class GetCategoryError extends CategoriesState {
   final String error;
   GetCategoryError(this.error);
 }
+
+class AddCategoryLoading extends CategoriesState {}
+
+class AddCategorySuccess extends CategoriesState {}
+
+class AddCategoryError extends CategoriesState {
+  final String error;
+  AddCategoryError(this.error);
+}
+class CategoryImagePickedFromGallerySuccessState extends CategoriesState {}
+
+class CategoryImagePickedFromGalleryErrorState extends CategoriesState {}
