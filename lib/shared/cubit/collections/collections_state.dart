@@ -14,3 +14,13 @@ class GetCollectionError extends CollectionsState {
 
   GetCollectionError(this.errorMessage);
 }
+
+class AddCollectionLoading extends CollectionsState {}
+
+class AddCollectionSuccess extends CollectionsState {}
+
+class AddCollectionError extends CollectionsState {
+  final String errorMessage;
+
+  AddCollectionError(this.errorMessage);
+}

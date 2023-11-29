@@ -35,74 +35,86 @@ class _UserScreenState extends State<UserScreen> {
           condition: state is! GetUserDataLoading,
           builder: (context) => Scaffold(
             body: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SizedBox(
                 width: size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Text(
-                      cubit.user!.name!.toUpperCase(),
-                      style: theme.displayLarge!
-                          .copyWith(color: isDark! ? platinum : prussianBlue),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.05,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: isDark! ? cerulian : flame,
-                          width: 1,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      Text(
+                        cubit.user!.name!.toUpperCase(),
+                        style: theme.displayLarge!
+                            .copyWith(color: isDark! ? platinum : prussianBlue),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: isDark! ? cerulian : flame,
+                            width: 1,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Email ",
+                                style: theme.displaySmall!.copyWith(
+                                    color: isDark! ? platinum : prussianBlue),
+                              ),
+                              SizedBox(
+                                width: size.width * 0.04,
+                              ),
+                              Text(
+                                cubit.user!.email!,
+                                style: theme.displaySmall!.copyWith(
+                                    color: isDark! ? platinum : prussianBlue),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Email ",
-                              style: theme.displaySmall!.copyWith(
-                                  color: isDark! ? platinum : prussianBlue),
-                            ),
-                            SizedBox(
-                              width: size.width * 0.04,
-                            ),
-                            Text(
-                              cubit.user!.email!,
-                              style: theme.displaySmall!.copyWith(
-                                  color: isDark! ? platinum : prussianBlue),
-                            ),
-                          ],
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      Container(
+                        color: isDark! ? cerulian : flame,
+                        width: double.infinity,
+                        height: 1,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        crossAxisSpacing: size.width * 0.14,
+                        mainAxisSpacing: size.height * 0.02,
+                        childAspectRatio: 1 / 1,
+                        children: List.generate(
+                          cubit.user!.collections!.length,
+                          (index) => buildcollection(
+                            theme: theme,
+                            size: size,
+                            collection: cubit.user!.collections![index]!,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.05,
-                    ),
-                    Container(color: isDark!?cerulian:flame,width: double.infinity,height: 1,),
-                     SizedBox(
-                      height: size.height * 0.05,
-                    ),
-                    GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                crossAxisSpacing: size.width * 0.14,
-                mainAxisSpacing: size.height * 0.02,
-                childAspectRatio: 1 / 1,
-                children: List.generate(
-                  cubit.user!.collections!.length,
-                  (index) => buildcollection(
-                    theme:theme,size: size,collection: cubit.user!.collections![index]!,),
-                ),
-              ),
-                  ],
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -122,11 +134,17 @@ class _UserScreenState extends State<UserScreen> {
     required TextTheme theme,
     required Size size,
     required Collection collection,
-  }) => GestureDetector(
-    onTap: (){
-      navigateTo(context, CollectionDetails(id:collection.id!,),);
-    },
-    child: Container(
+  }) =>
+      GestureDetector(
+        onTap: () {
+          navigateTo(
+            context,
+            CollectionDetails(
+              id: collection.id!,
+            ),
+          );
+        },
+        child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
@@ -145,12 +163,17 @@ class _UserScreenState extends State<UserScreen> {
                   style: theme.displaySmall!
                       .copyWith(color: isDark! ? platinum : prussianBlue),
                 ),
-                SizedBox(height: size.height*0.02,),
-                Icon(Icons.collections_bookmark_rounded,
-                    color: isDark! ? cerulian: flame,size: size.height*0.05,)
+                SizedBox(
+                  height: size.height * 0.01,
+                ),
+                Image.asset(
+                  "assets/images/paper.png",
+                  width: size.width * 0.14,
+                  height: size.height * 0.065,
+                )
               ],
             ),
           ),
         ),
-  );
+      );
 }

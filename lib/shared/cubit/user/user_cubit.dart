@@ -20,19 +20,17 @@ class UserCubit extends Cubit<UserState> {
     emit(GetUserDataLoading());
     DioHelper.getData(
       url: EndPoints.users,
-      jwt: CacheHelper.getData(key: "token"),
+      jwt:token??CacheHelper.getData(key: "token"),
     ).then((value) {
-      // print(token);
       user = User.fromJson(value.data["document"]);
       emit(GetUserDataSuccess());
      }).catchError((error) {
-      // String errorMessage = "An error occurred";
-      // if (error is DioError && error.response != null) {
-      //   errorMessage = error.response!.data["message"];
-      // } else if (error is String) {
-      //   errorMessage = error;
-      // }
-      debugPrint(token);
+      String errorMessage = "An error occurred";
+      if (error is DioError && error.response != null) {
+        errorMessage = error.response!.data["message"];
+      } else if (error is String) {
+        errorMessage = error;
+      }
     });
   }
 }

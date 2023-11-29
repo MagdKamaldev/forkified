@@ -1,13 +1,13 @@
 import 'collection.dart';
-
 class User {
   String? id;
   String? name;
   String? email;
   int? v;
+  String? role;
   List<Collection?>? collections;
 
-  User({this.id, this.name, this.email, this.v, this.collections});
+  User({this.id, this.name, this.email, this.v, this.role, this.collections});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -15,6 +15,7 @@ class User {
       name: json['name'] as String?,
       email: json['email'] as String?,
       v: json['__v'] as int?,
+      role: json['role'] as String?, // Add this line for the 'role' field
       collections: (json['collections'] as List<dynamic>?)
           ?.map((e) => e == null ? null : Collection.fromJson(e))
           .toList(),
@@ -26,6 +27,7 @@ class User {
         'name': name,
         'email': email,
         '__v': v,
+        'role': role, // Add this line for the 'role' field
         'collections': collections?.map((e) => e?.toJson()).toList(),
       };
 }

@@ -2,7 +2,9 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
+import 'package:forkified/modules/categories/subcategory_recipes_screen.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/subcategory/subcategory_cubit.dart';
 import 'package:lottie/lottie.dart';
 
@@ -81,7 +83,12 @@ class _SubCategoryDetailsState extends State<SubCategoryDetails> {
                                     ),
                                     const Spacer(),
                                     IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          navigateTo(
+                                              context,
+                                              SubCategoryRecipesScreen(
+                                                  id: cubit.subcategory!.id!));
+                                        },
                                         icon: Icon(
                                           Icons.arrow_forward,
                                           color: isDark! ? platinum : flame,

@@ -41,7 +41,7 @@ class _CollectionDetailsState extends State<CollectionDetails> {
           ),
           builder: (context) => Scaffold(
             appBar: AppBar(
-              title: Text(CollectionsCubit.get(context).collection!.name!,style: theme.displayLarge!),
+              title: Text(CollectionsCubit.get(context).collection!.name!.toString(),style: theme.displayLarge!),
               toolbarHeight: size.height * 0.08,
             ),
             body: SingleChildScrollView(

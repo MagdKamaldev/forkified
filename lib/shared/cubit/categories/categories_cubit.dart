@@ -33,7 +33,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   List<Widget> screens = [
     HomeScreen(),
-    const AddCollectionScreen(),
+    AddCollectionScreen(),
     const UserScreen(),
   ];
 
@@ -56,6 +56,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       categories = value.data["documents"]!
           .map((e) => CategoryModel.fromJson(e))
           .toList();
+      print(token);
       emit(GetCategoriesSuccess());
     }).catchError((error) {
       String errorMessage = "An error occurred";

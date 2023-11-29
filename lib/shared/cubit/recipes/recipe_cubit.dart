@@ -35,6 +35,30 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
     });
   }
 
+  List<dynamic> subcategoryRecipes = [];
+
+  void getSubCategoryRecipes({
+    required String id,
+  }) {
+    emit(GetCategoryRecipesLoading());
+    DioHelper.getData(
+      url: "${EndPoints.subcategories}/$id/${EndPoints.recipes}",
+      jwt: token,
+    ).then((value) {
+      categoryRecipes =
+          value.data["documents"].map((e) => RecipeModel.fromJson(e)).toList();
+      emit(GetCategoryRecipesSuccess());
+    }).catchError((error) {
+      String errorMessage = "An error occurred";
+      if (error is DioError && error.response != null) {
+        errorMessage = error.response!.data["message"];
+      } else if (error is String) {
+        errorMessage = error;
+      }
+      emit(GetCategoryRecipesError(errorMessage));
+    });
+  }
+
   RecipeModel? recipe;
 
   void getRecipe({
