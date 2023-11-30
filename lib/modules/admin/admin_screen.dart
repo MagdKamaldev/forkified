@@ -3,6 +3,7 @@ import 'package:forkified/main.dart';
 import 'package:forkified/modules/admin/category/add_category_screen.dart';
 import 'package:forkified/modules/admin/category/get_categorioes_for_update_screen.dart';
 import 'package:forkified/modules/admin/subCategory/add_sub_category.dart';
+import 'package:forkified/modules/admin/subCategory/get_all_subcategories_for_update.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 
@@ -84,7 +85,10 @@ class AdminScreen extends StatelessWidget {
                               style: theme.displaySmall,
                             )),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              navigateTo(
+                                  context, const AllSubCategoriesForUpdateScreen());
+                            },
                             child: Text("update / delete",
                                 style: theme.displaySmall)),
                       ],

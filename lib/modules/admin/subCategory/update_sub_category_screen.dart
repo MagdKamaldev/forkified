@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/categories.model.dart';
+import 'package:forkified/models/sub_category.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/categories/categories_cubit.dart';
 import 'package:forkified/shared/cubit/subcategory/subcategory_cubit.dart';
 
-class AddSubCategory extends StatefulWidget {
+class UpdateSubCategory extends StatefulWidget {
+  final SubCategory subCategory;
+  const UpdateSubCategory({super.key, required this.subCategory});
   @override
-  State<AddSubCategory> createState() => _AddSubCategoryState();
+  State<UpdateSubCategory> createState() => _UpdateSubCategoryState();
 }
 
-class _AddSubCategoryState extends State<AddSubCategory> {
+class _UpdateSubCategoryState extends State<UpdateSubCategory> {
   var formKey = GlobalKey<FormState>();
 
   var nameController = TextEditingController();
@@ -23,6 +26,8 @@ class _AddSubCategoryState extends State<AddSubCategory> {
   CategoryModel? selectedCategory;
   @override
   void initState() {
+    nameController.text = widget.subCategory.name.toString();
+    descriptionController.text = widget.subCategory.description.toString();
     for (CategoryModel categoryitem
         in CategoriesCubit.get(context).categories) {
       items!.add(DropdownMenuItem(
@@ -41,7 +46,8 @@ class _AddSubCategoryState extends State<AddSubCategory> {
 
     return BlocConsumer<SubcategoryCubit, SubcategoryState>(
       listener: (context, state) {
-        if (state is AddSubCategorySuccessState) {
+        if (state is UpdateSubCategorySuccessState ||
+            state is DeleteSubCategorySuccessState) {
           Navigator.pop(context);
         }
       },
@@ -52,6 +58,59 @@ class _AddSubCategoryState extends State<AddSubCategory> {
               "Add Sub Category",
               style: theme.displayLarge,
             ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Row(
+                                children: [
+                                  Text("Delete ",
+                                      style: theme.displayLarge!.copyWith(
+                                          color: isDark! ? cerulian : flame)),
+                                  SizedBox(
+                                    width: size.width * 0.05,
+                                  ),
+                                  Icon(
+                                    Icons.warning,
+                                    color: isDark! ? cerulian : flame,
+                                  )
+                                ],
+                              ),
+                              content: Text(
+                                "Are you sure you want to delete ${widget.subCategory.name} ?}",
+                                style: theme.bodyLarge!
+                                    .copyWith(color: prussianBlue),
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Cancel",
+                                        style: theme.displayMedium!.copyWith(
+                                            color:
+                                                isDark! ? cerulian : flame))),
+                                TextButton(
+                                    onPressed: () {
+                                      cubit.deleteSubCategory(
+                                          subcategoryId:
+                                              widget.subCategory.id!);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Delete",
+                                        style: theme.displayMedium!.copyWith(
+                                            color:
+                                                isDark! ? cerulian : flame))),
+                              ],
+                            ));
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    color: platinum,
+                  ))
+            ],
             toolbarHeight: size.height * 0.08,
           ),
           body: Form(
@@ -119,21 +178,22 @@ class _AddSubCategoryState extends State<AddSubCategory> {
           bottomNavigationBar: GestureDetector(
             onTap: () {
               if (formKey.currentState!.validate()) {
-                cubit.addSubCategory(
+                cubit.updateSubCategory(
                     name: nameController.text,
                     description: descriptionController.text,
-                    categoryId: selectedCategory!.id.toString());
+                    categoryId: selectedCategory!.id.toString(),
+                    subcategoryId: widget.subCategory.id.toString());
               }
             },
             child: Container(
               height: size.height * 0.1,
               color: isDark! ? cerulian : flame,
               child: Center(
-                  child: state is AddSubCategoryLoadingState
+                  child: state is UpdateSubCategoryLoadingState
                       ? CircularProgressIndicator(
                           color: platinum,
                         )
-                      : Text("Add", style: theme.displayLarge)),
+                      : Text("Update", style: theme.displayLarge)),
             ),
           ),
         );

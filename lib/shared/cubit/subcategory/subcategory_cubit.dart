@@ -78,4 +78,41 @@ class SubcategoryCubit extends Cubit<SubcategoryState> {
       emit(AddSubCategoryErrorState());
     });
   }
+
+  void updateSubCategory({
+    required String name,
+    required String description,
+    required String categoryId,
+    required String subcategoryId,
+  }) {
+    emit(UpdateSubCategoryLoadingState());
+    DioHelper.updateData(
+        url: "${EndPoints.subcategories}/$subcategoryId",
+        jwt: token ?? CacheHelper.getData(key: "token"),
+        data: {
+          "name": name,
+          "description": description,
+          "category": categoryId,
+        }).then((value) {
+      emit(UpdateSubCategorySuccessState());
+    }).catchError((error) {
+      emit(UpdateSubCategoryErrorState());
+    });
+  }
+
+   void deleteSubCategory({
+    required String subcategoryId,
+  }) {
+    emit(DeleteSubCategoryLoadingState());
+    DioHelper.deleteData(
+        url: "${EndPoints.subcategories}/$subcategoryId",
+        jwt: token ?? CacheHelper.getData(key: "token"),
+        data: {
+
+        }).then((value) {
+      emit(DeleteSubCategorySuccessState());
+    }).catchError((error) {
+      emit(DeleteSubCategoryErrorState());
+    });
+  }
 }
