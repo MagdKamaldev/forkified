@@ -20,8 +20,6 @@ class UpdateCategoryScreen extends StatefulWidget {
 }
 
 class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
-
-
   var formKey = GlobalKey<FormState>();
 
   var nameController = TextEditingController();
@@ -42,7 +40,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
     var cubit = CategoriesCubit.get(context);
     return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: (context, state) {
-        if (state is UpdateCategorySuccess) {
+        if (state is UpdateCategorySuccess || state is DeleteCategorySuccess) {
           Navigator.pop(context);
         }
       },
@@ -53,6 +51,58 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
               "Update Category",
               style: theme.displayLarge,
             ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Row(
+                                children: [
+                                  Text("Delete ",
+                                      style: theme.displayLarge!.copyWith(
+                                          color: isDark! ? cerulian : flame)),
+                                  SizedBox(
+                                    width: size.width * 0.05,
+                                  ),
+                                  Icon(
+                                    Icons.warning,
+                                    color: isDark! ? cerulian : flame,
+                                  )
+                                ],
+                              ),
+                              content: Text(
+                                "Are you sure you want to delete ${widget.category.name} ?}",
+                                style: theme.bodyLarge,
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Cancel",
+                                        style: theme.displayMedium!.copyWith(
+                                            color:
+                                                isDark! ? cerulian : flame))),
+                                TextButton(
+                                    onPressed: () {
+                                      cubit.deleteCategory(
+                                          id: widget.category.id!);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Delete",
+                                        style: theme.displayMedium!.copyWith(
+                                            color:
+                                                isDark! ? cerulian : flame))),
+                              ],
+                            ));
+                    // cubit.deleteCategory(id: widget.category.id!);
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    color: platinum,
+                  ))
+            ],
             toolbarHeight: size.height * 0.08,
           ),
           body: ConditionalBuilder(
@@ -113,7 +163,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        if (cubit.updateImage == null&& ! cubit.imageRemoved)
+                        if (cubit.updateImage == null && !cubit.imageRemoved)
                           Stack(children: [
                             Container(
                                 decoration: BoxDecoration(
@@ -155,7 +205,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                                     backgroundColor: isDark! ? cerulian : flame,
                                     child: IconButton(
                                       onPressed: () {
-                                        cubit.imageRemoved = true;
+                                        cubit.removenetworkImage();
                                       },
                                       icon: Icon(
                                         Icons.delete,

@@ -33,8 +33,9 @@ class AdminScreen extends StatelessWidget {
                       style: theme.displayLarge!
                           .copyWith(color: isDark! ? cerulian : flame),
                     ),
+                      SizedBox(height: size.height*0.03,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
                             onPressed: () {
@@ -48,16 +49,13 @@ class AdminScreen extends StatelessWidget {
                             onPressed: () {
                                 navigateTo(context,const  AllCategoriesUpdateScreen());
                             },
-                            child: Text("update", style: theme.displaySmall)),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text("delete", style: theme.displaySmall))
+                            child: Text("update /delete", style: theme.displaySmall)),
                       ],
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: size.height * 0.05,
+                  height: size.height * 0.1,
                 ),
                 Column(
                   children: [
@@ -66,8 +64,9 @@ class AdminScreen extends StatelessWidget {
                       style: theme.displayLarge!
                           .copyWith(color: isDark! ? cerulian : flame),
                     ),
+                      SizedBox(height: size.height*0.03,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
                             onPressed: () {},
@@ -77,16 +76,13 @@ class AdminScreen extends StatelessWidget {
                             )),
                         TextButton(
                             onPressed: () {},
-                            child: Text("update", style: theme.displaySmall)),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text("delete", style: theme.displaySmall))
+                            child: Text("update / delete", style: theme.displaySmall)),
                       ],
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: size.height * 0.05,
+                  height: size.height * 0.1,
                 ),
                 Column(
                   children: [
@@ -95,8 +91,9 @@ class AdminScreen extends StatelessWidget {
                       style: theme.displayLarge!
                           .copyWith(color: isDark! ? cerulian : flame),
                     ),
+                    SizedBox(height: size.height*0.03,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
                             onPressed: () {},
@@ -106,10 +103,7 @@ class AdminScreen extends StatelessWidget {
                             )),
                         TextButton(
                             onPressed: () {},
-                            child: Text("update", style: theme.displaySmall)),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text("delete", style: theme.displaySmall))
+                            child: Text("update /delete", style: theme.displaySmall)),
                       ],
                     ),
                   ],

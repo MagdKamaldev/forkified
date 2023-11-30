@@ -174,6 +174,11 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   bool imageRemoved = false;
 
+  void removenetworkImage() {
+    imageRemoved = true;
+    emit(RemoveNteworkImagestate());
+  }
+
   String? filename;
   FormData? formData;
   void updateCategory({
@@ -214,14 +219,35 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       getCategories();
       removeUpdateImage();
       emit(UpdateCategorySuccess());
-    }); //.catchError((error) {
-    //   String errorMessage = "An error occurred";
-    //   if (error is DioError && error.response != null) {
-    //     errorMessage = error.response!.data["message"];
-    //   } else if (error is String) {
-    //     errorMessage = error;
-    //   }
-    //   emit(UpdateCategoryError(errorMessage));
-    // });
+    }).catchError((error) {
+      String errorMessage = "An error occurred";
+      if (error is DioError && error.response != null) {
+        errorMessage = error.response!.data["message"];
+      } else if (error is String) {
+        errorMessage = error;
+      }
+      emit(UpdateCategoryError(errorMessage));
+    });
+  }
+
+  void deleteCategory({
+    required String id,
+  }) {
+    emit(DeleteCategoryLoading());
+    DioHelper.deleteData(
+      url: "${EndPoints.categories}/$id",
+      jwt: token, data: {},
+    ).then((value) {
+      getCategories();
+      emit(DeleteCategorySuccess());
+    }).catchError((error) {
+      String errorMessage = "An error occurred";
+      if (error is DioError && error.response != null) {
+        errorMessage = error.response!.data["message"];
+      } else if (error is String) {
+        errorMessage = error;
+      }
+      emit(DeleteCategoryError(errorMessage));
+    });
   }
 }
