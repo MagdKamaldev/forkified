@@ -16,6 +16,27 @@ class SignupCubit extends Cubit<SignupState> {
   SignupCubit() : super(SignupInitial());
   static SignupCubit get(context) => BlocProvider.of(context);
 
+  IconData passsuffix = Icons.visibility_outlined;
+  bool passisPassword = true;
+
+  void changePassword() {
+    passisPassword = !passisPassword;
+    passsuffix =
+        passisPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    emit(ChangePasswordVisibilityState());
+  }
+
+  IconData confirmsuffix = Icons.visibility_outlined;
+  bool confirmisPassword = true;
+
+  void changeconfirmPassword() {
+    confirmisPassword = !confirmisPassword;
+    confirmsuffix =
+        confirmisPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    emit(ChangePasswordVisibilityState());
+  }
+  
+
   void userSignUp({
     required String email,
     required String password,
@@ -44,6 +65,7 @@ class SignupCubit extends Cubit<SignupState> {
       } else if (error is String) {
         errorMessage = error;
       }
+      Navigator.pop(context);
       showCustomSnackBar(context, errorMessage, Colors.red);
       emit(SignupError(errorMessage));
     });

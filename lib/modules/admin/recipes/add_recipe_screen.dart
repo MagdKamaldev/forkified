@@ -29,6 +29,10 @@ class _AddRecipeState extends State<AddRecipe> {
 
   var caloriesController = TextEditingController();
 
+  bool isvegeterian = false;
+
+  bool isDiet = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -113,6 +117,46 @@ class _AddRecipeState extends State<AddRecipe> {
                         label: "Recipe Preptime (munites)",
                         prefix: Icons.description,
                         context: context),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Vegeterian",
+                          style: theme.displayLarge!
+                              .copyWith(color: isDark! ? cerulian : flame),
+                        ),
+                        Switch(
+                            value: isvegeterian,
+                            onChanged: (value) {
+                              setState(() {
+                                isvegeterian = value;
+                              });
+                            }),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Diet",
+                          style: theme.displayLarge!
+                              .copyWith(color: isDark! ? cerulian : flame),
+                        ),
+                        Switch(
+                            value: isDiet,
+                            onChanged: (value) {
+                              setState(() {
+                                isDiet = value;
+                              });
+                            }),
+                      ],
+                    ),
                     SizedBox(
                       height: size.height * 0.03,
                     ),
@@ -216,15 +260,17 @@ class _AddRecipeState extends State<AddRecipe> {
         ),
         bottomNavigationBar: GestureDetector(
           onTap: () {
-            if (formKey.currentState!.validate()&&cubit.pickedFile!=null) {
+            if (formKey.currentState!.validate() && cubit.pickedFile != null) {
               cubit.addRecipe(
-                ingredients: ingredients,
+                  ingredients: ingredients,
                   name: nameController.text,
-                  prepTime:int.parse(prepTimeController.text),
+                  prepTime: int.parse(prepTimeController.text),
                   calories: int.parse(caloriesController.text),
                   description: descriptionController.text,
                   category: widget.categoryId,
-                  subcategory: widget.subCategoryId);
+                  subcategory: widget.subCategoryId,
+                  vegeterien: isvegeterian,
+                  isdiet: isDiet);
             }
           },
           child: Container(

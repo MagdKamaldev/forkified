@@ -3,12 +3,14 @@ class RecipeModel {
   String? name;
   String? description;
   String? image;
-  List<dynamic>? ingredients;
+  List<String>? ingredients; 
   int? prepTime;
   int? calories;
+  bool? vegetarian; 
   String? category;
   String? subcategory;
   int? v;
+  String? diet;
 
   RecipeModel({
     this.id,
@@ -18,9 +20,11 @@ class RecipeModel {
     this.ingredients,
     this.prepTime,
     this.calories,
+    this.vegetarian,
     this.category,
     this.subcategory,
     this.v,
+    this.diet,
   });
 
   factory RecipeModel.fromJson(Map<String, dynamic> json) {
@@ -29,12 +33,16 @@ class RecipeModel {
       name: json['name'] as String?,
       description: json['description'] as String?,
       image: json['image'] as String?,
-      ingredients: json['ingredients'] as List<dynamic>?,
+      ingredients: (json['ingredients'] as List<dynamic>?)
+          ?.map((ingredient) => ingredient as String)
+          .toList(),
       prepTime: json['prep_time'] as int?,
       calories: json['calories'] as int?,
+      vegetarian: json['vegetarian'] as bool?, // Parse boolean
       category: json['category'] as String?,
       subcategory: json['subcategory'] as String?,
       v: json['__v'] as int?,
+      diet: json['diet'] as String?, // Added diet field
     );
   }
 
@@ -46,8 +54,10 @@ class RecipeModel {
         'ingredients': ingredients,
         'prep_time': prepTime,
         'calories': calories,
+        'vegetarian': vegetarian,
         'category': category,
         'subcategory': subcategory,
         '__v': v,
+        'diet': diet,
       };
 }

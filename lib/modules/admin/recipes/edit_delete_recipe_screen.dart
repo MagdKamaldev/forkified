@@ -35,6 +35,10 @@ class _EditDeleteRecipeState extends State<EditDeleteRecipe> {
 
   var descriptionController = TextEditingController();
 
+  bool isVegeterian = false;
+
+  bool isDiet = false;
+
   List<dynamic> ingredients = [];
 
   @override
@@ -44,6 +48,8 @@ class _EditDeleteRecipeState extends State<EditDeleteRecipe> {
     prepTimeController.text = widget.recipe.prepTime.toString();
     caolriesController.text = widget.recipe.calories.toString();
     ingredients = widget.recipe.ingredients!;
+    isDiet = widget.recipe.diet == "yes"? true : false;
+    isVegeterian = widget.recipe.vegetarian!;
     super.initState();
   }
 
@@ -196,6 +202,46 @@ class _EditDeleteRecipeState extends State<EditDeleteRecipe> {
                             label: "Recipe prep time (munnites)",
                             prefix: Icons.description,
                             context: context),
+                             SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Vegeterian",
+                          style: theme.displayLarge!
+                              .copyWith(color: isDark! ? cerulian : flame),
+                        ),
+                        Switch(
+                            value: isVegeterian,
+                            onChanged: (value) {
+                              setState(() {
+                                isVegeterian = value;
+                              });
+                            }),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Diet",
+                          style: theme.displayLarge!
+                              .copyWith(color: isDark! ? cerulian : flame),
+                        ),
+                        Switch(
+                            value: isDiet,
+                            onChanged: (value) {
+                              setState(() {
+                                isDiet = value;
+                              });
+                            }),
+                      ],
+                    ),
                         SizedBox(
                           height: size.height * 0.06,
                         ),
@@ -365,7 +411,9 @@ class _EditDeleteRecipeState extends State<EditDeleteRecipe> {
                     description: descriptionController.text,
                     prepTime: int.parse(prepTimeController.text),
                     calories: int.parse(caolriesController.text),
-                    ingredients: ingredients);
+                    ingredients: ingredients,
+                    isDiet: isDiet,
+                    isvegan: isVegeterian);
               }
             },
             child: Container(

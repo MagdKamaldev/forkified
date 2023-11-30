@@ -109,15 +109,16 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
     emit(RemoveRecipeImageState());
   }
 
-  void addRecipe({
-    required String name,
-    required String description,
-    required List<dynamic> ingredients,
-    required int prepTime,
-    required int calories,
-    required String category,
-    required String subcategory,
-  }) async {
+  void addRecipe(
+      {required String name,
+      required String description,
+      required List<dynamic> ingredients,
+      required int prepTime,
+      required int calories,
+      required String category,
+      required String subcategory,
+      required bool vegeterien,
+      required bool isdiet}) async {
     emit(AddRecipeLoadingState());
 
     String filename = pickedFile.path.split('/').last;
@@ -134,6 +135,8 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
       "calories": calories,
       "category": category,
       "subcategory": subcategory,
+      "vegetarian": vegeterien,
+      "diet": isdiet ? "yes" : "no",
     });
     DioHelper.postData(
       url: EndPoints.recipes,
@@ -190,6 +193,8 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
     required int prepTime,
     required int calories,
     required List<dynamic> ingredients,
+    required bool isvegan,
+    required bool isDiet,
   }) async {
     emit(UpdateRecipeLoadingState());
     if (updateImage != null) {
@@ -205,12 +210,14 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
         "prep_time": prepTime,
         "calories": calories,
         "ingredients": ingredients,
+        "vegetarian": isvegan,
+        "diet": isDiet ? "yes" : "no",
       });
     }
 
     DioHelper.updateData(
       url: "${EndPoints.recipes}/$id",
-      jwt: token ??CacheHelper.getData(key: "token"),
+      jwt: token ?? CacheHelper.getData(key: "token"),
       data: updateImage != null
           ? formData
           : imageRemoved
@@ -220,6 +227,8 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
                   "prep_time": prepTime,
                   "calories": calories,
                   "ingredients": ingredients,
+                  "vegetarian": isvegan,
+                  "diet": isDiet ? "yes" : "no",
                   "image": "",
                 }
               : {
@@ -228,6 +237,8 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
                   "prep_time": prepTime,
                   "calories": calories,
                   "ingredients": ingredients,
+                  "vegetarian": isvegan,
+                  "diet": isDiet ? "yes" : "no",
                 },
     ).then((value) {
       removeUpdateImage();

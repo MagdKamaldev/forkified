@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/recipe_model.dart';
+import 'package:forkified/modules/categories/recipe_details_screen.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/cubit/main/main_cubit.dart';
+import '../../../shared/components.dart';
 import '../../../shared/networks/remote/dio_helper.dart';
 
 class AllRecipesScreen extends StatefulWidget {
@@ -30,57 +32,58 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                "All Recipes",
-                style: theme.displayLarge,
-              ),
-              toolbarHeight: size.height * 0.08,
+          appBar: AppBar(
+            title: Text(
+              "All Recipes",
+              style: theme.displayLarge,
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(children: [
-                  ConditionalBuilder(
-                    condition: cubit.allRecipes!.isNotEmpty,
-                    fallback: (context) => GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: size.width * 0.12,
-                      mainAxisSpacing: size.height * 0.05,
-                      childAspectRatio: 1.6 / 1,
-                      children: List.generate(
-                        16,
-                        (index) => Container(
-                          height: size.height * 0.02,
-                          decoration: BoxDecoration(
-                            color: isDark! ? nonPhotoBlue : flame.shade100,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+            toolbarHeight: size.height * 0.08,
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(children: [
+                ConditionalBuilder(
+                  condition: cubit.allRecipes!.isNotEmpty,
+                  fallback: (context) => GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: size.width * 0.12,
+                    mainAxisSpacing: size.height * 0.05,
+                    childAspectRatio: 1.6 / 1,
+                    children: List.generate(
+                      16,
+                      (index) => Container(
+                        height: size.height * 0.02,
+                        decoration: BoxDecoration(
+                          color: isDark! ? nonPhotoBlue : flame.shade100,
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
-                    builder: (context) => GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: size.width * 0.14,
-                      mainAxisSpacing: size.height * 0.02,
-                      childAspectRatio: 1 / 1,
-                      children: List.generate(
-                        cubit.allRecipes!.length,
-                        (index) => buildRecipe(cubit.allRecipes![index],
-                            context, index, size, theme),
-                      ),
+                  ),
+                  builder: (context) => GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: size.width * 0.14,
+                    mainAxisSpacing: size.height * 0.02,
+                    childAspectRatio: 1 / 1,
+                    children: List.generate(
+                      cubit.allRecipes!.length,
+                      (index) => buildRecipe(cubit.allRecipes![index], context,
+                          index, size, theme),
                     ),
                   ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  )
-                ]),
-              ),
-            ),);
+                ),
+                SizedBox(
+                  height: size.height * 0.02,
+                )
+              ]),
+            ),
+          ),
+        );
       },
     );
   }
@@ -89,11 +92,11 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
           RecipeModel model, context, index, Size size, TextTheme theme) =>
       GestureDetector(
         onTap: () {
-          // navigateTo(
-          //     context,
-          //     CategoryDetails(
-          //       id: model.id,
-          //     ));
+          navigateTo(
+              context,
+              RecipeDetails(
+                id: model.id!,
+              ));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

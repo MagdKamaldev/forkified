@@ -55,7 +55,7 @@ class _UpdateSubCategoryState extends State<UpdateSubCategory> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              "Add Sub Category",
+              "Update ${widget.subCategory.name}",
               style: theme.displayLarge,
             ),
             actions: [

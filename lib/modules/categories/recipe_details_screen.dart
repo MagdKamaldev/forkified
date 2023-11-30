@@ -114,66 +114,129 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     SizedBox(
                       height: size.height * 0.03,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: isDark! ? cerulian : flame,
-                          width: 1,
+                    if (cubit.recipe!.prepTime != null)
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: isDark! ? cerulian : flame,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        borderRadius: BorderRadius.circular(12),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Preparation time",
+                                style: theme.displayMedium!.copyWith(
+                                    color: isDark! ? platinum : prussianBlue),
+                              ),
+                              const Spacer(),
+                              Text(
+                                cubit.recipe!.prepTime.toString(),
+                                style: theme.displayMedium!.copyWith(
+                                    color: isDark! ? platinum : prussianBlue),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
+                    if (cubit.recipe!.prepTime != null)
+                      SizedBox(
+                        height: size.height * 0.03,
+                      ),
+                    if (cubit.recipe!.calories != null)
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: isDark! ? cerulian : flame,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Calories",
+                                style: theme.displayMedium!.copyWith(
+                                    color: isDark! ? platinum : prussianBlue),
+                              ),
+                              const Spacer(),
+                              Text(
+                                cubit.recipe!.calories.toString(),
+                                style: theme.displayMedium!.copyWith(
+                                    color: isDark! ? platinum : prussianBlue),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    if (cubit.recipe!.calories != null)
+                      SizedBox(
+                        height: size.height * 0.03,
+                      ),
+                    if (cubit.recipe!.diet != null)
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: isDark! ? cerulian : flame,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Diet",
+                                style: theme.displayMedium!.copyWith(
+                                    color: isDark! ? platinum : prussianBlue),
+                              ),
+                              const Spacer(),
+                              Text(
+                                cubit.recipe!.diet!,
+                                style: theme.displayMedium!.copyWith(
+                                    color: isDark! ? platinum : prussianBlue),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    if (cubit.recipe!.diet != null)
+                      SizedBox(
+                        height: size.height * 0.03,
+                      ),
+                    if (cubit.recipe!.vegetarian != null &&
+                        cubit.recipe!.vegetarian == true)
+                      SizedBox(
+                        height: size.height * 0.05,
+                        width: size.width * 0.9,
                         child: Row(
                           children: [
                             Text(
-                              "Preparation time",
+                              "Plant Based",
                               style: theme.displayMedium!.copyWith(
                                   color: isDark! ? platinum : prussianBlue),
+                            ),
+                            SizedBox(width: size.width*0.03,),
+                            Icon(
+                              Icons.check_circle,
+                              color: isDark! ? cerulian : flame,
                             ),
                             const Spacer(),
-                            Text(
-                              cubit.recipe!.prepTime.toString(),
-                              style: theme.displayMedium!.copyWith(
-                                  color: isDark! ? platinum : prussianBlue),
-                            ),
+                            Image.asset("assets/images/plant-based.png"),
                           ],
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: isDark! ? cerulian : flame,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
+                    if (cubit.recipe!.vegetarian != null &&
+                        cubit.recipe!.vegetarian == true)
+                      SizedBox(
+                        height: size.height * 0.03,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Calories",
-                              style: theme.displayMedium!.copyWith(
-                                  color: isDark! ? platinum : prussianBlue),
-                            ),
-                            const Spacer(),
-                            Text(
-                              cubit.recipe!.calories.toString(),
-                              style: theme.displayMedium!.copyWith(
-                                  color: isDark! ? platinum : prussianBlue),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
                     defaultItemBuilder(
                       context: context,
                       child: SingleChildScrollView(

@@ -21,7 +21,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme theme = Theme.of(context).textTheme;
-
+    var cubit = SignupCubit.get(context);
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupLoading ||
@@ -121,7 +121,11 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     defaultFormField(
                       prefix: Icons.password,
-                      suffix: Icons.visibility_off,
+                      suffix: cubit.passsuffix,
+                      isPassword: cubit.passisPassword,
+                      suffixPressed: () {
+                        cubit.changePassword();
+                      },
                       controller: passwordController,
                       type: TextInputType.visiblePassword,
                       onSubmit: () {},
@@ -138,7 +142,11 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     defaultFormField(
                       prefix: Icons.lock,
-                      suffix: Icons.visibility_off,
+                      suffix: cubit.confirmsuffix,
+                      isPassword: cubit.confirmisPassword,
+                      suffixPressed: () {
+                        cubit.changeconfirmPassword();
+                      },
                       controller: confirmPasswordController,
                       type: TextInputType.visiblePassword,
                       onSubmit: () {},

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/categories.model.dart';
+import 'package:forkified/modules/admin/category/add_category_screen.dart';
 import 'package:forkified/modules/admin/category/update_category_screen.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/cubit/main/main_cubit.dart';
@@ -83,7 +84,16 @@ class _AllCategoriesScreenState extends State<AllCategoriesUpdateScreen> {
                 ]),
               ),
             ),
-          );
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                navigateTo(context, AddCategory());
+              },
+              backgroundColor: isDark! ? cerulian : flame,
+              child: Icon(
+                Icons.add,
+                color: platinum,
+              ),
+            ));
       },
     );
   }
@@ -95,7 +105,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesUpdateScreen> {
           navigateTo(
               context,
               UpdateCategoryScreen(
-               category: model,
+                category: model,
               ));
         },
         child: Column(

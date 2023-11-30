@@ -77,7 +77,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                   defaultFormField(
                       prefix: Icons.password,
-                      suffix: Icons.visibility_off,
+                      suffix: LoginCubit.get(context).suffix,
+                      isPassword: LoginCubit.get(context).isPassword,
                       controller: passwordController,
                       type: TextInputType.visiblePassword,
                       onSubmit: () {},
@@ -85,6 +86,9 @@ class LoginScreen extends StatelessWidget {
                         if (value.isEmpty) {
                           return "field required";
                         }
+                      },
+                      suffixPressed: () {
+                        LoginCubit.get(context).changePassword();
                       },
                       label: "password",
                       context: context),

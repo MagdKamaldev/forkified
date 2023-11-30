@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/sub_category.dart';
+import 'package:forkified/modules/admin/subCategory/add_sub_category.dart';
 import 'package:forkified/modules/admin/subCategory/update_sub_category_screen.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
@@ -77,6 +78,13 @@ class _AllSubCategoriesForUpdateScreenState
                 ),
               ),
             ),
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: isDark! ? cerulian : flame,
+              onPressed: () {
+                navigateTo(context, AddSubCategory());
+              },
+              child: Icon(Icons.add,color: platinum,),
+            )
           ),
           fallback: (context) => Scaffold(
             body: Center(
