@@ -35,3 +35,14 @@ class AddCategoryError extends CategoriesState {
 class CategoryImagePickedFromGallerySuccessState extends CategoriesState {}
 
 class CategoryImagePickedFromGalleryErrorState extends CategoriesState {}
+
+class RemoveCategoryImageState extends CategoriesState {}
+
+class UpdateCategoryLoading extends CategoriesState {}
+
+class UpdateCategorySuccess extends CategoriesState {}
+
+class UpdateCategoryError extends CategoriesState {
+  final String error;
+  UpdateCategoryError(this.error);
+}

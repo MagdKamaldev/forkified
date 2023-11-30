@@ -72,7 +72,7 @@ class DioHelper {
   static Future<Response> updateData({
     required String url,
     Map<String, dynamic>? query,
-    required Map<String, dynamic> data,
+    required dynamic data,
     String? jwt,
   }) async {
     dio!.options.headers = {

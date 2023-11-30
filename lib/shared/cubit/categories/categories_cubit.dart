@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unused_local_variable
+// ignore_for_file: deprecated_member_use, unused_local_variable, prefer_typing_uninitialized_variables
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,6 @@ import 'package:forkified/modules/home/add_collection_screen.dart';
 import 'package:forkified/modules/home/home_screen.dart';
 import 'package:forkified/modules/home/user_screen.dart';
 import 'package:forkified/shared/components.dart';
-import 'package:forkified/shared/networks/local/cache_helper.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
 import 'package:http_parser/http_parser.dart';
@@ -61,7 +60,6 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       categories = value.data["documents"]!
           .map((e) => CategoryModel.fromJson(e))
           .toList();
-      print(token);
       emit(GetCategoriesSuccess());
     }).catchError((error) {
       String errorMessage = "An error occurred";
@@ -76,7 +74,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   CategoryModel? category;
 
-  void getCategory({
+  Future getCategory({
     required String id,
   }) {
     emit(GetCategoryLoading());
@@ -86,15 +84,16 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     ).then((value) {
       category = CategoryModel.fromJson(value.data["document"]);
       emit(GetCategorySuccess());
-    }); //.catchError((error) {
-    //   String errorMessage = "An error occurred";
-    //   if (error is DioError && error.response != null) {
-    //     errorMessage = error.response!.data["message"];
-    //   } else if (error is String) {
-    //     errorMessage = error;
-    //   }
-    //   emit(GetCategoryError(errorMessage));
-    // });
+    }).catchError((error) {
+      String errorMessage = "An error occurred";
+      if (error is DioError && error.response != null) {
+        errorMessage = error.response!.data["message"];
+      } else if (error is String) {
+        errorMessage = error;
+      }
+      emit(GetCategoryError(errorMessage));
+    });
+    return Future.value(category);
   }
 
   File? categoryImage;
@@ -105,7 +104,6 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       categoryImage = File(pickedFile.path);
-      Navigator.pop(context);
       emit(CategoryImagePickedFromGallerySuccessState());
     } else {
       showCustomSnackBar(context, "no image selected", Colors.red);
@@ -113,7 +111,12 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     }
   }
 
-  
+  void removeCategoryImage() {
+    pickedFile = null;
+    categoryImage = null;
+    emit(RemoveCategoryImageState());
+  }
+
   void addCategory({
     required String name,
     required String description,
@@ -122,9 +125,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     String filename = pickedFile.path.split('/').last;
     FormData formData = FormData.fromMap({
       "image": await MultipartFile.fromFile(
-      pickedFile.path,
-      filename: filename,
-      contentType: MediaType('image', 'jpg'),
+        pickedFile.path,
+        filename: filename,
+        contentType: MediaType('image', 'jpg'),
       ),
       "name": name,
       "description": description,
@@ -135,6 +138,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       data: formData,
     ).then((value) {
       getCategories();
+      removeCategoryImage();
       emit(AddCategorySuccess());
     }).catchError((error) {
       String errorMessage = "An error occurred";
@@ -145,5 +149,79 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       }
       emit(AddCategoryError(errorMessage));
     });
+  }
+
+  File? updateImage;
+  var updatepickedFile;
+  var updatepicker = ImagePicker();
+
+  Future<void> getUpdateImagefromGallery(context) async {
+    updatepickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (updatepickedFile != null) {
+      updateImage = File(updatepickedFile.path);
+      emit(CategoryImagePickedFromGallerySuccessState());
+    } else {
+      showCustomSnackBar(context, "no image selected", Colors.red);
+      emit(CategoryImagePickedFromGalleryErrorState());
+    }
+  }
+
+  void removeUpdateImage() {
+    updatepickedFile = null;
+    updateImage = null;
+    emit(RemoveCategoryImageState());
+  }
+
+  bool imageRemoved = false;
+
+  String? filename;
+  FormData? formData;
+  void updateCategory({
+    required String id,
+    required String name,
+    required String description,
+  }) async {
+    emit(UpdateCategoryLoading());
+    if (updateImage != null) {
+      filename = updatepickedFile!.path.split('/').last;
+      formData = FormData.fromMap({
+        "image": await MultipartFile.fromFile(
+          updatepickedFile.path,
+          filename: filename,
+          contentType: MediaType('image', 'jpg'),
+        ),
+        "name": name,
+        "description": description,
+      });
+    }
+
+    DioHelper.updateData(
+      url: "${EndPoints.categories}/$id",
+      jwt: token,
+      data: updateImage != null
+          ? formData
+          : imageRemoved
+              ? {
+                  "name": name,
+                  "description": description,
+                  "image": "",
+                }
+              : {
+                  "name": name,
+                  "description": description,
+                },
+    ).then((value) {
+      getCategories();
+      removeUpdateImage();
+      emit(UpdateCategorySuccess());
+    }); //.catchError((error) {
+    //   String errorMessage = "An error occurred";
+    //   if (error is DioError && error.response != null) {
+    //     errorMessage = error.response!.data["message"];
+    //   } else if (error is String) {
+    //     errorMessage = error;
+    //   }
+    //   emit(UpdateCategoryError(errorMessage));
+    // });
   }
 }

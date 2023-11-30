@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/modules/admin/category/add_category_screen.dart';
+import 'package:forkified/modules/admin/category/get_categorioes_for_update_screen.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 
@@ -44,7 +45,9 @@ class AdminScreen extends StatelessWidget {
                               style: theme.displaySmall,
                             )),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                                navigateTo(context,const  AllCategoriesUpdateScreen());
+                            },
                             child: Text("update", style: theme.displaySmall)),
                         TextButton(
                             onPressed: () {},
