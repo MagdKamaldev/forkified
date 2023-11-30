@@ -21,3 +21,38 @@ class GetRecipeError extends RecipeCubitState {
   final String error;
   GetRecipeError(this.error);
 }
+
+class AddRecipeLoadingState extends RecipeCubitState {}
+
+class AddRecipeSuccessState extends RecipeCubitState {}
+
+class AddRecipeErrorState extends RecipeCubitState {
+  final String error;
+  AddRecipeErrorState(this.error);
+}
+
+class RecipeImagePickedFromGallerySuccessState extends RecipeCubitState{}
+
+class RecipeImagePickedFromGalleryErrorState extends RecipeCubitState{}
+
+class RemoveRecipeImageState extends RecipeCubitState{}
+
+class UpdateRecipeLoadingState extends RecipeCubitState{}
+
+class UpdateRecipeSuccessState extends RecipeCubitState{}
+
+class UpdateRecipeErrorState extends RecipeCubitState{
+  final String error;
+  UpdateRecipeErrorState(this.error);
+}
+
+class DeleteRecipeLoadingState extends RecipeCubitState{}
+
+class DeleteRecipeSuccessState extends RecipeCubitState{}
+
+class DeleteRecipeErrorState extends RecipeCubitState{
+  final String error;
+  DeleteRecipeErrorState(this.error);
+}
+
+class RemoveNetworkImageState extends RecipeCubitState{}
