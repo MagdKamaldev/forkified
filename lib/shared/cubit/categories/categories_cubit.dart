@@ -15,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../main.dart';
 part 'categories_state.dart';
 
+
 class CategoriesCubit extends Cubit<CategoriesState> {
   CategoriesCubit() : super(CategoriesInitial()) {
     getCategories();

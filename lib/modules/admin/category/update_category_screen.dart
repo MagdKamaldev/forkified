@@ -42,6 +42,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
       listener: (context, state) {
         if (state is UpdateCategorySuccess || state is DeleteCategorySuccess) {
           Navigator.pop(context);
+
         }
       },
       builder: (context, state) {
@@ -73,7 +74,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                               ),
                               content: Text(
                                 "Are you sure you want to delete ${widget.category.name} ?}",
-                                style: theme.bodyLarge,
+                                style: theme.bodyLarge!.copyWith(color: prussianBlue),
                               ),
                               actions: [
                                 TextButton(

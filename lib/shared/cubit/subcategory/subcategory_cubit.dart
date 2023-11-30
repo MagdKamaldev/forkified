@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/sub_category.dart';
+import 'package:forkified/shared/networks/local/cache_helper.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
 part 'subcategory_state.dart';
@@ -55,6 +56,26 @@ class SubcategoryCubit extends Cubit<SubcategoryState> {
         errorMessage = error;
       }
       emit(GetSubCategoryError(errorMessage));
+    });
+  }
+
+  void addSubCategory({
+    required String name,
+    required String description,
+    required String categoryId,
+  }) {
+    emit(AddSubCategoryLoadingState());
+    DioHelper.postData(
+        url: EndPoints.subcategories,
+        jwt: token ?? CacheHelper.getData(key: "token"),
+        data: {
+          "name": name,
+          "description": description,
+          "category": categoryId,
+        }).then((value) {
+      emit(AddSubCategorySuccessState());
+    }).catchError((error) {
+      emit(AddSubCategoryErrorState());
     });
   }
 }

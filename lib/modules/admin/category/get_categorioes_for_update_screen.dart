@@ -34,7 +34,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesUpdateScreen> {
         return Scaffold(
             appBar: AppBar(
               title: Text(
-                "Choose a Catefory to Update",
+                "Choose a Category",
                 style: theme.displayLarge,
               ),
               toolbarHeight: size.height * 0.08,

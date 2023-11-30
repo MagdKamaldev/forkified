@@ -23,3 +23,9 @@ class GetSubCategoryError extends SubcategoryState {
 
   GetSubCategoryError(this.errorMessage);
 }
+
+class AddSubCategoryLoadingState extends SubcategoryState{}
+
+class AddSubCategorySuccessState extends SubcategoryState{}
+
+class AddSubCategoryErrorState extends SubcategoryState{}

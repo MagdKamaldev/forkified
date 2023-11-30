@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/modules/admin/category/add_category_screen.dart';
 import 'package:forkified/modules/admin/category/get_categorioes_for_update_screen.dart';
+import 'package:forkified/modules/admin/subCategory/add_sub_category.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 
@@ -33,7 +34,9 @@ class AdminScreen extends StatelessWidget {
                       style: theme.displayLarge!
                           .copyWith(color: isDark! ? cerulian : flame),
                     ),
-                      SizedBox(height: size.height*0.03,),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -47,9 +50,11 @@ class AdminScreen extends StatelessWidget {
                             )),
                         TextButton(
                             onPressed: () {
-                                navigateTo(context,const  AllCategoriesUpdateScreen());
+                              navigateTo(
+                                  context, const AllCategoriesUpdateScreen());
                             },
-                            child: Text("update /delete", style: theme.displaySmall)),
+                            child: Text("update /delete",
+                                style: theme.displaySmall)),
                       ],
                     ),
                   ],
@@ -64,19 +69,24 @@ class AdminScreen extends StatelessWidget {
                       style: theme.displayLarge!
                           .copyWith(color: isDark! ? cerulian : flame),
                     ),
-                      SizedBox(height: size.height*0.03,),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              navigateTo(context, AddSubCategory());
+                            },
                             child: Text(
                               "add",
                               style: theme.displaySmall,
                             )),
                         TextButton(
                             onPressed: () {},
-                            child: Text("update / delete", style: theme.displaySmall)),
+                            child: Text("update / delete",
+                                style: theme.displaySmall)),
                       ],
                     ),
                   ],
@@ -91,7 +101,9 @@ class AdminScreen extends StatelessWidget {
                       style: theme.displayLarge!
                           .copyWith(color: isDark! ? cerulian : flame),
                     ),
-                    SizedBox(height: size.height*0.03,),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -103,7 +115,8 @@ class AdminScreen extends StatelessWidget {
                             )),
                         TextButton(
                             onPressed: () {},
-                            child: Text("update /delete", style: theme.displaySmall)),
+                            child: Text("update /delete",
+                                style: theme.displaySmall)),
                       ],
                     ),
                   ],
