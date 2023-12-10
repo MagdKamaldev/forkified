@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/recipe_model.dart';
+import 'package:forkified/modules/categories/recipe_details_screen.dart';
 import 'package:forkified/modules/home/user/collections/add_recipe/from_all_recipes/all_recipes_screen_for_adding.dart';
 import 'package:forkified/modules/home/user/collections/add_recipe/from_category/add_recipe_from_category.dart';
+import 'package:forkified/modules/home/user/collections/add_recipe/from_sub/all_sub_categories_for_adding.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/collections/collections_cubit.dart';
+import 'package:forkified/shared/cubit/user/user_cubit.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../shared/colors.dart';
 import '../../../../shared/networks/remote/dio_helper.dart';
@@ -118,7 +121,13 @@ class _CollectionDetailsState extends State<CollectionDetails> {
                                           color: isDark! ? cerulian : flame))),
                               TextButton(
                                   onPressed: () {
-                                    Navigator.pop(context);
+                                    navigateTo(
+                                        context,
+                                        AllSubCategoriesScreenForAdding(
+                                            collectionId:
+                                                CollectionsCubit.get(context)
+                                                    .collection!
+                                                    .id!));
                                   },
                                   child: Text("Subcategory",
                                       style: theme.displaySmall!.copyWith(
@@ -153,11 +162,38 @@ class _CollectionDetailsState extends State<CollectionDetails> {
           RecipeModel model, context, index, Size size, TextTheme theme) =>
       GestureDetector(
         onTap: () {
-          // navigateTo(
-          //     context,
-          //     CategoryDetails(
-          //       id: model.id,
-          //     ));
+          navigateTo(context, RecipeDetails(id: model.id!));
+        },
+        onLongPress: () {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text(
+                      "Are you sure you want to remove this recipe from the collection ?",
+                      style: theme.displayLarge!
+                          .copyWith(color: isDark! ? cerulian : flame),
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              UserCubit.get(context).deleteRecipeFromCollection(
+                                  recipeId: model.id!,
+                                  collectionId: widget.id,
+                                  context: context);
+                            });
+                          },
+                          child: Text(
+                            "Yes",
+                            style: theme.displayMedium,
+                          )),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("No", style: theme.displayMedium)),
+                    ],
+                  ));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

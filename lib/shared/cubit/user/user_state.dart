@@ -21,3 +21,12 @@ class  AddRecipeToCollectionError extends UserState {
   final String errorMessage;
   AddRecipeToCollectionError(this.errorMessage);
 }
+
+class DeleteRecipeFromCollectionLoading extends UserState {}
+
+class  DeleteRecipeFromCollectionSuccess extends UserState {}
+
+class  DeleteRecipeFromCollectionError extends UserState {
+  final String errorMessage;
+  DeleteRecipeFromCollectionError(this.errorMessage);
+}

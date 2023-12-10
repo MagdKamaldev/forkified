@@ -4,24 +4,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/recipe_model.dart';
 import 'package:forkified/shared/colors.dart';
-import 'package:forkified/shared/cubit/main/main_cubit.dart';
+import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
 import 'package:forkified/shared/cubit/user/user_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
 import 'package:lottie/lottie.dart';
 
-class AllRecipesScreenForAdding extends StatefulWidget {
+class SubCategoryRecipesScreenForAdding extends StatefulWidget {
+  final String id;
   final String collectionId;
-  const AllRecipesScreenForAdding({super.key, required this.collectionId});
+  const SubCategoryRecipesScreenForAdding(
+      {super.key, required this.id, required this.collectionId});
 
   @override
-  State<AllRecipesScreenForAdding> createState() =>
-      _AllRecipesScreenForAddingState();
+  State<SubCategoryRecipesScreenForAdding> createState() =>
+      _CategoryRecipesScreenForAddingState();
 }
 
-class _AllRecipesScreenForAddingState extends State<AllRecipesScreenForAdding> {
+class _CategoryRecipesScreenForAddingState
+    extends State<SubCategoryRecipesScreenForAdding> {
   @override
   void initState() {
-    MainCubit.get(context).getAllRecipes();
+    RecipeCubit.get(context).getSubCategoryRecipes(id: widget.id);
     super.initState();
   }
 
@@ -29,32 +32,32 @@ class _AllRecipesScreenForAddingState extends State<AllRecipesScreenForAdding> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme theme = Theme.of(context).textTheme;
-    var cubit = MainCubit.get(context);
-    return BlocConsumer<MainCubit, MainState>(
+    var cubit = RecipeCubit.get(context);
+    return BlocConsumer<RecipeCubit, RecipeCubitState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              "All Recipes",
+              "Recipes",
               style: theme.displayLarge,
             ),
             toolbarHeight: size.height * 0.08,
           ),
-          body: ConditionalBuilder(
-            condition: state is! AddRecipeToCollectionLoading,
-            fallback: (context) => Scaffold(
-              body: Center(
-                  child: Lottie.asset(isDark!
-                      ? "assets/animations/forkified loading.json"
-                      : "assets/animations/forkified loading orange.json")),
-            ),
-            builder: (context) => SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(children: [
-                  ConditionalBuilder(
-                    condition: cubit.allRecipes!.isNotEmpty,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(children: [
+                ConditionalBuilder(
+                  condition: state is! AddRecipeToCollectionLoading,
+                   fallback: (context) => Scaffold(
+            body: Center(
+                child: Lottie.asset(isDark!
+                    ? "assets/animations/forkified loading.json"
+                    : "assets/animations/forkified loading orange.json")),
+          ),
+                  builder:(context)=> ConditionalBuilder(
+                    condition: state is! GetCategoryRecipesLoading,
                     fallback: (context) => GridView.count(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -81,17 +84,31 @@ class _AllRecipesScreenForAddingState extends State<AllRecipesScreenForAdding> {
                       mainAxisSpacing: size.height * 0.02,
                       childAspectRatio: 1 / 1,
                       children: List.generate(
-                        cubit.allRecipes!.length,
-                        (index) => buildRecipe(cubit.allRecipes![index],
+                        cubit.categoryRecipes.length,
+                        (index) => buildRecipe(cubit.categoryRecipes[index],
                             context, index, size, theme),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  )
-                ]),
-              ),
+                ),
+                SizedBox(
+                  height: size.height * 0.02,
+                ),
+                if (cubit.categoryRecipes.isEmpty)
+                  Center(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: size.height * 0.4,
+                        ),
+                        Text(
+                          "No Recipes Found !",
+                          style: theme.displayMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+              ]),
             ),
           ),
         );

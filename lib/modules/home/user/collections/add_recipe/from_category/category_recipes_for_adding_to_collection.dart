@@ -7,6 +7,7 @@ import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
 import 'package:forkified/shared/cubit/user/user_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
+import 'package:lottie/lottie.dart';
 
 class CategoryRecipesScreenForAdding extends StatefulWidget {
   final String id;
@@ -35,70 +36,79 @@ class _CategoryRecipesScreenForAddingState
     return BlocConsumer<RecipeCubit, RecipeCubitState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Recipes",
-              style: theme.displayLarge,
-            ),
-            toolbarHeight: size.height * 0.08,
+        return ConditionalBuilder(
+            condition: state is! AddRecipeToCollectionLoading,
+                   fallback: (context) => Scaffold(
+            body: Center(
+                child: Lottie.asset(isDark!
+                    ? "assets/animations/forkified loading.json"
+                    : "assets/animations/forkified loading orange.json")),
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(children: [
-                ConditionalBuilder(
-                  condition: state is! GetCategoryRecipesLoading,
-                  fallback: (context) => GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
-                    crossAxisSpacing: size.width * 0.12,
-                    mainAxisSpacing: size.height * 0.05,
-                    childAspectRatio: 1.6 / 1,
-                    children: List.generate(
-                      16,
-                      (index) => Container(
-                        height: size.height * 0.02,
-                        decoration: BoxDecoration(
-                          color: isDark! ? nonPhotoBlue : flame.shade100,
-                          borderRadius: BorderRadius.circular(12),
+          builder:(context)=> Scaffold(
+            appBar: AppBar(
+              title: Text(
+                "Recipes",
+                style: theme.displayLarge,
+              ),
+              toolbarHeight: size.height * 0.08,
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(children: [
+                  ConditionalBuilder(
+                    condition: state is! GetCategoryRecipesLoading,
+                    fallback: (context) => GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: size.width * 0.12,
+                      mainAxisSpacing: size.height * 0.05,
+                      childAspectRatio: 1.6 / 1,
+                      children: List.generate(
+                        16,
+                        (index) => Container(
+                          height: size.height * 0.02,
+                          decoration: BoxDecoration(
+                            color: isDark! ? nonPhotoBlue : flame.shade100,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  builder: (context) => GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
-                    crossAxisSpacing: size.width * 0.14,
-                    mainAxisSpacing: size.height * 0.02,
-                    childAspectRatio: 1 / 1,
-                    children: List.generate(
-                      cubit.categoryRecipes.length,
-                      (index) => buildCategory(cubit.categoryRecipes[index],
-                          context, index, size, theme),
+                    builder: (context) => GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: size.width * 0.14,
+                      mainAxisSpacing: size.height * 0.02,
+                      childAspectRatio: 1 / 1,
+                      children: List.generate(
+                        cubit.categoryRecipes.length,
+                        (index) => buildCategory(cubit.categoryRecipes[index],
+                            context, index, size, theme),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: size.height * 0.02,
-                ),
-                if (cubit.categoryRecipes.isEmpty)
-                  Center(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: size.height * 0.4,
-                        ),
-                        Text(
-                          "No Recipes Found !",
-                          style: theme.displayMedium,
-                        ),
-                      ],
-                    ),
+                  SizedBox(
+                    height: size.height * 0.02,
                   ),
-              ]),
+                  if (cubit.categoryRecipes.isEmpty)
+                    Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: size.height * 0.4,
+                          ),
+                          Text(
+                            "No Recipes Found !",
+                            style: theme.displayMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                ]),
+              ),
             ),
           ),
         );

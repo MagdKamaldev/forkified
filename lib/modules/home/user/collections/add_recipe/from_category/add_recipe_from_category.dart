@@ -7,7 +7,9 @@ import 'package:forkified/modules/home/user/collections/add_recipe/from_category
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/main/main_cubit.dart';
+import 'package:forkified/shared/cubit/user/user_cubit.dart';
 import 'package:forkified/shared/networks/remote/dio_helper.dart';
+import 'package:lottie/lottie.dart';
 
 class AllCategoriesScreenForAdding extends StatefulWidget {
   final String collectionId;
@@ -32,56 +34,65 @@ class _AllCategoriesScreenForAddingState extends State<AllCategoriesScreenForAdd
     return BlocConsumer<MainCubit, MainState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "All Categories",
-              style: theme.displayLarge,
-            ),
-            toolbarHeight: size.height * 0.08,
+        return ConditionalBuilder(
+            condition: state is! AddRecipeToCollectionLoading,
+                   fallback: (context) => Scaffold(
+            body: Center(
+                child: Lottie.asset(isDark!
+                    ? "assets/animations/forkified loading.json"
+                    : "assets/animations/forkified loading orange.json")),
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(children: [
-                ConditionalBuilder(
-                  condition: cubit.allCategories!.isNotEmpty,
-                  fallback: (context) => GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
-                    crossAxisSpacing: size.width * 0.12,
-                    mainAxisSpacing: size.height * 0.05,
-                    childAspectRatio: 1.6 / 1,
-                    children: List.generate(
-                      16,
-                      (index) => Container(
-                        height: size.height * 0.02,
-                        decoration: BoxDecoration(
-                          color: isDark! ? nonPhotoBlue : flame.shade100,
-                          borderRadius: BorderRadius.circular(12),
+          builder:(context)=>Scaffold(
+            appBar: AppBar(
+              title: Text(
+                "All Categories",
+                style: theme.displayLarge,
+              ),
+              toolbarHeight: size.height * 0.08,
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(children: [
+                  ConditionalBuilder(
+                    condition: cubit.allCategories!.isNotEmpty,
+                    fallback: (context) => GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: size.width * 0.12,
+                      mainAxisSpacing: size.height * 0.05,
+                      childAspectRatio: 1.6 / 1,
+                      children: List.generate(
+                        16,
+                        (index) => Container(
+                          height: size.height * 0.02,
+                          decoration: BoxDecoration(
+                            color: isDark! ? nonPhotoBlue : flame.shade100,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  builder: (context) => GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
-                    crossAxisSpacing: size.width * 0.14,
-                    mainAxisSpacing: size.height * 0.02,
-                    childAspectRatio: 1 / 1,
-                    children: List.generate(
-                      cubit.allCategories!.length,
-                      (index) => buildCategory(cubit.allCategories![index],
-                          context, index, size, theme),
+                    builder: (context) => GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: size.width * 0.14,
+                      mainAxisSpacing: size.height * 0.02,
+                      childAspectRatio: 1 / 1,
+                      children: List.generate(
+                        cubit.allCategories!.length,
+                        (index) => buildCategory(cubit.allCategories![index],
+                            context, index, size, theme),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: size.height * 0.02,
-                )
-              ]),
+                  SizedBox(
+                    height: size.height * 0.02,
+                  )
+                ]),
+              ),
             ),
           ),
         );

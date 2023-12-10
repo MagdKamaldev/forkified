@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/user/user.dart';
 import 'package:forkified/shared/components.dart';
+import 'package:forkified/shared/cubit/collections/collections_cubit.dart';
 import 'package:forkified/shared/networks/local/cache_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
 import '../../networks/remote/dio_helper.dart';
@@ -25,15 +26,15 @@ class UserCubit extends Cubit<UserState> {
     ).then((value) {
       user = User.fromJson(value.data["document"]);
       emit(GetUserDataSuccess());
-    }); //.catchError((error) {
-    //   String errorMessage = "An error occurred";
-    //   if (error is DioError && error.response != null) {
-    //     errorMessage = error.response!.data["message"];
-    //   } else if (error is String) {
-    //     errorMessage = error;
-    //   }
-    //   debugPrint(errorMessage);
-    // });
+    }).catchError((error) {
+      String errorMessage = "An error occurred";
+      if (error is DioError && error.response != null) {
+        errorMessage = error.response!.data["message"];
+      } else if (error is String) {
+        errorMessage = error;
+      }
+      debugPrint(errorMessage);
+    });
   }
 
   void addRecipeToCollection({
@@ -52,7 +53,35 @@ class UserCubit extends Cubit<UserState> {
       showCustomSnackBar(context, value.data["message"], Colors.green);
       Navigator.pop(context);
       Navigator.pop(context);
+      CollectionsCubit.get(context).getCollection(id: collectionId);
       emit(AddRecipeToCollectionSuccess());
+    }).catchError((error) {
+      String errorMessage = "An error occurred";
+      if (error is DioError && error.response != null) {
+        errorMessage = error.response!.data["message"];
+      } else if (error is String) {
+        errorMessage = error;
+      }
+      debugPrint(errorMessage);
+    });
+  }
+
+  void deleteRecipeFromCollection({
+    required String recipeId,
+    required String collectionId,
+    required BuildContext context,
+  }) {
+    emit(DeleteRecipeFromCollectionLoading());
+    DioHelper.deleteData(
+        url: "${EndPoints.collections}/$collectionId/${EndPoints.recipes}",
+        jwt: token ?? CacheHelper.getData(key: "token"),
+        data: {
+          "recipe": recipeId,
+        }).then((value) {
+      showCustomSnackBar(context, value.data["message"], Colors.red);
+      Navigator.pop(context);
+      CollectionsCubit.get(context).getCollection(id: collectionId);
+      emit(DeleteRecipeFromCollectionSuccess());
     }).catchError((error) {
       String errorMessage = "An error occurred";
       if (error is DioError && error.response != null) {
