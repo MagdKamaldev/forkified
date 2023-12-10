@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/recipe_model.dart';
+import 'package:forkified/modules/home/user/collections/add_recipe/from_all_recipes/all_recipes_screen_for_adding.dart';
 import 'package:forkified/modules/home/user/collections/add_recipe/from_category/add_recipe_from_category.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/collections/collections_cubit.dart';
@@ -124,7 +125,13 @@ class _CollectionDetailsState extends State<CollectionDetails> {
                                           color: isDark! ? cerulian : flame))),
                               TextButton(
                                   onPressed: () {
-                                    Navigator.pop(context);
+                                    navigateTo(
+                                        context,
+                                        AllRecipesScreenForAdding(
+                                            collectionId:
+                                                CollectionsCubit.get(context)
+                                                    .collection!
+                                                    .id!));
                                   },
                                   child: Text("All Recipes",
                                       style: theme.displaySmall!.copyWith(
