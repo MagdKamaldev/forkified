@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/models/user/collection.dart';
 import 'package:forkified/modules/home/user/collections/collcetion_details.dart';
 import 'package:forkified/shared/components.dart';
+import 'package:forkified/shared/cubit/collections/collections_cubit.dart';
 import 'package:lottie/lottie.dart';
 import '../../../main.dart';
 import '../../../shared/colors.dart';
@@ -94,6 +95,14 @@ class _UserScreenState extends State<UserScreen> {
                       SizedBox(
                         height: size.height * 0.05,
                       ),
+                       if(cubit.user!.collections!.isEmpty)
+                        SizedBox(
+                        height: size.height * 0.2,
+                      ),
+                      if(cubit.user!.collections!.isEmpty)
+                      Text("You don't have any collections yet !",
+                          style: theme.displaySmall!.copyWith(
+                              color: isDark! ? platinum : prussianBlue)),
                       GridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -110,6 +119,14 @@ class _UserScreenState extends State<UserScreen> {
                           ),
                         ),
                       ),
+                      if(cubit.user!.collections!.isNotEmpty)
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      if(cubit.user!.collections!.isNotEmpty)
+                      Text("Long press to delete collection !",
+                          style: theme.displaySmall!.copyWith(
+                              color: isDark! ? platinum : prussianBlue)),
                       SizedBox(
                         height: size.height * 0.05,
                       ),
@@ -143,6 +160,33 @@ class _UserScreenState extends State<UserScreen> {
               id: collection.id!,
             ),
           );
+        },
+        onLongPress: () {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text(
+                      "Are you sure you want to remove this Collection ?",
+                      style: theme.displayLarge!
+                          .copyWith(color: isDark! ? cerulian : flame),
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            CollectionsCubit.get(context)
+                                .deleteCollection(collectionId: collection.id!,context: context);
+                          },
+                          child: Text(
+                            "Yes",
+                            style: theme.displayMedium,
+                          )),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("No", style: theme.displayMedium)),
+                    ],
+                  ));
         },
         child: Container(
           decoration: BoxDecoration(

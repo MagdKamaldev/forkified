@@ -54,42 +54,75 @@ class _CollectionDetailsState extends State<CollectionDetails> {
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(25.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Recipes",
-                        style: theme.displayLarge!.copyWith(
-                          color: isDark! ? cerulian : prussianBlue,
+                  child: (CollectionsCubit.get(context)
+                          .collection!
+                          .recipes!
+                          .isEmpty)
+                      ? SizedBox(
+                          height: size.height * 0.82,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  "No recipes Added Yet !",
+                                  style: theme.displaySmall!.copyWith(
+                                    color: isDark! ? cerulian : prussianBlue,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Recipes",
+                              style: theme.displayLarge!.copyWith(
+                                color: isDark! ? cerulian : prussianBlue,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            GridView.count(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              crossAxisCount: 2,
+                              crossAxisSpacing: size.width * 0.14,
+                              mainAxisSpacing: size.height * 0.02,
+                              childAspectRatio: 1 / 1,
+                              children: List.generate(
+                                CollectionsCubit.get(context)
+                                    .collection!
+                                    .recipes!
+                                    .length,
+                                (index) => buildRecipe(
+                                    CollectionsCubit.get(context)
+                                        .collection!
+                                        .recipes![index]!,
+                                    context,
+                                    index,
+                                    size,
+                                    theme),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 50,
+                            ),
+                            if (CollectionsCubit.get(context)
+                                .collection!
+                                .recipes!
+                                .isNotEmpty)
+                              Text(
+                                "Long Press To Remove Recipe !",
+                                style: theme.displaySmall!.copyWith(
+                                  color: isDark! ? cerulian : prussianBlue,
+                                ),
+                              ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      GridView.count(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        crossAxisCount: 2,
-                        crossAxisSpacing: size.width * 0.14,
-                        mainAxisSpacing: size.height * 0.02,
-                        childAspectRatio: 1 / 1,
-                        children: List.generate(
-                          CollectionsCubit.get(context)
-                              .collection!
-                              .recipes!
-                              .length,
-                          (index) => buildRecipe(
-                              CollectionsCubit.get(context)
-                                  .collection!
-                                  .recipes![index]!,
-                              context,
-                              index,
-                              size,
-                              theme),
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
               ),
               floatingActionButton: FloatingActionButton(
@@ -176,12 +209,10 @@ class _CollectionDetailsState extends State<CollectionDetails> {
                     actions: [
                       TextButton(
                           onPressed: () {
-                            setState(() {
-                              UserCubit.get(context).deleteRecipeFromCollection(
-                                  recipeId: model.id!,
-                                  collectionId: widget.id,
-                                  context: context);
-                            });
+                            UserCubit.get(context).deleteRecipeFromCollection(
+                                recipeId: model.id!,
+                                collectionId: widget.id,
+                                context: context);
                           },
                           child: Text(
                             "Yes",
@@ -246,12 +277,3 @@ class _CollectionDetailsState extends State<CollectionDetails> {
         ),
       );
 }
-
-//  return buildRecipe(
-//                               CollectionsCubit.get(context)
-//                                   .collection!
-//                                   .recipes![index]!,
-//                               context,
-//                               index,
-//                               size,
-//                               theme);

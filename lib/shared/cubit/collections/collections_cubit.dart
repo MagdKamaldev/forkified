@@ -6,6 +6,7 @@ import 'package:forkified/main.dart';
 import 'package:forkified/models/user/collection.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
+import 'package:forkified/shared/cubit/user/user_cubit.dart';
 import 'package:forkified/shared/networks/local/cache_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
 import '../../networks/remote/dio_helper.dart';
@@ -96,6 +97,30 @@ class CollectionsCubit extends Cubit<CollectionsState> {
       }
       showCustomSnackBar(context, errorMessage, Colors.red);
       emit(AddCollectionError(errorMessage));
+    });
+  }
+
+  void deleteCollection({
+    required String collectionId,
+    required BuildContext context,
+  }){
+    emit(DeleteCollectionLoading());
+    DioHelper.deleteData(
+      data:{},
+      url: "${EndPoints.collections}/$collectionId",
+      jwt: CacheHelper.getData(key: "token"),
+    ).then((value) {
+      Navigator.pop(context);
+      UserCubit.get(context).getUserData();
+      emit(DeleteCollectionSuccess());
+    }).catchError((error) {
+      String errorMessage = "An error occurred";
+      if (error is DioError && error.response != null) {
+        errorMessage = error.response!.statusMessage!;
+      } else if (error is String) {
+        errorMessage = error;
+      }
+      emit(DeleteCollectionError(errorMessage));
     });
   }
 }

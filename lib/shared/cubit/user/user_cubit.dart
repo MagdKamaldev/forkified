@@ -82,14 +82,6 @@ class UserCubit extends Cubit<UserState> {
       Navigator.pop(context);
       CollectionsCubit.get(context).getCollection(id: collectionId);
       emit(DeleteRecipeFromCollectionSuccess());
-    }).catchError((error) {
-      String errorMessage = "An error occurred";
-      if (error is DioError && error.response != null) {
-        errorMessage = error.response!.data["message"];
-      } else if (error is String) {
-        errorMessage = error;
-      }
-      debugPrint(errorMessage);
     });
   }
 }

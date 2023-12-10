@@ -24,3 +24,13 @@ class AddCollectionError extends CollectionsState {
 
   AddCollectionError(this.errorMessage);
 }
+
+class DeleteCollectionLoading extends CollectionsState {}
+
+class DeleteCollectionSuccess extends CollectionsState {}
+
+class DeleteCollectionError extends CollectionsState {
+  final String errorMessage;
+
+  DeleteCollectionError(this.errorMessage);
+}
