@@ -78,18 +78,18 @@ class _AppDrawerState extends State<AppDrawer> {
                       navigateTo(context, const SettingsScreen());
                     },
                   ),
-                   SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: isDark! ? cerulian : flame,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                   ListTile(
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: isDark! ? cerulian : flame,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  ListTile(
                     title: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
@@ -110,17 +110,17 @@ class _AppDrawerState extends State<AppDrawer> {
                       navigateTo(context, const AboutScreen());
                     },
                   ),
-                   SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: isDark! ? cerulian : flame,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: isDark! ? cerulian : flame,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
                   ListTile(
                     title: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -142,17 +142,17 @@ class _AppDrawerState extends State<AppDrawer> {
                       navigateTo(context, const ContactScreen());
                     },
                   ),
-                   SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: isDark! ? cerulian : flame,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: isDark! ? cerulian : flame,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
                 ],
               ),
             ),
@@ -172,47 +172,49 @@ class _AppDrawerState extends State<AppDrawer> {
                   SizedBox(
                     height: size.height * 0.04,
                   ),
+                  if (UserCubit.get(context).user!.role == "admin")
+                    Container(
+                      width: double.infinity,
+                      height: 1.5,
+                      color: isDark! ? cerulian : flame,
+                    ),
+                  if (UserCubit.get(context).user!.role == "admin")
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                  if (UserCubit.get(context).user!.role == "admin")
+                    ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Admin",
+                              style: theme.displayMedium,
+                            ),
+                            Icon(
+                              Icons.admin_panel_settings,
+                              color: isDark! ? cerulian : flame,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        navigateTo(context, const AdminScreen());
+                      },
+                    ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
                   Container(
                     width: double.infinity,
-                    height: 1.5,
+                    height: 1,
                     color: isDark! ? cerulian : flame,
                   ),
                   SizedBox(
                     height: size.height * 0.03,
                   ),
-                  if (UserCubit.get(context).user!.role == "admin")
-                    ListTile(
-                    title: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Admin",
-                            style: theme.displayMedium,
-                          ),
-                          Icon(
-                            Icons.admin_panel_settings,
-                            color: isDark! ? cerulian : flame,
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap: () {
-                      navigateTo(context, const AdminScreen());
-                    },
-                  ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: isDark! ? cerulian : flame,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
                   ListTile(
                     title: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -234,18 +236,18 @@ class _AppDrawerState extends State<AppDrawer> {
                       navigateTo(context, const SettingsScreen());
                     },
                   ),
-                   SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: isDark! ? cerulian : flame,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                   ListTile(
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: isDark! ? cerulian : flame,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  ListTile(
                     title: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
@@ -266,17 +268,17 @@ class _AppDrawerState extends State<AppDrawer> {
                       navigateTo(context, const AboutScreen());
                     },
                   ),
-                   SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: isDark! ? cerulian : flame,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: isDark! ? cerulian : flame,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
                   ListTile(
                     title: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -298,17 +300,17 @@ class _AppDrawerState extends State<AppDrawer> {
                       navigateTo(context, const ContactScreen());
                     },
                   ),
-                   SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: isDark! ? cerulian : flame,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: isDark! ? cerulian : flame,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
                 ],
               ),
             ),

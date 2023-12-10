@@ -60,6 +60,7 @@ class AddCollectionScreen extends StatelessWidget {
                     height: size.height * 0.07,
                   ),
                   defaultButton(
+                      height: size.height * 0.07,
                       function: () {
                         if (formKey.currentState!.validate()) {
                           cubit.addCollection(

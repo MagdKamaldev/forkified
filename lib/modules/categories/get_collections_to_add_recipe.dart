@@ -1,22 +1,22 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/main.dart';
 import 'package:forkified/models/user/collection.dart';
-import 'package:forkified/modules/home/collcetion_details.dart';
-import 'package:forkified/shared/components.dart';
+import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/cubit/user/user_cubit.dart';
 import 'package:lottie/lottie.dart';
-import '../../main.dart';
-import '../../shared/colors.dart';
-import '../../shared/cubit/user/user_cubit.dart';
 
-class UserScreen extends StatefulWidget {
-  const UserScreen({super.key});
+class GetCollectionsToAddRecipe extends StatefulWidget {
+  final String recipeId;
+  const GetCollectionsToAddRecipe({super.key, required this.recipeId});
 
   @override
-  State<UserScreen> createState() => _UserScreenState();
+  State<GetCollectionsToAddRecipe> createState() =>
+      _GetCollectionsToAddRecipeState();
 }
 
-class _UserScreenState extends State<UserScreen> {
+class _GetCollectionsToAddRecipeState extends State<GetCollectionsToAddRecipe> {
   @override
   void initState() {
     UserCubit.get(context).getUserData();
@@ -34,6 +34,13 @@ class _UserScreenState extends State<UserScreen> {
         return ConditionalBuilder(
           condition: state is! GetUserDataLoading,
           builder: (context) => Scaffold(
+            appBar: AppBar(
+              title: Text(
+                "Choose A collection",
+                style: theme.displayLarge!,
+              ),
+              toolbarHeight: size.height * 0.08,
+            ),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SizedBox(
@@ -42,57 +49,8 @@ class _UserScreenState extends State<UserScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
-                      Text(
-                        cubit.user!.name!.toUpperCase(),
-                        style: theme.displayLarge!
-                            .copyWith(color: isDark! ? platinum : prussianBlue),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: isDark! ? cerulian : flame,
-                            width: 1,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Email ",
-                                style: theme.displaySmall!.copyWith(
-                                    color: isDark! ? platinum : prussianBlue),
-                              ),
-                              SizedBox(
-                                width: size.width * 0.04,
-                              ),
-                              Text(
-                                cubit.user!.email!,
-                                style: theme.displaySmall!.copyWith(
-                                    color: isDark! ? platinum : prussianBlue),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
-                      Container(
-                        color: isDark! ? cerulian : flame,
-                        width: double.infinity,
-                        height: 1,
-                      ),
-                      SizedBox(
-                        height: size.height * 0.05,
+                      const SizedBox(
+                        height: 20,
                       ),
                       GridView.count(
                         shrinkWrap: true,
@@ -110,8 +68,8 @@ class _UserScreenState extends State<UserScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: size.height * 0.05,
+                      const SizedBox(
+                        height: 20,
                       ),
                     ],
                   ),
@@ -137,12 +95,35 @@ class _UserScreenState extends State<UserScreen> {
   }) =>
       GestureDetector(
         onTap: () {
-          navigateTo(
-            context,
-            CollectionDetails(
-              id: collection.id!,
-            ),
-          );
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text(
+                      "Are you sure you want to add the recipe to ${collection.name!}?",
+                      style: theme.displayLarge!
+                          .copyWith(color: isDark! ? cerulian : flame),
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            UserCubit.get(context).addRecipeToCollection(
+                              collectionId: collection.id!,
+                              recipeId: widget.recipeId,
+                              context: context,
+                            );
+                          },
+                          child: Text("Yes",
+                              style: theme.displaySmall!.copyWith(
+                                  color: isDark! ? cerulian : flame))),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("No",
+                              style: theme.displaySmall!.copyWith(
+                                  color: isDark! ? cerulian : flame))),
+                    ],
+                  ));
         },
         child: Container(
           decoration: BoxDecoration(

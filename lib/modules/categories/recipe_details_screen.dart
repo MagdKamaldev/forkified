@@ -2,12 +2,13 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
+import 'package:forkified/modules/categories/get_collections_to_add_recipe.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../shared/networks/remote/dio_helper.dart';
+
 
 class RecipeDetails extends StatefulWidget {
   final String id;
@@ -67,7 +68,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                               return ClipRRect(
                                 borderRadius: BorderRadius.circular(13),
                                 child: Container(
-                                  color: prussianBlue,
+                                  color: isDark! ? prussianBlue : platinum,
                                   child: Center(
                                     child: Icon(
                                       Icons.image,
@@ -213,7 +214,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     if (cubit.recipe!.vegetarian != null &&
                         cubit.recipe!.vegetarian == true)
                       SizedBox(
-                        height: size.height * 0.05,
+                        height: size.height * 0.07,
                         width: size.width * 0.9,
                         child: Row(
                           children: [
@@ -222,13 +223,30 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                               style: theme.displayMedium!.copyWith(
                                   color: isDark! ? platinum : prussianBlue),
                             ),
-                            SizedBox(width: size.width*0.03,),
+                            SizedBox(
+                              width: size.width * 0.03,
+                            ),
                             Icon(
                               Icons.check_circle,
                               color: isDark! ? cerulian : flame,
                             ),
                             const Spacer(),
-                            Image.asset("assets/images/plant-based.png"),
+                            if (isDark!)
+                              Image.asset("assets/images/plant-based.png"),
+                            if (!isDark!)
+                              Container(
+                                width: size.width * 0.14,
+                                height: size.height * 0.06,
+                                decoration: BoxDecoration(
+                                    color: flame,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Image.asset(
+                                    "assets/images/plant-based.png",
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
                       ),
@@ -279,6 +297,20 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                       ),
                       description: "Ingredients",
                     ),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    defaultButton(
+                        function: () {
+                          navigateTo(
+                              context,
+                              GetCollectionsToAddRecipe(
+                                recipeId: cubit.recipe!.id!,
+                              ));
+                        },
+                        height: size.height * 0.07,
+                        context: context,
+                        text: "Add To collection"),
                   ],
                 ),
               ),

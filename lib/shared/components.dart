@@ -21,7 +21,7 @@ Widget defaultItemBuilder(
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(description, style: Theme.of(context).textTheme.displayLarge),
+        Text(description, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: isDark! ? cerulian : prussianBlue,)),
         const SizedBox(
           height: 15,
         ),

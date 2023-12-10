@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/user/user.dart';
+import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/networks/local/cache_helper.dart';
 import 'package:forkified/shared/networks/remote/end_points.dart';
 import '../../networks/remote/dio_helper.dart';
@@ -20,11 +21,39 @@ class UserCubit extends Cubit<UserState> {
     emit(GetUserDataLoading());
     DioHelper.getData(
       url: EndPoints.users,
-      jwt:token??CacheHelper.getData(key: "token"),
+      jwt: token ?? CacheHelper.getData(key: "token"),
     ).then((value) {
       user = User.fromJson(value.data["document"]);
       emit(GetUserDataSuccess());
-     }).catchError((error) {
+    }); //.catchError((error) {
+    //   String errorMessage = "An error occurred";
+    //   if (error is DioError && error.response != null) {
+    //     errorMessage = error.response!.data["message"];
+    //   } else if (error is String) {
+    //     errorMessage = error;
+    //   }
+    //   debugPrint(errorMessage);
+    // });
+  }
+
+  void addRecipeToCollection({
+    required String recipeId,
+    required String collectionId,
+    required BuildContext context,
+  }) {
+    emit(AddRecipeToCollectionLoading());
+    DioHelper.updateData(
+      url: "${EndPoints.collections}/$collectionId/${EndPoints.recipes}",
+      data: {
+        "recipe": recipeId,
+      },
+      jwt: token ?? CacheHelper.getData(key: "token"),
+    ).then((value) {
+      showCustomSnackBar(context, value.data["message"], Colors.green);
+      Navigator.pop(context);
+      Navigator.pop(context);
+      emit(AddRecipeToCollectionSuccess());
+    }).catchError((error) {
       String errorMessage = "An error occurred";
       if (error is DioError && error.response != null) {
         errorMessage = error.response!.data["message"];

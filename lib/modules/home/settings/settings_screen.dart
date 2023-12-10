@@ -165,9 +165,6 @@ class SettingsScreen extends StatelessWidget {
                               cubit.changemode(value);
                             },
                           ),
-                          // SizedBox(
-                          //   height: size.width * 0.02,
-                          // ),
                         ],
                       ),
                     ),

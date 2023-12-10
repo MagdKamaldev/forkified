@@ -12,3 +12,12 @@ class GetUserDataError extends UserState {
   final String errorMessage;
   GetUserDataError(this.errorMessage);
 }
+
+class AddRecipeToCollectionLoading extends UserState {}
+
+class  AddRecipeToCollectionSuccess extends UserState {}
+
+class  AddRecipeToCollectionError extends UserState {
+  final String errorMessage;
+  AddRecipeToCollectionError(this.errorMessage);
+}
