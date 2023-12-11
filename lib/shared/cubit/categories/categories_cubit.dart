@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/models/categories.model.dart';
+import 'package:forkified/modules/home/settings/settings_screen.dart';
 import 'package:forkified/modules/home/user/collections/add_collection_screen.dart';
 import 'package:forkified/modules/home/home_screen.dart';
 import 'package:forkified/modules/home/user/user_screen.dart';
@@ -40,6 +41,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     HomeScreen(),
     AddCollectionScreen(),
     const UserScreen(),
+    const SettingsScreen(),
   ];
 
   void changeIndex(int index) {

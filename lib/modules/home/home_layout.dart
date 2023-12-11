@@ -46,6 +46,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             iconSize: size.width * 0.07,
             backgroundColor: isDark! ? cerulian : flame,
             selectedItemColor: platinum,
+             type: BottomNavigationBarType.fixed,
             currentIndex: cubit.bottomNavBarIndex,
             showUnselectedLabels: false,
             items: const [
@@ -54,6 +55,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                   icon: Icon(Icons.add),
                   label: "Add Collection"),
               BottomNavigationBarItem(icon: Icon(Icons.person), label: "User"),
+             BottomNavigationBarItem(icon: Icon(Icons.settings), label: "settings"),
             ],
             onTap: (index) {
               cubit.changeIndex(index);
