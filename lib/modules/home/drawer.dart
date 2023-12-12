@@ -99,19 +99,14 @@ class _AppDrawerState extends State<AppDrawer> {
           child: BlocConsumer<SubcategoryCubit, SubcategoryState>(
             listener: (context, state) {},
             builder: (context, state) {
-              return ConditionalBuilder(
-                condition: state is! GetCategorySubcategoriesLoading,
-                fallback: (context) =>
-                    const Center(child: CircularProgressIndicator()),
-                builder: (context) => model.subcategories!.isNotEmpty
-                    ? ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: model.subcategories!.length,
-                        itemBuilder: (context, index) => subCategoryItem(
-                            model: model.subcategories![index], theme: theme),
-                      )
-                    : const Center(child: Text("No Subcategories")),
-              );
+              return model.subcategories!.isNotEmpty
+                  ? ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: model.subcategories!.length,
+                      itemBuilder: (context, index) => subCategoryItem(
+                          model: model.subcategories![index], theme: theme),
+                    )
+                  : const Center(child: Text("No Subcategories"));
             },
           ),
         ),
