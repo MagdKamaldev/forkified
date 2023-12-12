@@ -1,3 +1,5 @@
+import 'package:forkified/models/sub_category.dart';
+
 class CategoryModel {
   String? id;
   String? name;
@@ -6,6 +8,7 @@ class CategoryModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   int? v;
+  List<SubCategory>? subcategories;
 
   CategoryModel({
     this.id,
@@ -15,6 +18,7 @@ class CategoryModel {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.subcategories, 
   });
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
@@ -29,6 +33,9 @@ class CategoryModel {
             ? null
             : DateTime.parse(json['updatedAt'] as String),
         v: json['__v'] as int?,
+        subcategories: (json['subcategories'] as List<dynamic>?)
+            ?.map((subJson) => SubCategory.fromJson(subJson))
+            .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,5 +46,6 @@ class CategoryModel {
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
         '__v': v,
+        'subcategories': subcategories?.map((sub) => sub.toJson()).toList(),
       };
 }

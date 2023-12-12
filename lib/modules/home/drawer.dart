@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/categories.model.dart';
 import 'package:forkified/models/sub_category.dart';
-import 'package:forkified/modules/admin/admin_screen.dart';
+import 'package:forkified/modules/categories/subcategory_details_screen.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/categories/categories_cubit.dart';
@@ -32,7 +32,7 @@ class _AppDrawerState extends State<AppDrawer> {
     Size size = MediaQuery.of(context).size;
     TextTheme theme = Theme.of(context).textTheme;
 
-    return BlocConsumer<UserCubit, UserState>(
+    return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
@@ -55,50 +55,12 @@ class _AppDrawerState extends State<AppDrawer> {
                   SizedBox(
                     height: size.height * 0.01,
                   ),
-                  if (UserCubit.get(context).user!.role == "admin")
-                    Container(
-                      width: double.infinity,
-                      height: 1.5,
-                      color: isDark! ? cerulian : flame,
-                    ),
-                  if (UserCubit.get(context).user!.role == "admin")
-                    SizedBox(
-                      height: size.height * 0.01,
-                    ),
-                  if (UserCubit.get(context).user!.role == "admin")
-                    ListTile(
-                      title: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Admin",
-                              style: theme.displayMedium,
-                            ),
-                            Icon(
-                              Icons.admin_panel_settings,
-                              color: isDark! ? cerulian : flame,
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        navigateTo(context, const AdminScreen());
-                      },
-                    ),
-                  if (UserCubit.get(context).user!.role == "admin")
-                    SizedBox(
-                      height: size.height * 0.01,
-                    ),
                   SizedBox(
-                    height: size.height *0.8,
+                    height: size.height * 0.8,
                     child: ListView.builder(
-                      itemCount:
-                          CategoriesCubit.get(context).categories.length,
+                      itemCount: CategoriesCubit.get(context).categories.length,
                       itemBuilder: (context, index) => categoryItem(
-                          model:
-                              CategoriesCubit.get(context).categories[index],
+                          model: CategoriesCubit.get(context).categories[index],
                           size: size,
                           theme: theme),
                     ),
@@ -126,9 +88,7 @@ class _AppDrawerState extends State<AppDrawer> {
         ),
       ),
       onExpansionChanged: (value) {
-        if (value) {
-          SubcategoryCubit.get(context).getCategorySubcategories(id: model.id!);
-        }
+        if (value) {}
       },
       children: [
         SizedBox(
@@ -143,15 +103,14 @@ class _AppDrawerState extends State<AppDrawer> {
                 condition: state is! GetCategorySubcategoriesLoading,
                 fallback: (context) =>
                     const Center(child: CircularProgressIndicator()),
-                builder: (context) => ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount:
-                      SubcategoryCubit.get(context).subcategories!.length,
-                  itemBuilder: (context, index) => subCategoryItem(
-                      model:
-                          SubcategoryCubit.get(context).subcategories![index],
-                      theme: theme),
-                ),
+                builder: (context) => model.subcategories!.isNotEmpty
+                    ? ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: model.subcategories!.length,
+                        itemBuilder: (context, index) => subCategoryItem(
+                            model: model.subcategories![index], theme: theme),
+                      )
+                    : const Center(child: Text("No Subcategories")),
               );
             },
           ),
@@ -169,19 +128,24 @@ class _AppDrawerState extends State<AppDrawer> {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: isDark! ? cerulian : flame,
-            width: 1,
+      child: GestureDetector(
+        onTap: () {
+          navigateTo(context, SubCategoryDetails(id: model.id!));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: isDark! ? cerulian : flame,
+              width: 1,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            model.name!,
-            style: theme.displaySmall,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              model.name!,
+              style: theme.displaySmall,
+            ),
           ),
         ),
       ),

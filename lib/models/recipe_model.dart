@@ -7,8 +7,8 @@ class RecipeModel {
   int? prepTime;
   int? calories;
   bool? vegetarian; 
-  String? category;
-  String? subcategory;
+  Map<String, dynamic>? category;
+  Map<String, dynamic>? subcategory;
   int? v;
   String? diet;
 
@@ -39,8 +39,8 @@ class RecipeModel {
       prepTime: json['prep_time'] as int?,
       calories: json['calories'] as int?,
       vegetarian: json['vegetarian'] as bool?, // Parse boolean
-      category: json['category'] as String?,
-      subcategory: json['subcategory'] as String?,
+      category: json['category'] as Map<String, dynamic>,
+      subcategory: json['subcategory'] as Map<String, dynamic>?,
       v: json['__v'] as int?,
       diet: json['diet'] as String?, // Added diet field
     );

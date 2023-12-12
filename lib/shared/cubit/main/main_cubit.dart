@@ -67,14 +67,15 @@ class MainCubit extends Cubit<MainState> {
       allRecipes =
           value.data["documents"]!.map((e) => RecipeModel.fromJson(e)).toList();
       emit(GetAllRecipesSuccess());
-    }).catchError((error) {
-      String errorMessage = "An error occurred";
-      if (error is DioError && error.response != null) {
-        errorMessage = error.response!.data["message"];
-      } else if (error is String) {
-        errorMessage = error;
-      }
-      emit(GetAllRecipesError(errorMessage));
     });
+    // .catchError((error) {
+    //   String errorMessage = "An error occurred";
+    //   if (error is DioError && error.response != null) {
+    //     errorMessage = error.response!.data["message"];
+    //   } else if (error is String) {
+    //     errorMessage = error;
+    //   }
+    //   emit(GetAllRecipesError(errorMessage));
+    // });
   }
 }
