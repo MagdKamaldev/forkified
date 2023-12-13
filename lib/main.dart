@@ -5,6 +5,7 @@ import 'package:forkified/firebase_options.dart';
 import 'package:forkified/modules/home/home_layout.dart';
 import 'package:forkified/modules/login/login_screen.dart';
 import 'package:forkified/modules/on_boarding/on_borading_screen.dart';
+import 'package:forkified/modules/search/cubit/search_cubit.dart';
 import 'package:forkified/shared/cubit/categories/categories_cubit.dart';
 import 'package:forkified/shared/cubit/collections/collections_cubit.dart';
 import 'package:forkified/shared/cubit/login/login_cubit.dart';
@@ -67,6 +68,9 @@ class MyApp extends StatelessWidget {
         ),
          BlocProvider(
           create: (context) => CollectionsCubit(),
+        ),
+         BlocProvider(
+          create: (context) => SearchCubit(),
         ),
          BlocProvider(
           create: (context) => UserCubit(),

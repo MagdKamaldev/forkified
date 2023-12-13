@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/modules/home/drawer.dart';
+import 'package:forkified/modules/search/search_screen.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/components.dart';
 import '../../shared/cubit/categories/categories_cubit.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -13,7 +15,7 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   @override
-   void initState() {
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       CategoriesCubit.get(context).getCategories();
@@ -21,7 +23,6 @@ class _HomeLayoutState extends State<HomeLayout> {
 
     CategoriesCubit.get(context).selectWelcomeTime();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,19 @@ class _HomeLayoutState extends State<HomeLayout> {
               "Good ${cubit.welcomeText!}",
               style: theme.displayLarge,
             ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    navigateTo(context, SearchScreen());
+                  },
+                  icon: Icon(
+                    Icons.search,
+                    size: size.width * 0.07,
+                  )),
+              SizedBox(
+                width: size.width * 0.03,
+              ),
+            ],
             toolbarHeight: size.height * 0.08,
           ),
           drawer: const AppDrawer(),
@@ -46,16 +60,16 @@ class _HomeLayoutState extends State<HomeLayout> {
             iconSize: size.width * 0.07,
             backgroundColor: isDark! ? cerulian : flame,
             selectedItemColor: platinum,
-             type: BottomNavigationBarType.fixed,
+            type: BottomNavigationBarType.fixed,
             currentIndex: cubit.bottomNavBarIndex,
             showUnselectedLabels: false,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.add),
-                  label: "Add Collection"),
+                  icon: Icon(Icons.add), label: "Add Collection"),
               BottomNavigationBarItem(icon: Icon(Icons.person), label: "User"),
-             BottomNavigationBarItem(icon: Icon(Icons.settings), label: "settings"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings), label: "settings"),
             ],
             onTap: (index) {
               cubit.changeIndex(index);
