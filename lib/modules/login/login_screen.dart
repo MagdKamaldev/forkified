@@ -61,6 +61,7 @@ class LoginScreen extends StatelessWidget {
                     height: size.height * 0.08,
                   ),
                   defaultFormField(
+                    size: size,
                       prefix: Icons.email,
                       controller: emailController,
                       type: TextInputType.emailAddress,
@@ -76,6 +77,7 @@ class LoginScreen extends StatelessWidget {
                     height: size.height * 0.05,
                   ),
                   defaultFormField(
+                    size: size,
                       prefix: Icons.password,
                       suffix: LoginCubit.get(context).suffix,
                       isPassword: LoginCubit.get(context).isPassword,

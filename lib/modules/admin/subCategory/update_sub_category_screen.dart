@@ -125,6 +125,7 @@ class _UpdateSubCategoryState extends State<UpdateSubCategory> {
                       height: size.height * 0.05,
                     ),
                     defaultFormField(
+                      size: size,
                         controller: nameController,
                         type: TextInputType.name,
                         onSubmit: () {},
@@ -140,6 +141,7 @@ class _UpdateSubCategoryState extends State<UpdateSubCategory> {
                       height: size.height * 0.05,
                     ),
                     defaultFormField(
+                      size: size,
                         controller: descriptionController,
                         type: TextInputType.name,
                         onSubmit: () {},

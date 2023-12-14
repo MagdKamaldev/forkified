@@ -284,4 +284,27 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
       emit(GetReviewErrorState(error.toString()));
     });
   }
+
+  void addReview({
+    required String recipeId,
+    required String review,
+    required int rating,
+    required BuildContext context,
+  }) {
+    emit(AddReviewLoadingState());
+    DioHelper.postData(
+      url: "reviews",
+      jwt: token ?? CacheHelper.getData(key: "token"),
+      data: {"title": review, "rating": rating, "recipe": recipeId},
+    ).then((value) {
+      getRecipe(id: recipeId);
+      Navigator.pop(context);
+      Navigator.pop(context);
+      Navigator.pop(context);
+      emit(AddReviewSuccessState());
+    });
+    // .catchError((error) {
+    //   emit(AddReviewErrorState(error.toString()));
+    // });
+  }
 }

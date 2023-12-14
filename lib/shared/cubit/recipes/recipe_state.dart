@@ -66,3 +66,12 @@ class GetReviewErrorState extends RecipeCubitState {
   GetReviewErrorState(this.error);
 }
 
+class AddReviewLoadingState extends RecipeCubitState {}
+
+class AddReviewSuccessState extends RecipeCubitState {}
+
+class AddReviewErrorState extends RecipeCubitState {
+  final String error;
+  AddReviewErrorState(this.error);
+}
+

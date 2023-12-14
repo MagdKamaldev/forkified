@@ -54,6 +54,7 @@ Widget defaultFormField({
   Function? suffixPressed,
   bool isClickable = true,
   required BuildContext context,
+  required Size size,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,

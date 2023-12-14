@@ -71,7 +71,7 @@ class _ReviewDetailsState extends State<ReviewDetails> {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: theme.displayMedium!.copyWith(
-                              color: isDark! ? cerulian : prussianBlue,
+                              color: isDark! ? platinum : prussianBlue,
                             ),
                           ),
                         ),
@@ -97,7 +97,7 @@ class _ReviewDetailsState extends State<ReviewDetails> {
                           cubit.review!.title!,
                           style: theme.displayMedium!.copyWith(
                             color:
-                                isDark! ? cerulian.shade400 : prussianBlue.shade100,
+                                isDark! ? nonPhotoBlue : prussianBlue.shade100,
                           ),
                         ),
                       ),

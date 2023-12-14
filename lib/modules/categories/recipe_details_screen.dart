@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
+import 'package:forkified/modules/categories/add_review_screen.dart';
 import 'package:forkified/modules/categories/get_collections_to_add_recipe.dart';
 import 'package:forkified/modules/categories/recipe_reviews.dart';
 import 'package:forkified/shared/colors.dart';
@@ -109,7 +110,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     Row(
                       children: [
                         SizedBox(
-                          width: size.width * 0.68,
+                          width: size.width * 0.6,
                           child: Text(
                             cubit.recipe!.name!,
                             overflow: TextOverflow.ellipsis,
@@ -130,7 +131,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           onPressed: () {},
                         ),
                         Text(
-                          cubit.recipe!.ratingsAverage.toString(),
+                          cubit.recipe!.ratingsAverage!.toStringAsFixed(1),
                           style: theme.bodyLarge!.copyWith(
                               fontWeight: FontWeight.bold,
                               fontSize: size.width * 0.05),
@@ -154,35 +155,10 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     Row(
                       children: [
                         Text(
-                          "Reviews (${cubit.recipe!.ratingsQuantity}) ",
+                          "Reviews (${cubit.recipe!.reviews!.length}) ",
                           style: theme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: size.width * 0.06,
-                          ),
-                        ),
-                         const Spacer(),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: isDark! ? cerulian : flame,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: TextButton(
-                            onPressed: () {
-                              navigateTo(
-                                  context,
-                                  RecipeReviews(
-                                    reviews: cubit.recipe!.reviews!,
-                                  ));
-                            },
-                            child: Text(
-                              "View All",
-                              style: theme.bodyLarge!.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
                           ),
                         ),
                         const Spacer(),
@@ -210,8 +186,29 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             ),
                           ),
                         ),
-
                       ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    defaultButton(
+                        function: () {
+                          navigateTo(
+                              context,
+                              AddReview(
+                                recipeId: cubit.recipe!.id!,
+                              ));
+                        },
+                        height: size.height * 0.07,
+                        context: context,
+                        text: "Add Review"),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    Container(
+                      color: isDark! ? cerulian : flame,
+                      width: double.infinity,
+                      height: 1,
                     ),
                     SizedBox(
                       height: size.height * 0.03,

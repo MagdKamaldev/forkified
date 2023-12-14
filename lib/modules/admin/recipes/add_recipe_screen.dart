@@ -61,6 +61,7 @@ class _AddRecipeState extends State<AddRecipe> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     defaultFormField(
+                      size: size,
                         controller: nameController,
                         type: TextInputType.name,
                         onSubmit: () {},
@@ -76,6 +77,7 @@ class _AddRecipeState extends State<AddRecipe> {
                       height: size.height * 0.03,
                     ),
                     defaultFormField(
+                      size: size,
                         controller: descriptionController,
                         type: TextInputType.name,
                         onSubmit: () {},
@@ -91,6 +93,7 @@ class _AddRecipeState extends State<AddRecipe> {
                       height: size.height * 0.03,
                     ),
                     defaultFormField(
+                      size: size,
                         controller: caloriesController,
                         type: TextInputType.number,
                         onSubmit: () {},
@@ -106,6 +109,7 @@ class _AddRecipeState extends State<AddRecipe> {
                       height: size.height * 0.03,
                     ),
                     defaultFormField(
+                      size: size,
                         controller: prepTimeController,
                         type: TextInputType.number,
                         onSubmit: () {},

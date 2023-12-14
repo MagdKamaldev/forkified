@@ -104,7 +104,9 @@ class RecipeReviews extends StatelessWidget {
                       Flexible(
                         child: Text(
                           review.title!,
-                          style: theme.displayMedium,
+                          style: theme.displayMedium!.copyWith(
+                            color: prussianBlue,
+                          ),
                           softWrap: true,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,

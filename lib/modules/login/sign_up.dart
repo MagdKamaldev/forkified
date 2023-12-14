@@ -72,6 +72,7 @@ class SignUpScreen extends StatelessWidget {
                       height: size.height * 0.03,
                     ),
                     defaultFormField(
+                      size: size,
                       prefix: Icons.person,
                       controller: nameController,
                       type: TextInputType.name,
@@ -88,6 +89,7 @@ class SignUpScreen extends StatelessWidget {
                       height: size.height * 0.01,
                     ),
                     defaultFormField(
+                      size: size,
                       prefix: Icons.email,
                       controller: emailController,
                       type: TextInputType.emailAddress,
@@ -104,6 +106,7 @@ class SignUpScreen extends StatelessWidget {
                       height: size.height * 0.01,
                     ),
                     defaultFormField(
+                      size: size,
                       prefix: Icons.phone,
                       controller: phoneNumberController,
                       type: TextInputType.phone,
@@ -120,6 +123,7 @@ class SignUpScreen extends StatelessWidget {
                       height: size.height * 0.01,
                     ),
                     defaultFormField(
+                      size: size,
                       prefix: Icons.password,
                       suffix: cubit.passsuffix,
                       isPassword: cubit.passisPassword,
@@ -141,6 +145,7 @@ class SignUpScreen extends StatelessWidget {
                       height: size.height * 0.01,
                     ),
                     defaultFormField(
+                      size: size,
                       prefix: Icons.lock,
                       suffix: cubit.confirmsuffix,
                       isPassword: cubit.confirmisPassword,

@@ -45,6 +45,7 @@ class AddCollectionScreen extends StatelessWidget {
                     height: size.height * 0.06,
                   ),
                   defaultFormField(
+                      size: size,
                       controller: nameController,
                       type: TextInputType.name,
                       onSubmit: () {},

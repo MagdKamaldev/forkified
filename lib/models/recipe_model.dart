@@ -14,7 +14,7 @@ class RecipeModel {
   int? v;
   String? diet;
   int? ratingsQuantity;
-  int? ratingsAverage; // Updated to double
+  double? ratingsAverage; // Updated to double
   List<Review>? reviews;
 
   RecipeModel({
@@ -41,7 +41,7 @@ class RecipeModel {
       name: json['name'] as String?,
       description: json['description'] as String?,
       image: json['image'] as String?,
-      ratingsAverage: json['ratingsAverage'] as int?,
+      ratingsAverage: json['ratingsAverage'] as double?,
       ratingsQuantity: json['ratingsQuantity'] as int?,
       ingredients: (json['ingredients'] as List<dynamic>?)
           ?.map((ingredient) => ingredient as String)

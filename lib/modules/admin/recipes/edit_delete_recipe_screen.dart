@@ -146,6 +146,7 @@ class _EditDeleteRecipeState extends State<EditDeleteRecipe> {
                           height: size.height * 0.05,
                         ),
                         defaultFormField(
+                          size: size,
                             controller: nameController,
                             type: TextInputType.name,
                             onSubmit: () {},
@@ -161,6 +162,7 @@ class _EditDeleteRecipeState extends State<EditDeleteRecipe> {
                           height: size.height * 0.05,
                         ),
                         defaultFormField(
+                          size: size,
                             controller: descriptionController,
                             type: TextInputType.name,
                             onSubmit: () {},
@@ -176,6 +178,7 @@ class _EditDeleteRecipeState extends State<EditDeleteRecipe> {
                           height: size.height * 0.06,
                         ),
                         defaultFormField(
+                          size: size,
                             controller: caolriesController,
                             type: TextInputType.number,
                             onSubmit: () {},
@@ -191,6 +194,7 @@ class _EditDeleteRecipeState extends State<EditDeleteRecipe> {
                           height: size.height * 0.06,
                         ),
                         defaultFormField(
+                          size: size,
                             controller: prepTimeController,
                             type: TextInputType.number,
                             onSubmit: () {},
