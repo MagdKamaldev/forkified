@@ -299,12 +299,9 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
     ).then((value) {
       getRecipe(id: recipeId);
       Navigator.pop(context);
-      Navigator.pop(context);
-      Navigator.pop(context);
       emit(AddReviewSuccessState());
+    }).catchError((error) {
+      emit(AddReviewErrorState(error.toString()));
     });
-    // .catchError((error) {
-    //   emit(AddReviewErrorState(error.toString()));
-    // });
   }
 }
