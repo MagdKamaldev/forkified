@@ -14,7 +14,8 @@ class SubCategoryRecipesScreen extends StatefulWidget {
   const SubCategoryRecipesScreen({super.key, required this.id});
 
   @override
-  State<SubCategoryRecipesScreen> createState() => _CategoryRecipesScreenState();
+  State<SubCategoryRecipesScreen> createState() =>
+      _CategoryRecipesScreenState();
 }
 
 class _CategoryRecipesScreenState extends State<SubCategoryRecipesScreen> {
@@ -120,10 +121,11 @@ class _CategoryRecipesScreenState extends State<SubCategoryRecipesScreen> {
                 ),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(13),
                 child: Image.network(
                   "$serverIp${model.image.toString()}",
+                  fit: BoxFit.cover,
                   width: size.width * 0.35,
                   height: size.height * 0.1,
                   errorBuilder: (BuildContext context, Object error,

@@ -37,14 +37,14 @@ class _CategoryRecipesScreenForAddingState
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-            condition: state is! AddRecipeToCollectionLoading,
-                   fallback: (context) => Scaffold(
+          condition: state is! AddRecipeToCollectionLoading,
+          fallback: (context) => Scaffold(
             body: Center(
                 child: Lottie.asset(isDark!
                     ? "assets/animations/forkified loading.json"
                     : "assets/animations/forkified loading orange.json")),
           ),
-          builder:(context)=> Scaffold(
+          builder: (context) => Scaffold(
             appBar: AppBar(
               title: Text(
                 "Recipes",

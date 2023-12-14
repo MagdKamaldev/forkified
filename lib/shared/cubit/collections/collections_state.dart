@@ -1,6 +1,5 @@
 part of 'collections_cubit.dart';
 
-
 sealed class CollectionsState {}
 
 final class CollectionsInitial extends CollectionsState {}

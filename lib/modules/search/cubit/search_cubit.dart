@@ -13,7 +13,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   void fetchRecipes(String query) {
     emit(SearchLoading());
-    DioHelper.getData(url:'recipes?search=$query').then((value) {
+    DioHelper.getData(url: 'recipes?search=$query').then((value) {
       recipes =
           value.data["documents"].map((e) => RecipeModel.fromJson(e)).toList();
       emit(SearchSuccess());

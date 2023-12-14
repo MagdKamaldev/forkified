@@ -77,15 +77,16 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
     ).then((value) {
       recipe = RecipeModel.fromJson(value.data["document"]);
       emit(GetRecipeSuccess());
-    }).catchError((error) {
-      String errorMessage = "An error occurred";
-      if (error is DioError && error.response != null) {
-        errorMessage = error.response!.data["message"];
-      } else if (error is String) {
-        errorMessage = error;
-      }
-      emit(GetRecipeError(errorMessage));
     });
+    // .catchError((error) {
+    //   String errorMessage = "An error occurred";
+    //   if (error is DioError && error.response != null) {
+    //     errorMessage = error.response!.data["message"];
+    //   } else if (error is String) {
+    //     errorMessage = error;
+    //   }
+    //   emit(GetRecipeError(errorMessage));
+    // });
   }
 
   File? recipeImage;

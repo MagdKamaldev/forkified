@@ -24,21 +24,20 @@ class GetSubCategoryError extends SubcategoryState {
   GetSubCategoryError(this.errorMessage);
 }
 
-class AddSubCategoryLoadingState extends SubcategoryState{}
+class AddSubCategoryLoadingState extends SubcategoryState {}
 
-class AddSubCategorySuccessState extends SubcategoryState{}
+class AddSubCategorySuccessState extends SubcategoryState {}
 
-class AddSubCategoryErrorState extends SubcategoryState{}
+class AddSubCategoryErrorState extends SubcategoryState {}
 
-class UpdateSubCategoryLoadingState extends SubcategoryState{}
+class UpdateSubCategoryLoadingState extends SubcategoryState {}
 
-class UpdateSubCategorySuccessState extends SubcategoryState{}
+class UpdateSubCategorySuccessState extends SubcategoryState {}
 
-class UpdateSubCategoryErrorState extends SubcategoryState{}
+class UpdateSubCategoryErrorState extends SubcategoryState {}
 
-class DeleteSubCategoryLoadingState extends SubcategoryState{}
+class DeleteSubCategoryLoadingState extends SubcategoryState {}
 
-class DeleteSubCategorySuccessState extends SubcategoryState{}
+class DeleteSubCategorySuccessState extends SubcategoryState {}
 
-class DeleteSubCategoryErrorState extends SubcategoryState{}
-
+class DeleteSubCategoryErrorState extends SubcategoryState {}

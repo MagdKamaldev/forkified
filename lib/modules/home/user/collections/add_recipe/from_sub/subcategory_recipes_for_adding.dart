@@ -50,13 +50,13 @@ class _CategoryRecipesScreenForAddingState
               child: Column(children: [
                 ConditionalBuilder(
                   condition: state is! AddRecipeToCollectionLoading,
-                   fallback: (context) => Scaffold(
-            body: Center(
-                child: Lottie.asset(isDark!
-                    ? "assets/animations/forkified loading.json"
-                    : "assets/animations/forkified loading orange.json")),
-          ),
-                  builder:(context)=> ConditionalBuilder(
+                  fallback: (context) => Scaffold(
+                    body: Center(
+                        child: Lottie.asset(isDark!
+                            ? "assets/animations/forkified loading.json"
+                            : "assets/animations/forkified loading orange.json")),
+                  ),
+                  builder: (context) => ConditionalBuilder(
                     condition: state is! GetCategoryRecipesLoading,
                     fallback: (context) => GridView.count(
                       shrinkWrap: true,

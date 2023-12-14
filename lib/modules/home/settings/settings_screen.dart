@@ -33,16 +33,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Size size = MediaQuery.of(context).size;
     TextTheme theme = Theme.of(context).textTheme;
     var cubit = MainCubit.get(context);
-    return BlocConsumer<MainCubit, MainState>(
+    return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: state is! GetUserDataLoading,
+          condition: state is ! GetUserDataLoading,
           fallback: (context) => Center(
               child: Lottie.asset(isDark!
                   ? "assets/animations/forkified loading.json"
                   : "assets/animations/forkified loading orange.json")),
-          builder:(context)=> SingleChildScrollView(
+          builder: (context) => SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
@@ -132,23 +132,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           onPressed: () {
                                             navigateAndFinish(
                                                 context, LoginScreen());
-                                            CacheHelper.removeData(key: "token");
+                                            CacheHelper.removeData(
+                                                key: "token");
                                             token = "";
                                           },
                                           child: Text("Yes",
-                                              style: theme.displaySmall!.copyWith(
-                                                  color: isDark!
-                                                      ? cerulian
-                                                      : flame))),
+                                              style: theme.displaySmall!
+                                                  .copyWith(
+                                                      color: isDark!
+                                                          ? cerulian
+                                                          : flame))),
                                       TextButton(
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
                                           child: Text("No",
-                                              style: theme.displaySmall!.copyWith(
-                                                  color: isDark!
-                                                      ? cerulian
-                                                      : flame))),
+                                              style: theme.displaySmall!
+                                                  .copyWith(
+                                                      color: isDark!
+                                                          ? cerulian
+                                                          : flame))),
                                     ],
                                   ));
                         },

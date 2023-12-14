@@ -27,14 +27,22 @@ class _SearchScreenState extends State<SearchScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: SearchBar(
-              onSubmitted: (value) {
-                cubit.fetchRecipes(value);
-              },
-              onChanged: (value) {
-                cubit.fetchRecipes(value);
-              },
-              hintText: "Search for recipes",
+            title: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: platinum,
+              ),
+              child: SearchBar(
+                elevation: MaterialStateProperty.all<double>(0),
+                backgroundColor: MaterialStateProperty.all<Color>(platinum),
+                onSubmitted: (value) {
+                  cubit.fetchRecipes(value);
+                },
+                onChanged: (value) {
+                  cubit.fetchRecipes(value);
+                },
+                hintText: "Search for recipes",
+              ),
             ),
             toolbarHeight: size.height * 0.08,
           ),
@@ -48,7 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
               condition: cubit.recipes.isNotEmpty,
               fallback: (context) => Center(
                 child: Text(
-                  "No recipes found",
+                  "No recipes found !",
                   style: theme.displayLarge,
                 ),
               ),

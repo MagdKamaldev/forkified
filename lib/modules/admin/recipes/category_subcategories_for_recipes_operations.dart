@@ -92,7 +92,11 @@ class _SubCategoriesState extends State<SubCategoriesForRecipesOperations> {
           SubCategory model, context, index, Size size, TextTheme theme) =>
       GestureDetector(
         onTap: () {
-          navigateTo(context, SubCategoryRecipesForOperationsScreen(sub:model,));
+          navigateTo(
+              context,
+              SubCategoryRecipesForOperationsScreen(
+                sub: model,
+              ));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

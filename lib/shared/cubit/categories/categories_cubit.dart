@@ -16,7 +16,6 @@ import 'package:image_picker/image_picker.dart';
 import '../../../main.dart';
 part 'categories_state.dart';
 
-
 class CategoriesCubit extends Cubit<CategoriesState> {
   CategoriesCubit() : super(CategoriesInitial()) {
     getCategories();
@@ -239,7 +238,8 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     emit(DeleteCategoryLoading());
     DioHelper.deleteData(
       url: "${EndPoints.categories}/$id",
-      jwt: token, data: {},
+      jwt: token,
+      data: {},
     ).then((value) {
       getCategories();
       emit(DeleteCategorySuccess());

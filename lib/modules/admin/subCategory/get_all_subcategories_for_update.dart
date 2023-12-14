@@ -38,54 +38,60 @@ class _AllSubCategoriesForUpdateScreenState
         return ConditionalBuilder(
           condition: state is GetAllSubcategoriesSuccess,
           builder: (context) => Scaffold(
-            appBar: AppBar(
-              title: Text(
-                "Choose a subCategory",
-                style: theme.displayLarge,
+              appBar: AppBar(
+                title: Text(
+                  "Choose a subCategory",
+                  style: theme.displayLarge,
+                ),
+                toolbarHeight: size.height * 0.08,
               ),
-              toolbarHeight: size.height * 0.08,
-            ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 25),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ListView.builder(
-                      itemBuilder: (context, index) {
-                        return buildSubCategory(cubit.allSubCategories![index],
-                            context, index, size, theme);
-                      },
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: cubit.allSubCategories!.length,
-                    ),
-                    if (cubit.allSubCategories!.isEmpty)
-                      Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: size.height * 0.4,
-                            ),
-                            Text(
-                              "No Sub Categories Found !",
-                              style: theme.displayMedium,
-                            ),
-                          ],
-                        ),
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 25),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListView.builder(
+                        itemBuilder: (context, index) {
+                          return buildSubCategory(
+                              cubit.allSubCategories![index],
+                              context,
+                              index,
+                              size,
+                              theme);
+                        },
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: cubit.allSubCategories!.length,
                       ),
-                  ],
+                      if (cubit.allSubCategories!.isEmpty)
+                        Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: size.height * 0.4,
+                              ),
+                              Text(
+                                "No Sub Categories Found !",
+                                style: theme.displayMedium,
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: isDark! ? cerulian : flame,
-              onPressed: () {
-                navigateTo(context, AddSubCategory());
-              },
-              child: Icon(Icons.add,color: platinum,),
-            )
-          ),
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: isDark! ? cerulian : flame,
+                onPressed: () {
+                  navigateTo(context, AddSubCategory());
+                },
+                child: Icon(
+                  Icons.add,
+                  color: platinum,
+                ),
+              )),
           fallback: (context) => Scaffold(
             body: Center(
                 child: Lottie.asset(isDark!

@@ -67,8 +67,6 @@ class DioHelper {
     );
   }
 
-
-
   static Future<Response> updateData({
     required String url,
     Map<String, dynamic>? query,

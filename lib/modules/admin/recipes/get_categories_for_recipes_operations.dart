@@ -13,10 +13,12 @@ class AllCategoriesForRecipesScreen extends StatefulWidget {
   const AllCategoriesForRecipesScreen({super.key});
 
   @override
-  State<AllCategoriesForRecipesScreen> createState() => _AllCategoriesForRecipesScreenState();
+  State<AllCategoriesForRecipesScreen> createState() =>
+      _AllCategoriesForRecipesScreenState();
 }
 
-class _AllCategoriesForRecipesScreenState extends State<AllCategoriesForRecipesScreen> {
+class _AllCategoriesForRecipesScreenState
+    extends State<AllCategoriesForRecipesScreen> {
   @override
   void initState() {
     MainCubit.get(context).getAllCategories();
@@ -32,58 +34,58 @@ class _AllCategoriesForRecipesScreenState extends State<AllCategoriesForRecipesS
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                "Choose A Category",
-                style: theme.displayLarge,
-              ),
-              toolbarHeight: size.height * 0.08,
+          appBar: AppBar(
+            title: Text(
+              "Choose A Category",
+              style: theme.displayLarge,
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(children: [
-                  ConditionalBuilder(
-                    condition: cubit.allCategories!.isNotEmpty,
-                    fallback: (context) => GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: size.width * 0.12,
-                      mainAxisSpacing: size.height * 0.05,
-                      childAspectRatio: 1.6 / 1,
-                      children: List.generate(
-                        16,
-                        (index) => Container(
-                          height: size.height * 0.02,
-                          decoration: BoxDecoration(
-                            color: isDark! ? nonPhotoBlue : flame.shade100,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+            toolbarHeight: size.height * 0.08,
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(children: [
+                ConditionalBuilder(
+                  condition: cubit.allCategories!.isNotEmpty,
+                  fallback: (context) => GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: size.width * 0.12,
+                    mainAxisSpacing: size.height * 0.05,
+                    childAspectRatio: 1.6 / 1,
+                    children: List.generate(
+                      16,
+                      (index) => Container(
+                        height: size.height * 0.02,
+                        decoration: BoxDecoration(
+                          color: isDark! ? nonPhotoBlue : flame.shade100,
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
-                    builder: (context) => GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: size.width * 0.14,
-                      mainAxisSpacing: size.height * 0.02,
-                      childAspectRatio: 1 / 1,
-                      children: List.generate(
-                        cubit.allCategories!.length,
-                        (index) => buildCategory(cubit.allCategories![index],
-                            context, index, size, theme),
-                      ),
+                  ),
+                  builder: (context) => GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: size.width * 0.14,
+                    mainAxisSpacing: size.height * 0.02,
+                    childAspectRatio: 1 / 1,
+                    children: List.generate(
+                      cubit.allCategories!.length,
+                      (index) => buildCategory(cubit.allCategories![index],
+                          context, index, size, theme),
                     ),
                   ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  )
-                ]),
-              ),
+                ),
+                SizedBox(
+                  height: size.height * 0.02,
+                )
+              ]),
             ),
-          );
+          ),
+        );
       },
     );
   }
@@ -92,9 +94,7 @@ class _AllCategoriesForRecipesScreenState extends State<AllCategoriesForRecipesS
           CategoryModel model, context, index, Size size, TextTheme theme) =>
       GestureDetector(
         onTap: () {
-          navigateTo(
-              context,
-             SubCategoriesForRecipesOperations(id:model.id));
+          navigateTo(context, SubCategoriesForRecipesOperations(id: model.id));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

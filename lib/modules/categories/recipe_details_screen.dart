@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/modules/categories/get_collections_to_add_recipe.dart';
+import 'package:forkified/modules/categories/recipe_reviews.dart';
 import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
 import 'package:lottie/lottie.dart';
 import '../../shared/networks/remote/dio_helper.dart';
-
 
 class RecipeDetails extends StatefulWidget {
   final String id;
@@ -54,19 +54,21 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         height: size.height * 0.3,
                         width: double.infinity,
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: isDark! ? cerulian : flame,
                             width: 1,
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12.5),
                           child: Image.network(
                             "$serverIp${cubit.recipe!.image!}",
+                            fit: BoxFit.cover,
                             errorBuilder: (BuildContext context, Object error,
                                 StackTrace? stackTrace) {
                               return ClipRRect(
-                                borderRadius: BorderRadius.circular(13),
+                                borderRadius: BorderRadius.circular(12),
                                 child: Container(
                                   color: isDark! ? prussianBlue : platinum,
                                   child: Center(
@@ -104,6 +106,40 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     SizedBox(
                       height: size.height * 0.02,
                     ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: size.width * 0.68,
+                          child: Text(
+                            cubit.recipe!.name!,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.displayLarge!.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: isDark! ? platinum : prussianBlue),
+                          ),
+                        ),
+                        SizedBox(
+                          width: size.width * 0.03,
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: size.height * 0.04,
+                          ),
+                          onPressed: () {},
+                        ),
+                        Text(
+                          cubit.recipe!.ratingsAverage.toString(),
+                          style: theme.bodyLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: size.width * 0.05),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -111,6 +147,46 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         style: theme.bodyLarge!
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Reviews (${cubit.recipe!.ratingsQuantity}) ",
+                          style: theme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: size.width * 0.06,
+                          ),
+                        ),
+                        const Spacer(),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: isDark! ? cerulian : flame,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: TextButton(
+                            
+                            onPressed: () {
+                              navigateTo(
+                                  context,
+                                  RecipeReviews(
+                                    reviews: cubit.recipe!.reviews!,
+                                  ));
+                            },
+                            child: Text(
+                              "View All",
+                              style: theme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                     SizedBox(
                       height: size.height * 0.03,

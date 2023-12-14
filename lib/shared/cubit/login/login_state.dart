@@ -23,4 +23,4 @@ class SignInWithFacebookLoadingState extends LoginStates {}
 
 class SignInWithFacebookErrorState extends LoginStates {}
 
-class ChangePasswordVisibilityState  extends LoginStates {}
+class ChangePasswordVisibilityState extends LoginStates {}

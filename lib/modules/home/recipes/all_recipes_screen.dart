@@ -109,10 +109,11 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
                 ),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(13),
                 child: Image.network(
                   "$serverIp${model.image.toString()}",
+                  fit: BoxFit.cover,
                   width: size.width * 0.35,
                   height: size.height * 0.1,
                   errorBuilder: (BuildContext context, Object error,

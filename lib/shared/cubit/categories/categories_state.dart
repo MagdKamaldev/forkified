@@ -32,6 +32,7 @@ class AddCategoryError extends CategoriesState {
   final String error;
   AddCategoryError(this.error);
 }
+
 class CategoryImagePickedFromGallerySuccessState extends CategoriesState {}
 
 class CategoryImagePickedFromGalleryErrorState extends CategoriesState {}

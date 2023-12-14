@@ -15,18 +15,18 @@ class GetUserDataError extends UserState {
 
 class AddRecipeToCollectionLoading extends UserState {}
 
-class  AddRecipeToCollectionSuccess extends UserState {}
+class AddRecipeToCollectionSuccess extends UserState {}
 
-class  AddRecipeToCollectionError extends UserState {
+class AddRecipeToCollectionError extends UserState {
   final String errorMessage;
   AddRecipeToCollectionError(this.errorMessage);
 }
 
 class DeleteRecipeFromCollectionLoading extends UserState {}
 
-class  DeleteRecipeFromCollectionSuccess extends UserState {}
+class DeleteRecipeFromCollectionSuccess extends UserState {}
 
-class  DeleteRecipeFromCollectionError extends UserState {
+class DeleteRecipeFromCollectionError extends UserState {
   final String errorMessage;
   DeleteRecipeFromCollectionError(this.errorMessage);
 }

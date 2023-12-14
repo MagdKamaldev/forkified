@@ -100,16 +100,14 @@ class SubcategoryCubit extends Cubit<SubcategoryState> {
     });
   }
 
-   void deleteSubCategory({
+  void deleteSubCategory({
     required String subcategoryId,
   }) {
     emit(DeleteSubCategoryLoadingState());
     DioHelper.deleteData(
         url: "${EndPoints.subcategories}/$subcategoryId",
         jwt: token ?? CacheHelper.getData(key: "token"),
-        data: {
-
-        }).then((value) {
+        data: {}).then((value) {
       emit(DeleteSubCategorySuccessState());
     }).catchError((error) {
       emit(DeleteSubCategoryErrorState());

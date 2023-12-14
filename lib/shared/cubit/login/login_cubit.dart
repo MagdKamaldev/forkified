@@ -16,7 +16,6 @@ class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitial());
   static LoginCubit get(context) => BlocProvider.of(context);
 
-
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
 
@@ -26,7 +25,6 @@ class LoginCubit extends Cubit<LoginStates> {
         isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
     emit(ChangePasswordVisibilityState());
   }
-  
 
   void userLogin({
     required String email,

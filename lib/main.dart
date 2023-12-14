@@ -66,13 +66,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SubcategoryCubit(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => CollectionsCubit(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => SearchCubit(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => UserCubit(),
         ),
         BlocProvider(
@@ -80,9 +80,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: BlocConsumer<MainCubit, MainState>(
-        listener: (context, state) {
-          
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(
             title: 'Flutter Demo',

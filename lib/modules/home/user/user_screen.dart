@@ -95,14 +95,14 @@ class _UserScreenState extends State<UserScreen> {
                       SizedBox(
                         height: size.height * 0.05,
                       ),
-                       if(cubit.user!.collections!.isEmpty)
+                      if (cubit.user!.collections!.isEmpty)
                         SizedBox(
-                        height: size.height * 0.2,
-                      ),
-                      if(cubit.user!.collections!.isEmpty)
-                      Text("You don't have any collections yet !",
-                          style: theme.displaySmall!.copyWith(
-                              color: isDark! ? platinum : prussianBlue)),
+                          height: size.height * 0.2,
+                        ),
+                      if (cubit.user!.collections!.isEmpty)
+                        Text("You don't have any collections yet !",
+                            style: theme.displaySmall!.copyWith(
+                                color: isDark! ? platinum : prussianBlue)),
                       GridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -119,14 +119,14 @@ class _UserScreenState extends State<UserScreen> {
                           ),
                         ),
                       ),
-                      if(cubit.user!.collections!.isNotEmpty)
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
-                      if(cubit.user!.collections!.isNotEmpty)
-                      Text("Long press to delete collection !",
-                          style: theme.displaySmall!.copyWith(
-                              color: isDark! ? platinum : prussianBlue)),
+                      if (cubit.user!.collections!.isNotEmpty)
+                        SizedBox(
+                          height: size.height * 0.05,
+                        ),
+                      if (cubit.user!.collections!.isNotEmpty)
+                        Text("Long press to delete collection !",
+                            style: theme.displaySmall!.copyWith(
+                                color: isDark! ? platinum : prussianBlue)),
                       SizedBox(
                         height: size.height * 0.05,
                       ),
@@ -173,8 +173,8 @@ class _UserScreenState extends State<UserScreen> {
                     actions: [
                       TextButton(
                           onPressed: () {
-                            CollectionsCubit.get(context)
-                                .deleteCollection(collectionId: collection.id!,context: context);
+                            CollectionsCubit.get(context).deleteCollection(
+                                collectionId: collection.id!, context: context);
                           },
                           child: Text(
                             "Yes",

@@ -16,10 +16,12 @@ class AllCategoriesScreenForAdding extends StatefulWidget {
   const AllCategoriesScreenForAdding({super.key, required this.collectionId});
 
   @override
-  State<AllCategoriesScreenForAdding> createState() => _AllCategoriesScreenForAddingState();
+  State<AllCategoriesScreenForAdding> createState() =>
+      _AllCategoriesScreenForAddingState();
 }
 
-class _AllCategoriesScreenForAddingState extends State<AllCategoriesScreenForAdding> {
+class _AllCategoriesScreenForAddingState
+    extends State<AllCategoriesScreenForAdding> {
   @override
   void initState() {
     MainCubit.get(context).getAllCategories();
@@ -35,14 +37,14 @@ class _AllCategoriesScreenForAddingState extends State<AllCategoriesScreenForAdd
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-            condition: state is! AddRecipeToCollectionLoading,
-                   fallback: (context) => Scaffold(
+          condition: state is! AddRecipeToCollectionLoading,
+          fallback: (context) => Scaffold(
             body: Center(
                 child: Lottie.asset(isDark!
                     ? "assets/animations/forkified loading.json"
                     : "assets/animations/forkified loading orange.json")),
           ),
-          builder:(context)=>Scaffold(
+          builder: (context) => Scaffold(
             appBar: AppBar(
               title: Text(
                 "All Categories",

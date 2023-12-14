@@ -30,7 +30,8 @@ class AdminScreen extends StatelessWidget {
               Column(
                 children: [
                   Icon(Icons.settings,
-                      size: size.height * 0.1, color: isDark! ? cerulian : flame),
+                      size: size.height * 0.1,
+                      color: isDark! ? cerulian : flame),
                   SizedBox(
                     height: size.height * 0.03,
                   ),
@@ -71,7 +72,8 @@ class AdminScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      navigateTo(context, const AllCategoriesForRecipesScreen());
+                      navigateTo(
+                          context, const AllCategoriesForRecipesScreen());
                     },
                     child: Text(
                       "Recipe",

@@ -48,7 +48,7 @@ class _EditDeleteRecipeState extends State<EditDeleteRecipe> {
     prepTimeController.text = widget.recipe.prepTime.toString();
     caolriesController.text = widget.recipe.calories.toString();
     ingredients = widget.recipe.ingredients!;
-    isDiet = widget.recipe.diet == "yes"? true : false;
+    isDiet = widget.recipe.diet == "yes" ? true : false;
     isVegeterian = widget.recipe.vegetarian!;
     super.initState();
   }
@@ -202,46 +202,46 @@ class _EditDeleteRecipeState extends State<EditDeleteRecipe> {
                             label: "Recipe prep time (munnites)",
                             prefix: Icons.description,
                             context: context),
-                             SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Vegeterian",
-                          style: theme.displayLarge!
-                              .copyWith(color: isDark! ? cerulian : flame),
+                        SizedBox(
+                          height: size.height * 0.03,
                         ),
-                        Switch(
-                            value: isVegeterian,
-                            onChanged: (value) {
-                              setState(() {
-                                isVegeterian = value;
-                              });
-                            }),
-                      ],
-                    ),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Diet",
-                          style: theme.displayLarge!
-                              .copyWith(color: isDark! ? cerulian : flame),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Vegeterian",
+                              style: theme.displayLarge!
+                                  .copyWith(color: isDark! ? cerulian : flame),
+                            ),
+                            Switch(
+                                value: isVegeterian,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isVegeterian = value;
+                                  });
+                                }),
+                          ],
                         ),
-                        Switch(
-                            value: isDiet,
-                            onChanged: (value) {
-                              setState(() {
-                                isDiet = value;
-                              });
-                            }),
-                      ],
-                    ),
+                        SizedBox(
+                          height: size.height * 0.03,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Diet",
+                              style: theme.displayLarge!
+                                  .copyWith(color: isDark! ? cerulian : flame),
+                            ),
+                            Switch(
+                                value: isDiet,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isDiet = value;
+                                  });
+                                }),
+                          ],
+                        ),
                         SizedBox(
                           height: size.height * 0.06,
                         ),

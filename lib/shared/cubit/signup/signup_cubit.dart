@@ -21,8 +21,9 @@ class SignupCubit extends Cubit<SignupState> {
 
   void changePassword() {
     passisPassword = !passisPassword;
-    passsuffix =
-        passisPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    passsuffix = passisPassword
+        ? Icons.visibility_outlined
+        : Icons.visibility_off_outlined;
     emit(ChangePasswordVisibilityState());
   }
 
@@ -31,11 +32,11 @@ class SignupCubit extends Cubit<SignupState> {
 
   void changeconfirmPassword() {
     confirmisPassword = !confirmisPassword;
-    confirmsuffix =
-        confirmisPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    confirmsuffix = confirmisPassword
+        ? Icons.visibility_outlined
+        : Icons.visibility_off_outlined;
     emit(ChangePasswordVisibilityState());
   }
-  
 
   void userSignUp({
     required String email,

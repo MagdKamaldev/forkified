@@ -62,14 +62,16 @@ class CollectionsCubit extends Cubit<CollectionsState> {
                       .copyWith(color: isDark! ? cerulian : flame),
                 ),
                 content: SizedBox(
-                  height: size.height*0.117,
+                  height: size.height * 0.117,
                   child: Column(
                     children: [
                       SizedBox(
-                         width: size.width * 0.14,
-                    height: size.height * 0.065,
-                        child: Image.asset("assets/images/news.png")),
-                        SizedBox(height: size.height*0.02,),
+                          width: size.width * 0.14,
+                          height: size.height * 0.065,
+                          child: Image.asset("assets/images/news.png")),
+                      SizedBox(
+                        height: size.height * 0.02,
+                      ),
                       Text(
                         value.data["message"],
                         style: theme.displaySmall!
@@ -103,10 +105,10 @@ class CollectionsCubit extends Cubit<CollectionsState> {
   void deleteCollection({
     required String collectionId,
     required BuildContext context,
-  }){
+  }) {
     emit(DeleteCollectionLoading());
     DioHelper.deleteData(
-      data:{},
+      data: {},
       url: "${EndPoints.collections}/$collectionId",
       jwt: CacheHelper.getData(key: "token"),
     ).then((value) {
