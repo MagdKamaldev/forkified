@@ -67,6 +67,7 @@ class SignupCubit extends Cubit<SignupState> {
         errorMessage = error;
       }
       Navigator.pop(context);
+      Navigator.pop(context);
       showCustomSnackBar(context, errorMessage, Colors.red);
       emit(SignupError(errorMessage));
     });

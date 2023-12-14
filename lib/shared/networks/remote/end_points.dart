@@ -6,4 +6,5 @@ class EndPoints {
   static const String recipes = "recipes";
   static const String users = "users";
   static const String collections = "collections";
+  static const String reviews = "reviews";
 }

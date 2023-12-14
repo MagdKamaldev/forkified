@@ -160,7 +160,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             fontSize: size.width * 0.06,
                           ),
                         ),
-                        const Spacer(),
+                         const Spacer(),
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -170,7 +170,6 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: TextButton(
-                            
                             onPressed: () {
                               navigateTo(
                                   context,
@@ -185,7 +184,33 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        const Spacer(),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: isDark! ? cerulian : flame,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              navigateTo(
+                                  context,
+                                  RecipeReviews(
+                                    reviews: cubit.recipe!.reviews!,
+                                  ));
+                            },
+                            child: Text(
+                              "View All",
+                              style: theme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+
                       ],
                     ),
                     SizedBox(

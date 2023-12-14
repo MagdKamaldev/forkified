@@ -56,3 +56,13 @@ class DeleteRecipeErrorState extends RecipeCubitState {
 }
 
 class RemoveNetworkImageState extends RecipeCubitState {}
+
+class GetReviewLoadingState extends RecipeCubitState {}
+
+class GetReviewSuccessState extends RecipeCubitState {}
+
+class GetReviewErrorState extends RecipeCubitState {
+  final String error;
+  GetReviewErrorState(this.error);
+}
+

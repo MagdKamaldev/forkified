@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/recipe_model.dart';
+import 'package:forkified/models/review/review.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../components.dart';
@@ -77,16 +78,15 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
     ).then((value) {
       recipe = RecipeModel.fromJson(value.data["document"]);
       emit(GetRecipeSuccess());
+    }).catchError((error) {
+      String errorMessage = "An error occurred";
+      if (error is DioError && error.response != null) {
+        errorMessage = error.response!.data["message"];
+      } else if (error is String) {
+        errorMessage = error;
+      }
+      emit(GetRecipeError(errorMessage));
     });
-    // .catchError((error) {
-    //   String errorMessage = "An error occurred";
-    //   if (error is DioError && error.response != null) {
-    //     errorMessage = error.response!.data["message"];
-    //   } else if (error is String) {
-    //     errorMessage = error;
-    //   }
-    //   emit(GetRecipeError(errorMessage));
-    // });
   }
 
   File? recipeImage;
@@ -267,6 +267,21 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
       emit(DeleteRecipeSuccessState());
     }).catchError((error) {
       emit(DeleteRecipeErrorState(error.toString()));
+    });
+  }
+
+  Review? review;
+
+  void getReview({required String id}) {
+    emit(GetReviewLoadingState());
+    DioHelper.getData(
+      url: "${EndPoints.reviews}/$id",
+      jwt: token,
+    ).then((value) {
+      review = Review.fromJson(value.data["document"]);
+      emit(GetReviewSuccessState());
+    }).catchError((error) {
+      emit(GetReviewErrorState(error.toString()));
     });
   }
 }

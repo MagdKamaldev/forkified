@@ -1,11 +1,12 @@
 import 'package:forkified/models/user/user.dart';
+import 'package:forkified/models/recipe_model.dart'; // Import the RecipeModel class
 
 class Review {
   String? id;
   String? title;
   int? rating;
   User? user;
-  Map<String,dynamic>? recipe;
+  RecipeModel? recipe; // Change the type to RecipeModel
   int? v;
 
   Review({
@@ -24,7 +25,9 @@ class Review {
         user: json['user'] == null
             ? null
             : User.fromJson(json['user'] as Map<String, dynamic>),
-        recipe: json['recipe'] as Map<String,dynamic>,
+        recipe: json['recipe'] == null
+            ? null
+            : RecipeModel.fromJson(json['recipe'] as Map<String, dynamic>),
         v: json['__v'] as int?,
       );
 
@@ -33,7 +36,7 @@ class Review {
         'title': title,
         'rating': rating,
         'user': user?.toJson(),
-        'recipe': recipe,
+        'recipe': recipe?.toJson(), // Convert RecipeModel to JSON
         '__v': v,
       };
 }

@@ -52,6 +52,7 @@ class LoginCubit extends Cubit<LoginStates> {
       }
       showCustomSnackBar(context, errorMessage, Colors.red);
       Navigator.pop(context);
+      Navigator.pop(context);
       emit(LoginError(errorMessage));
     });
   }

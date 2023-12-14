@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/models/review/review.dart';
+import 'package:forkified/modules/categories/review_details_screen.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
 
 class RecipeReviews extends StatelessWidget {
@@ -30,8 +32,13 @@ class RecipeReviews extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: ListView.separated(
                   itemBuilder: (context, index) => reviewBuilder(
-                      review: reviews[index], size: size, theme: theme),
-                      separatorBuilder: (context, index) => SizedBox(height: size.height*0.02,),
+                      context: context,
+                      review: reviews[index],
+                      size: size,
+                      theme: theme),
+                  separatorBuilder: (context, index) => SizedBox(
+                    height: size.height * 0.02,
+                  ),
                   itemCount: reviews.length,
                 )));
       },
@@ -42,6 +49,7 @@ class RecipeReviews extends StatelessWidget {
     Review? review,
     Size? size,
     TextTheme? theme,
+    BuildContext? context,
   }) {
     List<Widget> stars = [];
     for (int i = 0; i < review!.rating!; i++) {
@@ -51,45 +59,63 @@ class RecipeReviews extends StatelessWidget {
         size: size!.height * 0.03,
       ));
     }
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-        height: size!.height * 0.2,
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              color: isDark! ? cerulian : flame,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      review.user!.name!,
-                      style: theme!.displayLarge,
-                    ),
-                  ],
+    return GestureDetector(
+      onTap: () {
+        navigateTo(context, ReviewDetails(id: review.id!));
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          height: size!.height * 0.2,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                color: isDark! ? cerulian : flame,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.5,
+                        child: Text(
+                          review.user?.name! ?? "Deleted Account",
+                          style: theme!.displayLarge,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Row(
+                        children: stars,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                children: [
-                  Text(
-                    review.title!,
-                    style: theme.displayMedium,
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: SizedBox(
+                  width: size.width * 0.9,
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          review.title!,
+                          style: theme.displayMedium,
+                          softWrap: true,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
-                  Row(
-                    children: stars,
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
