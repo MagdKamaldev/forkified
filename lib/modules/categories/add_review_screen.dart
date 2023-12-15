@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:forkified/main.dart';
 import 'package:forkified/shared/colors.dart';
-import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
 import 'package:lottie/lottie.dart';
 
