@@ -1,7 +1,9 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forkified/models/review/review.dart';
 import 'package:forkified/models/user/collection.dart';
+import 'package:forkified/modules/categories/review_details_screen.dart';
 import 'package:forkified/modules/home/user/collections/collcetion_details.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/collections/collections_cubit.dart';
@@ -41,15 +43,17 @@ class _UserScreenState extends State<UserScreen> {
                 width: size.width,
                 child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         height: size.height * 0.05,
                       ),
-                      Text(
-                        cubit.user!.name!.toUpperCase(),
-                        style: theme.displayLarge!
-                            .copyWith(color: isDark! ? platinum : prussianBlue),
+                      Center(
+                        child: Text(
+                          cubit.user!.name!.toUpperCase(),
+                          style: theme.displayLarge!.copyWith(
+                              color: isDark! ? platinum : prussianBlue),
+                        ),
                       ),
                       SizedBox(
                         height: size.height * 0.05,
@@ -95,14 +99,22 @@ class _UserScreenState extends State<UserScreen> {
                       SizedBox(
                         height: size.height * 0.05,
                       ),
+                      Text("Your Collections :",
+                          style: theme.displayLarge!
+                              .copyWith(color: isDark! ? cerulian : flame)),
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
                       if (cubit.user!.collections!.isEmpty)
                         SizedBox(
                           height: size.height * 0.2,
                         ),
                       if (cubit.user!.collections!.isEmpty)
-                        Text("You don't have any collections yet !",
-                            style: theme.displaySmall!.copyWith(
-                                color: isDark! ? platinum : prussianBlue)),
+                        Center(
+                          child: Text("You don't have any collections yet !",
+                              style: theme.displaySmall!.copyWith(
+                                  color: isDark! ? platinum : prussianBlue)),
+                        ),
                       GridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -124,12 +136,43 @@ class _UserScreenState extends State<UserScreen> {
                           height: size.height * 0.05,
                         ),
                       if (cubit.user!.collections!.isNotEmpty)
-                        Text("Long press to delete collection !",
-                            style: theme.displaySmall!.copyWith(
-                                color: isDark! ? platinum : prussianBlue)),
+                        Center(
+                          child: Text("Long press to delete collection !",
+                              style: theme.displaySmall!.copyWith(
+                                  color: isDark! ? cerulian : Colors.grey)),
+                        ),
+                      SizedBox(
+                        height: size.height * 0.02,
+                      ),
+                      Container(
+                        color: isDark! ? cerulian : flame,
+                        width: double.infinity,
+                        height: 1,
+                      ),
                       SizedBox(
                         height: size.height * 0.05,
                       ),
+                      Text("Your Reviews :",
+                          style: theme.displayLarge!
+                              .copyWith(color: isDark! ? cerulian : flame)),
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      SizedBox(
+                        height:
+                            size.height * 0.25 * cubit.user!.reviews!.length,
+                        child: ListView.separated(
+                          itemBuilder: (context, index) => reviewBuilder(
+                              context: context,
+                              review: cubit.user!.reviews![index],
+                              size: size,
+                              theme: theme),
+                          separatorBuilder: (context, index) => SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          itemCount: cubit.user!.reviews!.length,
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -144,6 +187,93 @@ class _UserScreenState extends State<UserScreen> {
           ),
         );
       },
+    );
+  }
+
+  Widget reviewBuilder({
+    Review? review,
+    Size? size,
+    TextTheme? theme,
+    BuildContext? context,
+  }) {
+    List<Widget> stars = [];
+    for (int i = 0; i < review!.rating!; i++) {
+      stars.add(Icon(
+        Icons.star,
+        color: Colors.amber,
+        size: size!.height * 0.03,
+      ));
+    }
+    if (review.rating! < 5) {
+      for (int i = 0; i < 5 - review.rating!; i++) {
+        stars.add(Icon(
+          Icons.star_border,
+          color: Colors.amber,
+          size: size!.height * 0.03,
+        ));
+      }
+    }
+    return GestureDetector(
+      onTap: () {
+        navigateTo(context, ReviewDetails(id: review.id!));
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          height: size!.height * 0.2,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                color: isDark! ? cerulian : flame,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.5,
+                        child: Text(
+                          review.recipe!.name ?? "Deleted Recipe",
+                          style: theme!.displayLarge,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Row(
+                        children: stars,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: SizedBox(
+                  width: size.width * 0.9,
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          review.title!,
+                          style: theme.displayMedium!.copyWith(
+                            color: prussianBlue,
+                          ),
+                          softWrap: true,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

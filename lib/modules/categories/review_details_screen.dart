@@ -38,6 +38,17 @@ class _ReviewDetailsState extends State<ReviewDetails> {
             size: size.height * 0.035,
           ));
         }
+        if (RecipeCubit.get(context).review!.rating! < 5) {
+          for (int i = 0;
+              i < 5 - RecipeCubit.get(context).review!.rating!;
+              i++) {
+            stars.add(Icon(
+              Icons.star_border,
+              color: Colors.amber,
+              size: size.height * 0.035,
+            ));
+          }
+        }
       },
       builder: (context, state) {
         return ConditionalBuilder(
@@ -86,11 +97,11 @@ class _ReviewDetailsState extends State<ReviewDetails> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: isDark! ? cerulian : flame,
-                          width: 2,)
-                      ),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: isDark! ? cerulian : flame,
+                            width: 2,
+                          )),
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(

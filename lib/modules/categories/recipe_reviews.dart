@@ -59,6 +59,15 @@ class RecipeReviews extends StatelessWidget {
         size: size!.height * 0.03,
       ));
     }
+    if (review.rating! < 5) {
+      for (int i = 0; i < 5 - review.rating!; i++) {
+        stars.add(Icon(
+          Icons.star_border,
+          color: Colors.amber,
+          size: size!.height * 0.03,
+        ));
+      }
+    }
     return GestureDetector(
       onTap: () {
         navigateTo(context, ReviewDetails(id: review.id!));
