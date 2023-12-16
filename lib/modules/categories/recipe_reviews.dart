@@ -7,10 +7,15 @@ import 'package:forkified/shared/colors.dart';
 import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
 
-class RecipeReviews extends StatelessWidget {
+class RecipeReviews extends StatefulWidget {
   final List<Review> reviews;
   const RecipeReviews({super.key, required this.reviews});
 
+  @override
+  State<RecipeReviews> createState() => _RecipeReviewsState();
+}
+
+class _RecipeReviewsState extends State<RecipeReviews> {
   @override
   Widget build(BuildContext context) {
     var cubit = RecipeCubit.get(context);
@@ -33,13 +38,13 @@ class RecipeReviews extends StatelessWidget {
                 child: ListView.separated(
                   itemBuilder: (context, index) => reviewBuilder(
                       context: context,
-                      review: reviews[index],
+                      review: widget.reviews[index],
                       size: size,
                       theme: theme),
                   separatorBuilder: (context, index) => SizedBox(
                     height: size.height * 0.02,
                   ),
-                  itemCount: reviews.length,
+                  itemCount: widget.reviews.length,
                 )));
       },
     );
@@ -71,6 +76,9 @@ class RecipeReviews extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         navigateTo(context, ReviewDetails(id: review.id!));
+      },
+      onLongPress: () {
+        print(review.recipe!.id!);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),

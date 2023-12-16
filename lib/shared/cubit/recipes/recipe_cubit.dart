@@ -304,4 +304,23 @@ class RecipeCubit extends Cubit<RecipeCubitState> {
       emit(AddReviewErrorState(error.toString()));
     });
   }
+
+  void deleteReview({
+    required String id,
+    required BuildContext context,
+  }) {
+    emit(DeleteReviewLoadingState());
+    DioHelper.deleteData(
+      url: "reviews/$id",
+      jwt: token ?? CacheHelper.getData(key: "token"),
+      data: {},
+    ).then((value) {
+      getRecipe(id: id);
+      //showCustomSnackBar(context, value.data["message"], Colors.red);
+      emit(DeleteReviewSuccessState());
+    });
+    // .catchError((error) {
+    //   emit(DeleteReviewErrorState(error.toString()));
+    // });
+  }
 }

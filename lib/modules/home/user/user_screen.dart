@@ -139,7 +139,9 @@ class _UserScreenState extends State<UserScreen> {
                         Center(
                           child: Text("Long press to delete collection !",
                               style: theme.displaySmall!.copyWith(
-                                  color: isDark! ? cerulian : Colors.grey)),
+                                  color: isDark!
+                                      ? prussianBlue.shade300
+                                      : Colors.grey)),
                         ),
                       SizedBox(
                         height: size.height * 0.02,

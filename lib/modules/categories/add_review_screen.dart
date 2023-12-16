@@ -66,13 +66,17 @@ class _AddReviewState extends State<AddReview> {
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: TextFormField(
+                              style: theme.displayMedium!.copyWith(
+                                  color: isDark! ? platinum : prussianBlue),
                               minLines: 1,
                               maxLines: null,
                               controller: controller,
-                              decoration: const InputDecoration(
-                                hintText: "Review ..",
-                                border: InputBorder.none,
-                              ),
+                              decoration: InputDecoration(
+                                  hintText: "Review ..",
+                                  border: InputBorder.none,
+                                  hintStyle: theme.displayMedium!.copyWith(
+                                      color:
+                                          isDark! ? platinum : prussianBlue)),
                             ),
                           ),
                         ),
