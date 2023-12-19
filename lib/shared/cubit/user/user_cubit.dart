@@ -25,7 +25,6 @@ class UserCubit extends Cubit<UserState> {
       jwt: token ?? CacheHelper.getData(key: "token"),
     ).then((value) {
       user = User.fromJson(value.data["document"]);
-      print(token);
       emit(GetUserDataSuccess());
     }).catchError((error) {
       String errorMessage = "An error occurred";

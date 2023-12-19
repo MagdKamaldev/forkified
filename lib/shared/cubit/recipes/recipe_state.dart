@@ -75,6 +75,15 @@ class AddReviewErrorState extends RecipeCubitState {
   AddReviewErrorState(this.error);
 }
 
+class UpdateReviewLoadingState extends RecipeCubitState {}
+
+class UpdateReviewSuccessState extends RecipeCubitState {}
+
+class UpdateReviewErrorState extends RecipeCubitState {
+  final String error;
+  UpdateReviewErrorState(this.error);
+}
+
 class DeleteReviewLoadingState extends RecipeCubitState {}
 
 class DeleteReviewSuccessState extends RecipeCubitState {}

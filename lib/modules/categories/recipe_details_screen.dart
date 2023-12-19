@@ -122,20 +122,22 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         SizedBox(
                           width: size.width * 0.03,
                         ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: size.height * 0.04,
+                        if (cubit.recipe!.ratingsAverage != null)
+                          IconButton(
+                            icon: Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: size.height * 0.04,
+                            ),
+                            onPressed: () {},
                           ),
-                          onPressed: () {},
-                        ),
-                        Text(
-                          cubit.recipe!.ratingsAverage!.toStringAsFixed(1),
-                          style: theme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: size.width * 0.05),
-                        ),
+                        if (cubit.recipe!.ratingsAverage != null)
+                          Text(
+                            cubit.recipe!.ratingsAverage!.toStringAsFixed(1),
+                            style: theme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: size.width * 0.05),
+                          ),
                       ],
                     ),
                     SizedBox(

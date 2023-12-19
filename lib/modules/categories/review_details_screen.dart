@@ -2,7 +2,9 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forkified/main.dart';
+import 'package:forkified/modules/categories/update_review_screen.dart';
 import 'package:forkified/shared/colors.dart';
+import 'package:forkified/shared/components.dart';
 import 'package:forkified/shared/cubit/recipes/recipe_cubit.dart';
 import 'package:forkified/shared/cubit/user/user_cubit.dart';
 import 'package:lottie/lottie.dart';
@@ -77,7 +79,9 @@ class _ReviewDetailsState extends State<ReviewDetails> {
                     if (cubit.review!.user!.id ==
                         UserCubit.get(context).user!.id)
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            navigateTo(context, UpdateReviewScreen(review: cubit.review!,));
+                          },
                           icon: Icon(
                             Icons.edit,
                             color: Colors.grey,

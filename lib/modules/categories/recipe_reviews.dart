@@ -77,9 +77,6 @@ class _RecipeReviewsState extends State<RecipeReviews> {
       onTap: () {
         navigateTo(context, ReviewDetails(id: review.id!));
       },
-      onLongPress: () {
-        print(review.recipe!.id!);
-      },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Container(
