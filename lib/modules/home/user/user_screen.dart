@@ -215,6 +215,7 @@ class _UserScreenState extends State<UserScreen> {
         ));
       }
     }
+
     return GestureDetector(
       onTap: () {
         navigateTo(context, ReviewDetails(id: review.id!));
@@ -229,28 +230,29 @@ class _UserScreenState extends State<UserScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                color: isDark! ? cerulian : flame,
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.5,
-                        child: Text(
-                          review.recipe!.name ?? "Deleted Recipe",
-                          style: theme!.displayLarge,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+              if (review.recipe != null)
+                Container(
+                  color: isDark! ? cerulian : flame,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: size.width * 0.5,
+                          child: Text(
+                            review.recipe!.name ?? "Deleted Recipe",
+                            style: theme!.displayLarge,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                      Row(
-                        children: stars,
-                      ),
-                    ],
+                        Row(
+                          children: stars,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: SizedBox(
@@ -260,7 +262,7 @@ class _UserScreenState extends State<UserScreen> {
                       Flexible(
                         child: Text(
                           review.title!,
-                          style: theme.displayMedium!.copyWith(
+                          style: theme!.displayMedium!.copyWith(
                             color: prussianBlue,
                           ),
                           softWrap: true,
@@ -340,7 +342,7 @@ class _UserScreenState extends State<UserScreen> {
                       .copyWith(color: isDark! ? platinum : prussianBlue),
                 ),
                 SizedBox(
-                  height: size.height * 0.01,
+                  height: size.height * 0.008,
                 ),
                 Image.asset(
                   "assets/images/paper.png",

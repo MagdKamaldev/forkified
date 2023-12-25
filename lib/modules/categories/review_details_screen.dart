@@ -80,7 +80,11 @@ class _ReviewDetailsState extends State<ReviewDetails> {
                         UserCubit.get(context).user!.id)
                       IconButton(
                           onPressed: () {
-                            navigateTo(context, UpdateReviewScreen(review: cubit.review!,));
+                            navigateTo(
+                                context,
+                                UpdateReviewScreen(
+                                  review: cubit.review!,
+                                ));
                           },
                           icon: Icon(
                             Icons.edit,
